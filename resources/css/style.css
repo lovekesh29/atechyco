@@ -1,0 +1,322 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    background-color: #fff;
+}
+
+.banner {
+    width: 100%;
+    float: left;
+    height: 500px;
+    background: url(../images/girl-is-reading-book-cafe.jpg) no-repeat center;
+    background-size: cover;
+}
+
+.banner-content {
+    margin-top: 16rem;
+}
+
+.banner-content h1 {
+    color: white;
+    font-size: 60px;
+}
+
+.banner-content span {
+    color: #e27442;
+    font-size: 40px;
+}
+
+.main-page-section {
+    width: 100%;
+    float: left;
+}
+
+.footer-bottom {
+    width: 100%;
+    float: left;
+    padding: 13px 13px 0px 13px;
+    background-color: black;
+}
+
+.subscribe-div {
+    position: relative;
+}
+
+.footer-subscribe-section {
+    position: absolute;
+    height: 227px;
+    background: url(../images/subscribe-bg.png) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    float: left;
+    top: -117px;
+    border-radius: 10px;
+}
+
+.main-page-section .container {
+    padding: 80px 13px;
+}
+
+.trending-courses {
+    background: url(../images/trending-bg.png) no-repeat right;
+}
+
+.new-courses {
+    background: url(../images/new-course-bg.png) no-repeat left;
+}
+
+footer {
+    height: 400px;
+    position: relative;
+    background: url(../images/footer-bg.png) no-repeat right;
+}
+
+footer:before {
+    background-color: rgb(255 255 255 / 70%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: ' ';
+}
+
+.contact-us {
+    position: relative;
+    background: url(../images/trending-bg.png) no-repeat right;
+}
+
+.contact-us:before {
+    background-image: linear-gradient(to right, rgb(23 60 70), rgb(23 60 70 / 70%));
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: ' ';
+}
+
+.section-heading h2 {
+    font-weight: 500;
+    color: #c1633a;
+    margin-bottom: 25px;
+}
+
+.course-content {
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.trending-slider {
+    margin: 25px 0px
+}
+
+.section-heading hr {
+    margin: auto;
+    color: #c1633a;
+}
+
+.card img {
+    padding: 10px;
+}
+
+.crousal-element {
+    padding-right: 10px
+}
+
+.slick-next,
+.slick-prev {
+    background-color: #e56d38;
+    border-radius: 14px;
+    width: 25px;
+    height: 25px;
+}
+
+.slick-next:focus,
+.slick-next:hover,
+.slick-prev:focus,
+.slick-prev:hover {
+    background-color: #e56d38;
+}
+
+.slick-prev:before {
+    content: '<';
+}
+
+.slick-next:before {
+    content: '>';
+}
+
+.slick-prev {
+    z-index: 999;
+    left: -15px;
+}
+
+.slick-next {
+    right: -6px;
+}
+
+.slick-next:before,
+.slick-prev:before {
+    line-height: 0.4;
+    color: #fff;
+}
+
+.contact-us .container {
+    position: relative;
+}
+
+.contact-us .section-heading h2 {
+    color: white
+}
+
+.contact-us p {
+    color: white;
+}
+
+.form-control:read-only {
+    background-image: linear-gradient( 0deg, #009688 2px, rgba(0, 150, 136, 0) 0), linear-gradient( 0deg, rgba(0, 0, 0, .26) 1px, transparent 0);
+}
+
+.contact-us-form label {
+    color: white;
+}
+
+.margin-label {
+    margin-bottom: 15px;
+}
+
+.contact-us-form .row {
+    margin-bottom: 3rem;
+}
+
+.form-button {
+    border-color: #5e2c22;
+    background-color: #9b462f;
+    color: white;
+    padding: 8px 36px;
+    font-size: 18px;
+}
+
+.fas {
+    color: #a2654a;
+}
+
+.phone {
+    margin-top: 6px;
+}
+
+.phone-icon {
+    margin-top: 16px;
+    margin-right: 10px;
+}
+
+.phone-number {
+    margin-bottom: 5px;
+}
+
+footer ul {
+    padding-left: 22px;
+}
+
+.footer-bottom p {
+    color: white;
+}
+
+.footer-bottom .fab {
+    color: white;
+    margin-right: 4px;
+}
+
+footer .main-footer {
+    padding: 15px 15px 0px 15px!important;
+}
+
+.contact-us .contact-us-div {
+    padding: 66px 20px 120px 20px;
+}
+
+.right-subscribe {
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 227px;
+}
+
+.right-subscribe-bg {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: ' ';
+    background: url(../images/subscribe-bg-1.png) no-repeat left;
+}
+
+.subscribe-form {
+    padding: 55px 5px 10px 35px;
+}
+
+.subscribe-content {
+    padding: 40px 5px 10px 35px;
+}
+
+.subscribe-content h2 {
+    font-weight: 900;
+    font-size: 26px;
+    color: #043045;
+}
+
+.subscribe-input {
+    background-color: white;
+    border-radius: 18px;
+    padding-left: 8px;
+    margin-bottom: 8px;
+    color: #fdfeff
+}
+
+.subscribe-button {
+    border-radius: 22px;
+}
+
+.form-control {
+    color: white!important;
+}
+
+.subscribe-input:focus {
+    background-color: white;
+}
+
+.card {
+    background-color: #c8c6c7;
+}
+
+.navbar-brand {
+    color: #fbccbb;
+}
+
+.signup-btn {
+    background-color: #082a32;
+    color: white;
+    border-radius: 20px;
+}
+
+.bg-orange {
+    background-color: #f55509;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link.active {
+    color: white;
+}
+
+li.nav-item {
+    margin-right: 15px;
+}
+
+.facebook-icon {
+    margin-top: 10px;
+}
+
+.fa-whatsapp {
+    color: green;
+}
