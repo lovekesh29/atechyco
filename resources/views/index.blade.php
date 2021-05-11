@@ -1,19 +1,18 @@
 @extends('layouts.app')
 @include('layouts.header')
 @section('home')
-<section class="banner">
-        <div class="container">
-            <div class="col-lg-5 offset-lg-7 col-sm-12">
-                <div class="banner-content">
-                    <h1>Welcome To</h1>
-                    <span>Your Company</span>
+    <section class="banner">
+            <div class="container">
+                <div class="col-lg-5 offset-lg-7 col-sm-12">
+                    <div class="banner-content">
+                        <h1>Welcome To</h1>
+                        <span>Your Company</span>
+                    </div>
                 </div>
             </div>
-        </div>
-
     </section>
     <section class="trending-courses main-page-section">
-        <div class="container">
+        <div class="container section-container">
             <div class="section-heading text-center">
                 <h2>Trending Courses</h2>
                 <hr width="25%" align="center">
@@ -63,7 +62,7 @@
 
     </section>
     <section class="new-courses main-page-section">
-        <div class="container">
+        <div class="container section-container">
             <div class="section-heading text-center">
                 <h2>Recent/New Courses</h2>
                 <hr width="25%" align="center">

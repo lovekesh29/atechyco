@@ -52,7 +52,7 @@ body {
     border-radius: 10px;
 }
 
-.main-page-section .container {
+.main-page-section .section-container {
     padding: 80px 13px;
 }
 
@@ -65,7 +65,6 @@ body {
 }
 
 footer {
-    height: 400px;
     position: relative;
     background: url(../images/footer-bg.png) no-repeat right;
 }
@@ -228,7 +227,7 @@ footer ul {
 }
 
 footer .main-footer {
-    padding: 15px 15px 0px 15px!important;
+    padding: 120px 15px 20px 15px!important;
 }
 
 .contact-us .contact-us-div {
@@ -319,4 +318,50 @@ li.nav-item {
 
 .fa-whatsapp {
     color: green;
+}
+
+.nav-top {
+    display: block;
+}
+
+
+/* media Query */
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: block!important;
+        flex-basis: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .subscribe-form {
+        padding: 20px 5px 10px 35px;
+    }
+    .subscribe-content {
+        padding: 16px 5px 10px 35px;
+    }
+    .right-subscribe-bg {
+        background-size: 322px 223px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .main-page-section .section-container {
+        padding: 41px 13px 70px 13px;
+    }
+    .footer-subscribe-section {
+        height: 164px;
+        width: 93%;
+        top: -78px;
+    }
+    .subscribe-content {
+        display: none;
+    }
+    .subscribe-form {
+        padding: 40px 5px 10px 35px;
+    }
+    .right-subscribe-bg {
+        background-size: 168px 103px;
+    }
 }
