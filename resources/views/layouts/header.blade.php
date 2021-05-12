@@ -5,20 +5,20 @@
             <a class="navbar-brand" href="#">Your Comapny Name</a>
         </div>
         <div class="col-lg-2 offset-lg-6 offset-sm-6 col-sm-2 col-3 offset-5">
-            <button class="btn signup-btn float-right me-2" type="submit">Sign Up</button>
+            <button class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</button>
         </div>
     </div>
         
 </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-black">
+        <div class="container-fluid navbar-container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-10">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Courses</a>
@@ -50,9 +50,9 @@
                             </li> -->
                         </ul>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control top-search primary-background-color me-2" type="search" placeholder="Search" aria-label="Search">
                         </form> 
                     </div>
                 </div>

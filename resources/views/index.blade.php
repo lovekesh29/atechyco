@@ -6,7 +6,7 @@
                 <div class="col-lg-5 offset-lg-7 col-sm-12">
                     <div class="banner-content">
                         <h1>Welcome To</h1>
-                        <span>Your Company</span>
+                        <span class="primary-color">Your Company</span>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
 
     </section>
     <section class="suggested-courses main-page-section">
-        <div class="container suggested-slider">
+        <div class="container section-container suggested-slider">
             <div class="section-heading text-center">
                 <h2>Suggested Courses</h2>
                 <hr width="25%" align="center">
@@ -213,7 +213,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <button class="btn form-button float-right me-2" type="submit">Contact Us</button>
+                        <button class="btn form-button primary-background-color float-right me-2" type="submit">Contact Us</button>
                     </div>
                 </div>
             </form>
