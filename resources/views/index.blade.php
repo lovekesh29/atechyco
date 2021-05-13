@@ -4,7 +4,7 @@
     <section class="banner">
             <div class="container">
                 <div class="col-lg-5 offset-lg-7 col-sm-12">
-                    <div class="banner-content">
+                    <div class="banner-content" data-aos="zoom-in">
                         <h1>Welcome To</h1>
                         <span class="primary-color">Your Company</span>
                     </div>
@@ -20,7 +20,7 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row">
+            <div class="trending-slider row" data-aos="zoom-in">
                 <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                     <div class="card">
                         <img src="images/javscript.png" class="card-img-top" alt="...">
@@ -70,7 +70,7 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row">
+            <div class="trending-slider row " data-aos="zoom-in">
                 <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                     <div class="card">
                         <img src="images/javscript.png" class="card-img-top" alt="...">
@@ -120,7 +120,7 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row">
+            <div class="trending-slider row " data-aos="zoom-in">
                 <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                     <div class="card">
                         <img src="images/javscript.png" class="card-img-top" alt="...">

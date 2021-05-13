@@ -12,4 +12,4 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/main.js', 'public/js');
-mix.styles(['resources/css/all.min.css', 'resources/css/style.css'], 'public/css/home.css')
+mix.styles(['resources/css/all.min.css', 'resources/css/style.css', 'node_modules/aos/dist/aos.css'], 'public/css/home.css')

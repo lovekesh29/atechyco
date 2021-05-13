@@ -34,5 +34,6 @@ $('.trending-slider').slick({
   // instead of a settings object
   ]
 });
+AOS.init();
 /******/ })()
 ;
