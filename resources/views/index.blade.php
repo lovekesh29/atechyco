@@ -171,11 +171,11 @@
             <form class="contact-us-form">
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="exampleFormControlInput1" class="form-label margin-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <label class="form-label margin-label">Email address</label>
+                        <input type="email" class="form-control" placeholder="name@example.com">
                     </div>
                     <div class="col-lg-6">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <label class="form-label">Email address</label>
                         <select class="form-control" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
@@ -186,11 +186,11 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="exampleFormControlInput1" class="form-label margin-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <label class="form-label margin-label">Email address</label>
+                        <input type="email" class="form-control" placeholder="name@example.com">
                     </div>
                     <div class="col-lg-6">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <label class="form-label">Email address</label>
                         <select class="form-select form-control" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
@@ -201,8 +201,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-control" placeholder="name@example.com">
                     </div>
                 </div>
                 <div class="row">

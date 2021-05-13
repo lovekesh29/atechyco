@@ -307,7 +307,7 @@ footer .main-footer {
 }
 
 .form-control {
-    color: white!important;
+    color: black!important;
 }
 
 .subscribe-input:focus {
@@ -349,13 +349,50 @@ li.nav-item {
 }
 
 .nav-top {
-    background-image: linear-gradient(180deg, #d6ce152b, #1f6521);
+    background-color: #1f6521;
     display: block;
 }
 
 .navbar-container {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+section.signup {
+    min-height: 1250px;
+    background: url(../images/signup-bg.png) no-repeat left;
+    background-size: 614px;
+}
+
+.submit-form {
+    padding: 20px 15px 20px 15px;
+    box-shadow: 7px 7px 20px 0px rgb(0 0 0 / 20%), 7px 7px 20px 3px rgb(0 0 0 / 19%);
+    background-color: #ffffff;
+}
+
+.submit-form h2 {
+    margin-bottom: 30px;
+    background: -webkit-linear-gradient( 0deg, #1f6521bf, #d6ce15f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.signup-form-element {
+    margin-bottom: 20px;
+}
+
+.form-check.signup-form-element {
+    padding-left: 2.5rem;
+}
+
+.signup-form-btn {
+    background-image: linear-gradient( 90deg, #1f6521bf, #d6ce159c);
+}
+
+.input-border {
+    background-image: none;
+    border-bottom: 2px solid #1f6521;
 }
 
 

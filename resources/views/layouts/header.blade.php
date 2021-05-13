@@ -5,7 +5,7 @@
             <a class="navbar-brand" href="#">Your Comapny Name</a>
         </div>
         <div class="col-lg-2 offset-lg-6 offset-sm-6 col-sm-2 col-3 offset-5">
-            <button class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</button>
+            <a href="{{ url('/sign-up') }}" class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</a>
         </div>
     </div>
         
