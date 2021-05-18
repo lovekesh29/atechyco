@@ -304,6 +304,7 @@ footer .main-footer {
 
 .subscribe-button {
     border-radius: 22px;
+    background-color: #d6ce15;
 }
 
 .form-control {
@@ -393,6 +394,73 @@ section.signup {
 .input-border {
     background-image: none;
     border-bottom: 2px solid #1f6521;
+}
+
+#myVideo {
+    position: relative;
+    height: 100vh;
+    float: left;
+}
+
+
+/* Add some content at the bottom of the video/page */
+
+.login-div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    color: #f1f1f1;
+    text-align: center;
+}
+
+.login-container {
+    padding: 0px 16px 0px 0px;
+}
+
+.login-left {}
+
+.login-right {
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 45px 45px 45px 45px;
+}
+
+.login-right h2 {
+    color: #208cf8;
+}
+
+input.form-control.input-left-border {
+    border-left: 7px solid #208cf8;
+    padding-left: 15px;
+    background-image: none;
+    background-color: #f7f7f7;
+}
+
+.login-right p,
+.login-right .form-check-label,
+.login-right a {
+    color: #a7a4a4;
+}
+
+.login-right .form-check-label {
+    color: #a7a4a4;
+}
+
+button.btn.signin-form-btn.me-2 {
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #208cf8;
+    color: white;
+    border-radius: 18px;
 }
 
 
