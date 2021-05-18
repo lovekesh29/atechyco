@@ -426,8 +426,6 @@ section.signup {
     padding: 0px 16px 0px 0px;
 }
 
-.login-left {}
-
 .login-right {
     margin-top: 50px;
     margin-left: 50px;
@@ -474,6 +472,13 @@ button.btn.signin-form-btn.me-2 {
 }
 
 @media screen and (max-width: 768px) {
+    .login-right {
+        margin-left: 15px;
+    }
+    #myVideo,
+    .login-left {
+        display: none;
+    }
     .subscribe-form {
         padding: 20px 5px 10px 35px;
     }

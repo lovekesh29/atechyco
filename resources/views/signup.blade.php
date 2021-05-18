@@ -71,7 +71,7 @@
                             <button class="btn signup-form-btn me-2" type="submit">Create Account</button>
                         </div>
                         <div class="col-lg-12 text-center">
-                            <span class="already-sign-in text-center">Already have an account <a href="">Sign In</a></span>
+                            <span class="already-sign-in text-center">Already have an account <a href="{{ url('/login') }}">Sign In</a></span>
                         </div>
                         
                     </form>
