@@ -22,7 +22,7 @@
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
-                              </select>
+                            </select>
                         </div>
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Phone</label>

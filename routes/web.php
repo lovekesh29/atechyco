@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +27,12 @@ Route::get('/login', function () {
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 });
+
+
+Route::view('/admin', 'admin.login')->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'authenticate']);
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+Route::get('/admin/user', [AdminController::class, 'users']);
+Route::get('/admin/edit-user/{userId}', [AdminController::class, 'editUser']);
+Route::post('/admin/change-user-status', [AdminController::class, 'changeUserStatus']);
 

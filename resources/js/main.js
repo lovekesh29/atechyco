@@ -33,4 +33,6 @@ $('.trending-slider').slick({
     ]
 });
 
-AOS.init();
+$(document).ready(function() {
+    AOS.init();
+})
