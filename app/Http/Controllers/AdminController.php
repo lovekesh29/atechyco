@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SecurityQuestion;
 use Illuminate\Support\Facades\Crypt;
 
 class AdminController extends Controller
@@ -31,10 +32,11 @@ class AdminController extends Controller
     }
     public function editUser($userId){
         $decryptedUserId = Crypt::decryptString($userId);
-        $userDetails = User::findOrFail($decryptedUserId);
-        dd($userDetails);
+        $userDetails = User::with('securityQuestionDetail')->findOrFail($decryptedUserId);
+        $securityQuestions = SecurityQuestion::all();
+        //dd($userDetails);
 
-        return view('admin.editUser', ['userDetails' => $userDetails]);
+        return view('admin.editUser', ['userDetails' => $userDetails, 'securityQuestions' => $securityQuestions]);
     }
     
     

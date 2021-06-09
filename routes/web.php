@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserAuth;
+use App\Models\SecurityQuestion;
+use App\Models\Countries;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +23,44 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
 Route::get('/sign-up', function () {
-    return view('signup');
+    $securityQuestions = SecurityQuestion::all();
+    $countries = Countries::all();
+    return view('signup', ['securityQuestions' => $securityQuestions, 'countries' => $countries]);
 });
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 Route::get('/dashboard', function () {
     return view('user.dashboard');
-});
+})->middleware('verified');;
+
+Route::post('/sign-up', [UserAuth::class, 'register']);
+Route::post('/login', [UserAuth::class, 'authenticate']);
+Route::get('/logout', [UserAuth::class, 'logout']);
 
 
 Route::view('/admin', 'admin.login')->name('admin.login');
 Route::post('/admin/login', [AdminLoginController::class, 'authenticate']);
+Route::get('/admin-logout', [AdminLoginController::class, 'logout']);
+
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
 Route::get('/admin/user', [AdminController::class, 'users']);
 Route::get('/admin/edit-user/{userId}', [AdminController::class, 'editUser']);

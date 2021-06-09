@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUserSecurityQuestion extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AlterUserSecurityQuestion extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('securityQuestion')->nullable()->change();
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('countryCode');
+            $table->string('countryName');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AlterUserSecurityQuestion extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('countries');
     }
 }

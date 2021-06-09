@@ -16,14 +16,37 @@
                 <h2 class="text-center">Login Account</h2>
                 <p class="text-center">Some Random Text  Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text Some Random Text </p>
                 <div class="login-form">
-                    <form action="">
+                    <form action="{{ url('/login') }}" method="POST">
+                        @csrf
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Email</label>
-                            <input type="email" class="form-control input-left-border"  placeholder="Sam">
+                            <input type="email" name="email" value="{{old('email')}}"  required class="@error('email') is-invalid @enderror form-control input-left-border"  placeholder="Sam@gmail.com">
+                            @error('email')
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <div class="alert-message">
+                                    {{$message}}
+                                </div>
+
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Password</label>
-                            <input type="Password" class="form-control input-left-border"  placeholder="name@example.com">
+                            <input type="Password" name="password" value="{{old('password')}}" class="@error('password') is-invalid @enderror form-control input-left-border"  placeholder="password">
+                            @error('password')
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <div class="alert-message">
+                                    {{$message}}
+                                </div>
+
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            @enderror
                         </div>
                         <div class="col-lg-12 form-check signup-form-element">
                             <input
@@ -36,11 +59,11 @@
                               I aggree to tearm & conditions
                             </label>
                             <div class="float-right">
-                                <span class="already-sign-in text-center"><a href="">Sign In</a></span>
+                                <span class="already-sign-in text-center"><a href="">Forgot Password</a></span>
                             </div>
                         </div>
                         <div class="col-lg-12 text-center">
-                            <button class="btn signin-form-btn me-2" type="submit">Create Account</button>
+                            <button class="btn signin-form-btn me-2" type="submit">Sign In</button>
                         </div>
                         
                     </form>

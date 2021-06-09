@@ -63,47 +63,16 @@
                                 <div class="form-group col-md-6">
                                     <label >Security Question</label>
                                     <select class="form-control input-border" aria-label="Default select example">
-                                        <option selected value="{{ $userDetails->gender }}">{{ config('custom.gender.'.$userDetails->gender) }}</option>
-                                        <option value="0">Male</option>
-                                        <option value="1">Female</option>
-                                        <option value="2">Others</option>
+                                        <option selected value="{{ $userDetails->securityQuestion }}">{{ $userDetails->securityQuestionDetail->securityQuestion }}</option>
+                                        @foreach ($securityQuestions as $securityQuestion)
+                                        <option value="{{ $securityQuestion->id}}">{{ $securityQuestion->securityQuestion }}</option>
+                                        @endforeach
                                       </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label >Location</label>
-                                    <input type="text" value="{{ $userDetails->location }}" class="form-control"  placeholder="Password">
+                                    <label >Security Answer</label>
+                                    <input type="text" value="{{ $userDetails->securityAnswer }}" class="form-control"  placeholder="Security Answer">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress2">Address 2</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputCity">City</label>
-                                    <input type="text" class="form-control" id="inputCity">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputState">State</label>
-                                    <select id="inputState" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inputZip">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="custom-control custom-checkbox m-0">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-label">Check me out</span>
-                                </label>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
