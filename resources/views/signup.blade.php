@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-lg-6 signup-form-element">
                                 <label class="form-label ">First Name</label>
-                                <input type="text" value="{{ old('firstName') }}" name="firstName" class="form-control input-border"  placeholder="Sam" value={{ old('firstName') }}>
+                                <input type="text" required value="{{ old('firstName') }}" name="firstName" class="form-control input-border"  placeholder="Sam" value={{ old('firstName') }}>
                                 @error('firstName')
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <div class="alert-message">
@@ -27,7 +27,7 @@
                             
                             <div class="col-lg-6 signup-form-element">
                                 <label class="form-label ">Last Name</label>
-                                <input type="text" value="{{ old('lastName') }}" name="lastName" class="form-control input-border"  placeholder="Sam">
+                                <input type="text" required value="{{ old('lastName') }}" name="lastName" class="form-control input-border"  placeholder="Sam">
                                 @error('lastName')
                                 <div class="alert alert-danger alert-dismissible" role="alert">
                                     <div class="alert-message">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Email address</label>
-                            <input type="email" value="{{ old('email') }}" name="email" class="form-control input-border"  placeholder="name@example.com">
+                            <input type="email" required value="{{ old('email') }}" name="email" class="form-control input-border"  placeholder="name@example.com">
                         </div>
                         @error('email')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -56,7 +56,7 @@
                             </div>
                         @enderror
                         <div class="col-lg-12 signup-form-element">
-                            <select class="form-control input-border" name="location" aria-label="Default select example">
+                            <select class="form-control input-border" name="location" aria-label="Default select example" required>
                                 <option selected value="">Select You Country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->countryCode }}">{{ $country->countryName }}</option>
@@ -76,7 +76,14 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Phone</label>
-                            <input type="text" value="{{ old('phoneNo') }}" name="phoneNo" class="form-control input-border"  placeholder="+9199999999">
+                            <input type="text" id="phone" required value="{{ old('phoneNo') }}" name="phoneNo" class="form-control input-border" >
+                            <input type="hidden" id="dialCode" name="dialCode" class="form-control input-border" >
+                            <div class="alert alert-danger alert-dismissible" id="phoneErrorLabel" role="alert" style="display: none;">
+                                <div class="alert-message">
+                                    Invalid Phone No.
+                                </div>
+                            </div>
+                            
                         </div>
                         @error('phoneNo')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -90,7 +97,7 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Password</label>
-                            <input type="paswword" value="{{ old('password') }}" name="password" class="form-control input-border"  placeholder="Enter You Password">
+                            <input type="paswword" required value="{{ old('password') }}" name="password" class="form-control input-border"  placeholder="Enter You Password">
                         </div>
                         @error('password')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -104,7 +111,7 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Confirm Password</label>
-                            <input type="password" value="{{ old('password_confirmation') }}" name="password_confirmation" class="form-control input-border"  placeholder="name@example.com">
+                            <input type="password" required value="{{ old('password_confirmation') }}" name="password_confirmation" class="form-control input-border"  placeholder="name@example.com">
                         </div>
                         @error('password_confirmation')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -117,7 +124,7 @@
                             </div>
                             @enderror
                         <div class="col-lg-12 signup-form-element">
-                            <select class="form-control input-border" name="securityQuestion" aria-label="Default select example">
+                            <select class="form-control input-border" required name="securityQuestion" aria-label="Default select example">
                                 <option selected value="">Select You Security Question</option>
                                 @foreach ($securityQuestions as $securityQuestion)
                                 <option value="{{ $securityQuestion->id }}">{{ $securityQuestion->securityQuestion }}</option>
@@ -137,7 +144,7 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Security Answer</label>
-                            <input type="text" value="{{ old('securityAnswer') }}" name="securityAnswer" class="form-control input-border"  placeholder="Type Security Answer">
+                            <input type="text" required value="{{ old('securityAnswer') }}" name="securityAnswer" class="form-control input-border"  placeholder="Type Security Answer">
                         </div>
                         @error('securityAnswer')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -150,7 +157,7 @@
                             </div>
                             @enderror
                         <div class="col-lg-12 signup-form-element">
-                            <select class="form-control input-border" name="gender" aria-label="Default select example">
+                            <select class="form-control input-border" required name="gender" aria-label="Default select example">
                                 <option selected value="">Select You Gender</option>
                                 <option value="0">Male</option>
                                 <option value="1">Female</option>
@@ -169,7 +176,7 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Age</label>
-                            <input type="number" value="{{ old('age') }}" name="age" class="form-control input-border"  placeholder="Age in Years">
+                            <input type="number" required value="{{ old('age') }}" name="age" class="form-control input-border"  placeholder="Age in Years">
                         </div>
                         @error('age')
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -188,6 +195,7 @@
                               value="1"
                               name="termsCondition"
                               id="flexCheckDefault"
+                              required
                             />
                             <label class="form-check-label" for="flexCheckDefault">
                               I aggree to tearm & conditions

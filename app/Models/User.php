@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'age',
         'imgPath',
         'status',
+        'dialCode'
     ];
 
     /**

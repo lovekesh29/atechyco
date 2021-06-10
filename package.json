@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "aos": "^2.3.4",
+        "intl-tel-input": "^17.0.13",
         "sweetalert": "^2.1.2"
     }
 }

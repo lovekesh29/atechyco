@@ -20,7 +20,7 @@
                         @csrf
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Email</label>
-                            <input type="email" name="email" value="{{old('email')}}"  required class="@error('email') is-invalid @enderror form-control input-left-border"  placeholder="Sam@gmail.com">
+                            <input type="email" name="email" value="{{old('email')}}"  required class="@error('email') is-invalid @enderror form-control input-left-border"  placeholder="Sam@gmail.com" required>
                             @error('email')
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <div class="alert-message">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label ">Password</label>
-                            <input type="Password" name="password" value="{{old('password')}}" class="@error('password') is-invalid @enderror form-control input-left-border"  placeholder="password">
+                            <input type="Password" name="password" value="{{old('password')}}" class="@error('password') is-invalid @enderror form-control input-left-border"  placeholder="password" required>
                             @error('password')
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <div class="alert-message">

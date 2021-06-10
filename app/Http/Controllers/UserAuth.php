@@ -41,7 +41,7 @@ class UserAuth extends Controller
             'firstName' => ucwords($request->firstName),
             'lastName' => ucwords($request->lastName),
             'location' => $request->location,
-            'phoneNo' => $request->phoneNo,
+            'phoneNo' => $request->fullPhoneNo,
             'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
             'securityQuestion' => $request->securityQuestion,
@@ -49,7 +49,7 @@ class UserAuth extends Controller
             'gender' => $request->gender,
             'age' => $request->age,
             'status' => 1,
-            'imgPath' => 'ascascsac'
+            'dialCode' => $request->dialCode,
         );
 		
         $user = User::create($signupArray);
