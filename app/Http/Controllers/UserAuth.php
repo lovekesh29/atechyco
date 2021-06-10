@@ -24,7 +24,7 @@ class UserAuth extends Controller
             'securityQuestion' => 'required|numeric',
             'securityAnswer' => 'required|string',
             'gender' => 'required|digits_between:0,2',
-            'age' => 'required|numeric',
+            'age' => 'required|numeric|digits_between:0,100',
             'termsCondition' => 'accepted'
         ];
         $validator = Validator::make($request->all(), $rules, $messages = [
@@ -68,9 +68,8 @@ class UserAuth extends Controller
                     ->withErrors($validator)
                     ->withInput();
         }
-        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             $request->session()->regenerate();
 
             return redirect()->intended('/dashboard');
@@ -78,7 +77,7 @@ class UserAuth extends Controller
 
         return back()
                 ->withErrors([
-                    'email' => 'The provided credentials do not match our records.',
+                    'email' => 'The provided credentials do not match our records or your account may be deactived.',
                 ])
                 ->withInput();
     }

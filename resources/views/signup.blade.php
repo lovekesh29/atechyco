@@ -176,7 +176,7 @@
                             @enderror
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Age</label>
-                            <input type="number" required value="{{ old('age') }}" name="age" class="form-control input-border"  placeholder="Age in Years">
+                            <input type="number" required value="{{ old('age') }}" name="age" class="form-control input-border"  placeholder="Age in Years" max="100" min="0">
                         </div>
                         @error('age')
                             <div class="alert alert-danger alert-dismissible" role="alert">
