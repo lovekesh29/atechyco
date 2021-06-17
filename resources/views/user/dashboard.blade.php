@@ -1,13 +1,13 @@
 @extends('layouts.user.app')
-@include('layouts.user.sidebar')
-@include('layouts.user.header')
+@include('layouts.user.sidebar', ['user' => $user])
+@include('layouts.user.header', ['user' => $user])
 @section('home')
 <main class="content">
     <div class="container-fluid">
 
         <div class="header">
             <h1 class="header-title">
-                Welcome back, Linda!
+                Welcome back, {{ $user->firstName.' '. $user->lastName }}!
             </h1>
             <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
         </div>

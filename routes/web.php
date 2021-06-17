@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAuth;
 use App\Models\SecurityQuestion;
 use App\Models\Countries;
@@ -53,21 +54,25 @@ Route::get('/sign-up', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware('verified');;
 
 Route::post('/sign-up', [UserAuth::class, 'register']);
 Route::post('/login', [UserAuth::class, 'authenticate']);
 Route::get('/logout', [UserAuth::class, 'logout']);
 
+Route::get('/dashboard', [UserController::class, 'dashboard']);
+Route::get('/view-profile', [UserController::class, 'viewProfile']);
+Route::post('/update-user', [UserController::class, 'updateUser']);
+
+
+
 
 Route::view('/admin', 'admin.login')->name('admin.login');
 Route::post('/admin/login', [AdminLoginController::class, 'authenticate']);
-Route::get('/admin-logout', [AdminLoginController::class, 'logout']);
+Route::get('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
 Route::get('/admin/user', [AdminController::class, 'users']);
 Route::get('/admin/edit-user/{userId}', [AdminController::class, 'editUser']);
 Route::post('/admin/change-user-status', [AdminController::class, 'changeUserStatus']);
+Route::post('/admin/edit-user', [AdminController::class, 'adminEditUser']);
 

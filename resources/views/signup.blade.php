@@ -7,7 +7,10 @@
             <div class="col-lg-6 offset-lg-6">
                 <div class="submit-form">
                     <h2 class="text-center">Regestration Form</h2>
-                    <form action="{{ url('/sign-up') }}" method="POST">
+                    @error('dialCode')
+                    <label class="error form-text invalid-feedback" for="validation-email">{{ $message }}</label>
+                    @enderror
+                    <form action="{{ url('/sign-up') }}" method="POST" id="signUpForm">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 signup-form-element">
@@ -212,7 +215,7 @@
                             </div>
                             @enderror
                         <div class="col-lg-12 text-center">
-                            <button class="btn signup-form-btn me-2" type="submit">Create Account</button>
+                            <button class="btn signup-form-btn me-2" id="signUpFormButton" type="submit">Create Account</button>
                         </div>
                         <div class="col-lg-12 text-center">
                             <span class="already-sign-in text-center">Already have an account <a href="{{ url('/login') }}">Sign In</a></span>

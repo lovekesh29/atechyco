@@ -4,12 +4,12 @@
         <svg>
             <use xlink:href="#ion-ios-pulse-strong"></use>
         </svg>
-        Spark
+        Atechyco
     </a>
     <div class="sidebar-content">
         <div class="sidebar-user">
-            <img src="{{ url('img/avatars/avatar.jpg') }}" class="img-fluid rounded-circle mb-2" alt="Linda Miller" />
-            <div class="font-weight-bold">Linda Miller</div>
+            {!! ($user->imgPath != null) ? '<img src="'. asset('storage/'.Auth::user()->imgPath) .'" class="img-fluid rounded-circle mb-2" alt="'. $user->firstName.' '. $user->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!}
+            <div class="font-weight-bold">{{ $user->firstName.' '. $user->lastName }}</div>
             <small>Html Student</small>
         </div>
 

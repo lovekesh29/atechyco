@@ -13,6 +13,7 @@
     </script>
 
     <link href="{{ url('css/admin.css') }}" rel="stylesheet">
+    <script src="{{ url('js/userTop.js') }}"></script>
 
 <body>
     <div class="splash active">

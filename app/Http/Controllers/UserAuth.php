@@ -25,11 +25,13 @@ class UserAuth extends Controller
             'securityAnswer' => 'required|string',
             'gender' => 'required|digits_between:0,2',
             'age' => 'required|numeric|digits_between:0,100',
-            'termsCondition' => 'accepted'
+            'termsCondition' => 'accepted',
+            'dialCode' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules, $messages = [
             'securityQuestion.numeric' => 'Invalid Security Question Selected',
-            'gender.digits_between' => 'Invalid Gender Selected'
+            'gender.digits_between' => 'Invalid Gender Selected',
+            'dialCode.required' => 'Invalid request'
         ]);
         if ($validator->fails()) {
             return back()
@@ -41,7 +43,7 @@ class UserAuth extends Controller
             'firstName' => ucwords($request->firstName),
             'lastName' => ucwords($request->lastName),
             'location' => $request->location,
-            'phoneNo' => $request->fullPhoneNo,
+            'phoneNo' => '+'.$request->dialCode.$request->phoneNo,
             'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
             'securityQuestion' => $request->securityQuestion,
@@ -83,10 +85,6 @@ class UserAuth extends Controller
     }
     public function logout(Request $request){
         Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
 
         return redirect('/');
     }

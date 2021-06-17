@@ -13,13 +13,14 @@ const mix = require('laravel-mix');
 
 
 //this is for main site
-mix.js(['resources/js/main.js', 'resources/js/intl-input.js'], 'public/js/main.js');
+mix.js(['resources/js/main.js'], 'public/js/main.js');
 mix.styles(['resources/css/all.min.css', 'node_modules/intl-tel-input/build/css/intlTelInput.min.css', 'resources/css/style.css', 'node_modules/aos/dist/aos.css'], 'public/css/home.css')
 
 //this is for user pannel site
 mix.js(['resources/js/dashboard-template.js', 'resources/js/user.js'], 'public/js/user.js');
-mix.styles(['resources/css/modern.css', 'resources/css/user.css'], 'public/css/user.css');
+mix.js('resources/js/userTop.js', 'public/js');
+mix.styles(['resources/css/modern.css', 'node_modules/intl-tel-input/build/css/intlTelInput.min.css', 'resources/css/user.css'], 'public/css/user.css');
 
 //this is for admin pannel site
-mix.styles(['resources/css/modern-admin.css', 'resources/css/admin.css'], 'public/css/admin.css');
+mix.styles(['resources/css/modern-admin.css', 'node_modules/intl-tel-input/build/css/intlTelInput.min.css', 'resources/css/admin.css'], 'public/css/admin.css');
 mix.js(['resources/js/dashboard-template.js', 'resources/js/admin.js'], 'public/js/admin.js');

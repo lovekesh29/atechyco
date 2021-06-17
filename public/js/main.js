@@ -1445,11 +1445,15 @@ module.exports = __webpack_require__(/*! ./build/js/intlTelInput */ "./node_modu
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
 /*!******************************!*\
   !*** ./resources/js/main.js ***!
   \******************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-tel-input */ "./node_modules/intl-tel-input/index.js");
+/* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(intl_tel_input__WEBPACK_IMPORTED_MODULE_0__);
 $('.trending-slider').slick({
   dots: true,
   infinite: true,
@@ -1484,17 +1488,19 @@ $('.trending-slider').slick({
 $(document).ready(function () {
   AOS.init();
 });
-})();
+$('#signUpFormButton').click(function (e) {
+  e.preventDefault();
 
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-/*!************************************!*\
-  !*** ./resources/js/intl-input.js ***!
-  \************************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-tel-input */ "./node_modules/intl-tel-input/index.js");
-/* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(intl_tel_input__WEBPACK_IMPORTED_MODULE_0__);
+  if (checkPhoneValidation()) {
+    if ($("#signUpForm")[0].checkValidity()) {
+      $("#signUpForm").submit();
+    } else {
+      $("#signUpForm")[0].reportValidity();
+    }
+  } else {
+    return false;
+  }
+});
 
 var input = document.querySelector("#phone");
 var iti = intl_tel_input__WEBPACK_IMPORTED_MODULE_0___default()(input, {

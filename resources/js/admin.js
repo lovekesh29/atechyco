@@ -1,6 +1,3 @@
-require('sweetalert');
-
-
 // update user status
 $('.user-status').click(function() {
     var userId = this.id;
@@ -44,3 +41,49 @@ $('.user-status').click(function() {
         }
     });
 })
+
+
+
+import intlTelInput from 'intl-tel-input'
+
+
+var input = document.querySelector("#adminPhone");
+var iti = intlTelInput(input, {
+    formatOnDisplay: false,
+    hiddenInput: "fullPhoneNo",
+    initialCountry: "us",
+    nationalMode: true,
+    separateDialCode: true,
+    utilsScript: siteUrl + "/js/utils.js",
+});
+
+$("#adminPhone").on("focusout", function() {
+    checkPhoneValidation();
+});
+
+
+
+function checkPhoneValidation() {
+    if (iti.isValidNumber()) {
+        $("#phoneErrorLabel").fadeOut(100);
+        var countryData = iti.getSelectedCountryData().dialCode; //get country code.
+        $("#dialCode").val(countryData);
+        return true;
+    } else {
+        $("#phoneErrorLabel").fadeIn(100);
+        return false;
+    }
+}
+
+$('#adminEditUserFormButton').click(function(e) {
+    e.preventDefault();
+    if (checkPhoneValidation()) {
+        if ($("#adminEditUserForm")[0].checkValidity()) {
+            $("#adminEditUserForm").submit();
+        } else {
+            $("#adminEditUserForm")[0].reportValidity()
+        }
+    } else {
+        return false;
+    }
+});

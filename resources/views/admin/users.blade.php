@@ -34,15 +34,16 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td>
-                                    <img src="{{ url('img/avatars/avatar-5.jpg') }}" width="48" height="48" class="rounded-circle mr-2" alt="Avatar"> {{ $user->firstName.' '.$user->lastName }}
+                                    {!! ($user->imgPath != null) ? '<img src="'.asset('storage/'.$user->imgPath).'" width="48" height="48" class="rounded-circle mr-2" alt="Avatar">' : '<i class="align-middle fas fa-fw fa-user"></i>' !!}
+                                     {{ $user->firstName.' '.$user->lastName }}
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phoneNo }}</td>
                                 <td>{{ $user->age }}</td>
                                 <td>{{ config('custom.gender.'.$user->gender) }}</td>
-                                <td>{{ $user->location }}</td>
+                                <td>{{ ($user->location != null) ? $user->country->countryName : '' }}</td>
                                 <td class="table-action">
-                                    <a href="{{ url('/admin/edit-user/'.Crypt::encryptString($user->id)) }}" data-toggle="tooltip" data-placement="top" title="Edit User"><i class="align-middle fas fa-fw fa-pen"></i></i></a>
+                                    <a href="{{ url('/admin/edit-user/'.Crypt::encryptString($user->id)) }}" data-toggle="tooltip" data-placement="top" title="Edit User"><i class="align-middle fas fa-fw fa-user-edit"></i></a>
                                     {!! ($user->status == 1) ? '<a href="#" class="user-status" data-status="'.$user->status.'" id="user_'.$user->id.'" data-toggle="tooltip" data-placement="top" title="Block User"><i class="align-middle fas fa-fw fa-ban"></i></a>' : '<a href="#" data-status="'.$user->status.'" class="user-status" id="user_'.$user->id.'" data-toggle="tooltip" data-placement="top" title="Approve User"><i class="align-middle fas fa-fw fa-check-circle"></i></a>' !!}
                                 </td>
                             </tr>
