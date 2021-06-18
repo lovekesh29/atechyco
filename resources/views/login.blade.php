@@ -3,7 +3,7 @@
 <section class="login-section main-page-section">
     <div class="container-fluid login-container">
         <video autoplay muted loop id="myVideo">
-            <source src="images/login-left.mp4" type="video/mp4">
+            <source src="{{ url('images/login-left.mp4') }}" type="video/mp4">
         </video>
         <div class="row login-div">
             <div class="col-lg-5 login-left">

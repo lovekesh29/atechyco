@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\CourseManagement;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAuth;
+use App\Http\Controllers\GuruAuth;
 use App\Models\SecurityQuestion;
 use App\Models\Countries;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -37,13 +40,34 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-
 //resend verification link
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+//Guru Email Verification
+
+//route after verification
+Route::get('guru/email/verify', function () {
+    return view('auth.guru-verify-email');
+})->middleware('auth:guru')->name('verification.notice');
+Route::get('/guru/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/guru/dashboard');
+})->middleware(['auth:guru', 'signed'])->name('verification.guruVerify');
+//resend verification link
+Route::post('guru/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth:guru', 'throttle:6,1'])->name('verification.guruSend');
+
+
+
 
 
 Route::get('/sign-up', function () {
@@ -64,15 +88,36 @@ Route::get('/view-profile', [UserController::class, 'viewProfile']);
 Route::post('/update-user', [UserController::class, 'updateUser']);
 
 
+Route::prefix('guru')->group(function () {
+    Route::get('/sign-up', function () {
+        $securityQuestions = SecurityQuestion::all();
+        $countries = Countries::all();
+        return view('guruSignup', ['securityQuestions' => $securityQuestions, 'countries' => $countries]);
+    });
+    Route::post('/sign-up', [GuruAuth::class, 'register']);
+    Route::get('/dashboard', [GuruController::class, 'dashboard']);
+    Route::get('/login', function () {
+        return view('guruLogin');
+    })->name('guru.login');
+    Route::post('/login', [GuruAuth::class, 'authenticate']);
+    Route::get('/logout', [GuruAuth::class, 'logout']);
+});
 
 
-Route::view('/admin', 'admin.login')->name('admin.login');
-Route::post('/admin/login', [AdminLoginController::class, 'authenticate']);
-Route::get('/admin/logout', [AdminLoginController::class, 'logout']);
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-Route::get('/admin/user', [AdminController::class, 'users']);
-Route::get('/admin/edit-user/{userId}', [AdminController::class, 'editUser']);
-Route::post('/admin/change-user-status', [AdminController::class, 'changeUserStatus']);
-Route::post('/admin/edit-user', [AdminController::class, 'adminEditUser']);
+
+Route::prefix('admin')->group(function () {
+    Route::view('/', 'admin.login')->name('admin.login');
+    Route::post('/login', [AdminLoginController::class, 'authenticate']);
+    Route::get('/logout', [AdminLoginController::class, 'logout']);
+
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/user', [AdminController::class, 'users']);
+    Route::get('/edit-user/{userId}', [AdminController::class, 'editUser']);
+    Route::post('/change-user-status', [AdminController::class, 'changeUserStatus']);
+    Route::post('/edit-user', [AdminController::class, 'adminEditUser']);
+    Route::get('/upload-video', [CourseManagement::class, 'uploadVideo']);
+});
+
+
 

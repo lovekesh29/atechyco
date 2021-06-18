@@ -43,7 +43,6 @@ class AdminController extends Controller
     }
     public function adminEditUser(Request $request)
     {
-        dd($request);
         $rules = [
             'userId' => 'required',
             'firstName' => 'required|string|max:180',
