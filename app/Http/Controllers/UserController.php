@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Countries;
@@ -77,5 +78,37 @@ class UserController extends Controller
         $user->save();    //updating the login session
 
         return back()->with('status', 'User Data Updated');
+    }
+
+    public function userSettings(){
+        $user = Auth::user();
+        return view('guru.settings', ['user' => $user]);
+    } 
+    public function updatePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'currentPassword' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->currentPassword, $user->password)) {
+            return back()->with('error', 'Current password does not match!');
+        }
+
+        User::where('id', Auth::id())->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', 'Password successfully changed!');
     }
 }

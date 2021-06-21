@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class GuruAuth extends Controller
 {
@@ -58,7 +61,6 @@ class GuruAuth extends Controller
 
         event(new Registered($guru));
         Auth::guard('guru')->login($guru);
-        //dd(Auth::guard('guru')->user());
         return redirect()->intended('guru/dashboard');
     }
     public function authenticate(Request $request){
@@ -84,6 +86,43 @@ class GuruAuth extends Controller
                 ])
                 ->withInput();
     }
+    public function forgotPassword(Request $request){
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::broker('guru')->sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+                    ? back()->with(['status' => __($status)])
+                    : back()->withErrors(['email' => __($status)]);
+    }
+    public function resetPassword(Request $request){
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+    
+        $status = Password::broker('guru')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ]);
+    
+                $user->save();
+    
+                event(new PasswordReset($user));
+            }
+        );
+    
+        //dd($status);
+        return $status === Password::PASSWORD_RESET
+                    ? redirect()->route('guru.login')->with('status', __($status))
+                    : back()->withErrors(['email' => [__($status)]]);
+    }
+    
     public function logout(Request $request){
         Auth::guard('guru')->logout();
 

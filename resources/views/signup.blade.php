@@ -226,7 +226,6 @@
             </div>
         </div>
     </div>
-
 </section>
 @endsection
 @include('layouts.footer')

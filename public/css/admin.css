@@ -56,3 +56,8 @@
 .invalid-feedback {
     display: block;
 }
+
+.file-upload {
+    padding: 5px 10px;
+    height: 40px;
+}

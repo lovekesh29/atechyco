@@ -472,6 +472,23 @@ button.btn.signin-form-btn.me-2 {
     display: block;
 }
 
+.forgot-password-pannel {
+    margin-bottom: 160px;
+    box-shadow: 7px 7px 20px 0px rgb(0 0 0 / 20%), 7px 7px 20px 3px rgb(0 0 0 / 19%);
+}
+
+.form-gap {
+    padding-top: 70px;
+}
+
+.forgot-pannel-body {
+    padding: 20px 15px 10px 15px;
+}
+
+section.reset-password {
+    min-height: 750px;
+}
+
 
 /* media Query */
 

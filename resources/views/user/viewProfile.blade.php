@@ -24,8 +24,7 @@
             <div class="col-12 col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Basic form</h5>
-                        <h6 class="card-subtitle text-muted">Default Bootstrap form layout.</h6>
+                        <h5 class="card-title">User Profile</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ url('update-user') }}" method="POST" enctype="multipart/form-data" id="updateUserForm">

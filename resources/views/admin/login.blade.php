@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="m-sm-4">
                                     <div class="text-center">
-                                        <img src="img/avatars/avatar.jpg" alt="Linda Miller" class="img-fluid rounded-circle" width="132" height="132" />
+                                        <img src="{{ url('img/avatars/avatar.jpg') }}" alt="Linda Miller" class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
                                     <form action="{{ url('admin/login') }}" method="POST">
                                         @csrf

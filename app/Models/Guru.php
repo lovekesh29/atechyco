@@ -32,4 +32,8 @@ class Guru extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new \App\Notifications\GuruVerifyEmail);
     }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\GuruForgotPassword($token));
+    }
 }

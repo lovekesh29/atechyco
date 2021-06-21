@@ -8,9 +8,9 @@
     </a>
     <div class="sidebar-content">
         <div class="sidebar-user">
-            {{-- {!! ($user->imgPath != null) ? '<img src="'. asset('storage/'.Auth::user()->imgPath) .'" class="img-fluid rounded-circle mb-2" alt="'. $user->firstName.' '. $user->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!} --}}
-            {{-- <div class="font-weight-bold">{{ $user->firstName.' '. $user->lastName }}</div> --}}
-            <small>Html Student</small>
+            {!! ($guru->imgPath != null) ? '<img src="'. asset('storage/'.Auth::guard('guru')->user()->imgPath) .'" class="img-fluid rounded-circle mb-2" alt="'. $guru->firstName.' '. $guru->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!} 
+            <div class="font-weight-bold">{{ $guru->firstName.' '. $guru->lastName }}</div>
+            <small>Html Guru</small>
         </div>
 
         <ul class="sidebar-nav">

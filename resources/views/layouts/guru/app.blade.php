@@ -12,8 +12,8 @@
         </script>
     <title></title>
 
-    <link href="{{ url('css/user.css') }}" rel="stylesheet">
-    <script src="{{ url('js/userTop.js') }}"></script>
+    <link href="{{ url('css/guru.css') }}" rel="stylesheet">
+    <script src="{{ url('js/guruTop.js') }}"></script>
 
 <body >
     <div class="splash active">
@@ -27,7 +27,7 @@
             @yield('footer')
         </div>
     </div>
-    <script src="{{ url('js/user.js') }}"></script>
+    <script src="{{ url('js/guru.js') }}"></script>
     <script>
         $(function() {
             $('#datatables-dashboard-projects').DataTable({

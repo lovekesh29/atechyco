@@ -1,3 +1,6 @@
+tinymce.init({
+    selector: '#courseDescription'
+});
 // update user status
 $('.user-status').click(function() {
     var userId = this.id;

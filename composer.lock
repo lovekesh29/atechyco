@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "083dc148c7930c0f7765cd886ac48a7c",
+    "content-hash": "89487e8a03d92649c041bddf1fb75cfd",
     "packages": [
         {
             "name": "ankitpokhrel/tus-php",
@@ -1409,6 +1409,56 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.8.2"
             },
             "time": "2021-04-26T09:17:50+00:00"
+        },
+        {
+            "name": "jildertmiedema/laravel-plupload",
+            "version": "v0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jildertmiedema/laravel-plupload.git",
+                "reference": "a1ab45c3f5568c87b6571a3085680afe6ca2460f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jildertmiedema/laravel-plupload/zipball/a1ab45c3f5568c87b6571a3085680afe6ca2460f",
+                "reference": "a1ab45c3f5568c87b6571a3085680afe6ca2460f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JildertMiedema\\LaravelPlupload": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jildert Miedema",
+                    "email": "jildertmiedema@gmail.com"
+                }
+            ],
+            "description": "Laravel 5/Plupload - Handle large file uploads",
+            "keywords": [
+                "laravel",
+                "large files",
+                "pluload"
+            ],
+            "support": {
+                "issues": "https://github.com/jildertmiedema/laravel-plupload/issues",
+                "source": "https://github.com/jildertmiedema/laravel-plupload/tree/v0.7.1"
+            },
+            "time": "2020-09-11T06:32:39+00:00"
         },
         {
             "name": "laravel/framework",

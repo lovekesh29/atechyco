@@ -1,3 +1,4 @@
+require('sweetalert');
 $('.trending-slider').slick({
     dots: true,
     infinite: true,

@@ -1,13 +1,13 @@
 @extends('layouts.guru.app')
-@include('layouts.guru.sidebar')
-@include('layouts.guru.header')
+@include('layouts.guru.sidebar', ['guru' => $guru])
+@include('layouts.guru.header', ['guru' => $guru])
 @section('home')
 <main class="content">
     <div class="container-fluid">
 
         <div class="header">
             <h1 class="header-title">
-                Welcome back!
+                Welcome back, {{ $guru->firstName.' '. $guru->lastName }}!
             </h1>
             <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
         </div>

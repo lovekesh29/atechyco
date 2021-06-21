@@ -12,6 +12,7 @@ use App\Models\SecurityQuestion;
 use App\Models\Countries;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,24 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('index');
 });
+
+
+
+//user forgot password
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password', ['action' => url('/forgot-password')]);
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', [UserAuth::class, 'forgotPassword'])->middleware('guest')->name('password.email');
+
+Route::get('/reset-password', function (Request $request) {
+    return view('auth.reset-password', ['action' => url('/reset-password'), 'token' => $request->token, 'email' => $request->email]);
+})->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', [UserAuth::class, 'resetPassword'])->middleware('guest')->name('password.reset');
+
+
+
 
 //verify route
 Route::get('/email/verify', function () {
@@ -48,23 +67,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-//Guru Email Verification
 
-//route after verification
-Route::get('guru/email/verify', function () {
-    return view('auth.guru-verify-email');
-})->middleware('auth:guru')->name('verification.notice');
-Route::get('/guru/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect('/guru/dashboard');
-})->middleware(['auth:guru', 'signed'])->name('verification.guruVerify');
-//resend verification link
-Route::post('guru/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth:guru', 'throttle:6,1'])->name('verification.guruSend');
 
 
 
@@ -86,21 +89,58 @@ Route::get('/logout', [UserAuth::class, 'logout']);
 Route::get('/dashboard', [UserController::class, 'dashboard']);
 Route::get('/view-profile', [UserController::class, 'viewProfile']);
 Route::post('/update-user', [UserController::class, 'updateUser']);
+Route::get('/user-settings', [UserController::class, 'userSettings']);
+Route::post('/update-password', [UserController::class, 'updatePassword']);
 
 
 Route::prefix('guru')->group(function () {
+    //Guru Email Verification
+
+    //route after verification
+    Route::get('/email/verify', function () {
+        return view('auth.guru-verify-email');
+    })->middleware('auth:guru')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/guru/dashboard');
+    })->middleware(['auth:guru', 'signed'])->name('verification.guruVerify');
+    //resend verification link
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['auth:guru', 'throttle:6,1'])->name('verification.guruSend');
+
+
+    Route::get('/forgot-password', function () {
+        return view('auth.forgot-password', ['action' => url('guru/forgot-password')]);
+    })->middleware('guest')->name('guruPassword.request');
+
+    Route::post('/forgot-password', [GuruAuth::class, 'forgotPassword'])->middleware('guest')->name('guruPassword.email');
+
+    Route::get('/reset-password', function (Request $request) {
+        return view('auth.reset-password', ['action' => url('guru/reset-password'), 'token' => $request->token, 'email' => $request->email]);
+    })->middleware('guest')->name('guruPassword.reset');
+
+    Route::post('/reset-password', [GuruAuth::class, 'resetPassword'])->middleware('guest')->name('guruPassword.reset');
+
     Route::get('/sign-up', function () {
         $securityQuestions = SecurityQuestion::all();
         $countries = Countries::all();
-        return view('guruSignup', ['securityQuestions' => $securityQuestions, 'countries' => $countries]);
+        return view('guru.guruSignup', ['securityQuestions' => $securityQuestions, 'countries' => $countries]);
     });
     Route::post('/sign-up', [GuruAuth::class, 'register']);
     Route::get('/dashboard', [GuruController::class, 'dashboard']);
     Route::get('/login', function () {
-        return view('guruLogin');
+        return view('guru.guruLogin');
     })->name('guru.login');
     Route::post('/login', [GuruAuth::class, 'authenticate']);
     Route::get('/logout', [GuruAuth::class, 'logout']);
+    Route::get('/view-profile', [GuruController::class, 'viewProfile']);
+    Route::post('/update', [GuruController::class, 'updateGuru']);
+    Route::get('/guru-settings', [GuruController::class, 'userSettings']);
+    Route::post('/update-password', [GuruController::class, 'updatePassword']);
 });
 
 
@@ -108,6 +148,7 @@ Route::prefix('guru')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::view('/', 'admin.login')->name('admin.login');
+    Route::view('/login', 'admin.login')->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'authenticate']);
     Route::get('/logout', [AdminLoginController::class, 'logout']);
 
@@ -116,7 +157,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit-user/{userId}', [AdminController::class, 'editUser']);
     Route::post('/change-user-status', [AdminController::class, 'changeUserStatus']);
     Route::post('/edit-user', [AdminController::class, 'adminEditUser']);
-    Route::get('/upload-video', [CourseManagement::class, 'uploadVideo']);
+    Route::get('/courses', [CourseManagement::class, 'getCourses']);
+    Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
+    Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
+    Route::get('/courses/view-videos', [CourseManagement::class, 'viewVideos']);
 });
 
 

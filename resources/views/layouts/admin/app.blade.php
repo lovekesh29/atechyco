@@ -13,7 +13,8 @@
     </script>
 
     <link href="{{ url('css/admin.css') }}" rel="stylesheet">
-    <script src="{{ url('js/userTop.js') }}"></script>
+    <script src="{{ url('js/adminTop.js') }}"></script>
+    <script src="https://cdn.tiny.cloud/1/emnobbhpgbq07h8fphlimqtkkglockm9b06sspmkz8mg92ly/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <body>
     <div class="splash active">

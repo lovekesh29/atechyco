@@ -1,0 +1,73 @@
+.course-img {
+    max-width: 80px;
+    height: auto;
+}
+
+.popular-course {
+    display: flex;
+}
+
+.course-card {
+    display: flex;
+}
+
+.course-meta {
+    margin-left: 10px;
+}
+
+.milestone-header {
+    flex-wrap: nowrap;
+}
+
+.tutor-img {
+    width: 35px;
+    height: 34px;
+}
+
+.tutor-meta {
+    margin-left: 10px;
+}
+
+.tutor-single.d-flex.w-100 {
+    margin-top: 15px;
+}
+
+.tutor-body {
+    overflow-y: scroll;
+}
+
+.tutor-card {
+    max-height: 60%;
+}
+
+.row.bottom-section {
+    height: 500px;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #1f6521;
+    border-radius: 10px;
+}
+
+.iti {
+    position: relative;
+    display: block;
+}

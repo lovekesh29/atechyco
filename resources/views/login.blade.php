@@ -59,7 +59,7 @@
                               I aggree to tearm & conditions
                             </label>
                             <div class="float-right">
-                                <span class="already-sign-in text-center"><a href="">Forgot Password</a></span>
+                                <span class="already-sign-in text-center"><a href="{{ url('/forgot-password') }}">Forgot Password</a></span>
                             </div>
                         </div>
                         <div class="col-lg-12 text-center">
