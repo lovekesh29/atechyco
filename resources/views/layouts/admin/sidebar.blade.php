@@ -22,7 +22,7 @@
                     <i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
                 </a>
             </li>
-            <li class="sidebar-item {{ request()->is('admin/user') ? 'active' : '' }}"">
+            <li class="sidebar-item {{ request()->is('admin/user') ? 'active' : '' }}">
                 <a href="{{ url('admin/user') }}" class="sidebar-link">
                     <i class="align-middle mr-2 fas fa-fw fa-user"></i> <span class="align-middle">Users</span>
                 </a>
@@ -37,6 +37,11 @@
                    </a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ url('admin/courses/view-videos') }}">View Videos</a></li>
                 </ul>
+            </li>
+            <li class="sidebar-item {{ request()->is('admin/subscriptions') ? 'active' : '' }}">
+                <a href="{{ url('admin/subscriptions') }}" class="sidebar-link">
+                    <i class="align-middle mr-2 fas fa-fw fa-money-check"></i> <span class="align-middle">Subscriptions</span>
+                </a>
             </li>
         </ul>
     </div>

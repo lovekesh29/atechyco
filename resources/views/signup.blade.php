@@ -12,6 +12,7 @@
                     @enderror
                     <form action="{{ url('/sign-up') }}" method="POST" id="signUpForm">
                         @csrf
+                        <input type="hidden" name="referedBy" value="{{ $refredBy }}">
                         <div class="row">
                             <div class="col-lg-6 signup-form-element">
                                 <label class="form-label ">First Name</label>

@@ -1,5 +1,7 @@
 tinymce.init({
-    selector: '#courseDescription'
+    selector: '#description',
+    plugins: 'advlist link image lists',
+    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist'
 });
 // update user status
 $('.user-status').click(function() {

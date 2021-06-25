@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\CreditPoints;
+use App\Models\UserWallet;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -56,8 +58,23 @@ class UserAuth extends Controller
             'status' => 1,
             'dialCode' => $request->dialCode,
         );
-		
         $user = User::create($signupArray);
+        $uniCode = rand(0, 99).$user->id.rand(0, 99);
+        if($request->referedBy != ''){
+            $referer = User::where('uniqueCode', $request->referedBy)->first();
+            $creditPoints = CreditPoints::first();
+            UserWallet::create([
+                'userId' => $referer->id,
+                'creditPoints' => $creditPoints->creditPoints
+            ]);
+            User::where('id', $user->id)
+                  ->update(['uniqueCode' => $uniCode,
+                            'referedBy' => $referer->id]);
+        } else {
+            User::where('id', $user->id)
+                  ->update(['uniqueCode' => $uniCode]);
+        }
+
         event(new Registered($user));
         Auth::login($user);
         return redirect()->intended('/dashboard');

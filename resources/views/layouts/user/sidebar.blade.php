@@ -1,4 +1,7 @@
 @section('sidebar')
+@php
+    $unicode = Auth::user()->uniqueCode;
+@endphp
 <nav id="sidebar" class="sidebar">
     <a class="sidebar-brand" href="index.html">
         <svg>
@@ -10,7 +13,7 @@
         <div class="sidebar-user">
             {!! ($user->imgPath != null) ? '<img src="'. asset('storage/'.Auth::user()->imgPath) .'" class="img-fluid rounded-circle mb-2" alt="'. $user->firstName.' '. $user->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!}
             <div class="font-weight-bold">{{ $user->firstName.' '. $user->lastName }}</div>
-            <small>Html Student</small>
+            <small><b>Referal Link:</b> {{ url('/sign-up?r='.$unicode) }}</small>
         </div>
 
         <ul class="sidebar-nav">

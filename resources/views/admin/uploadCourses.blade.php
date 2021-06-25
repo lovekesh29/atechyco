@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="header">
             <h1 class="header-title">
-                Courses
+                Upload Courses
             </h1>
             <nav aria-label="breadcrumb">
                 @include('layouts.admin.breadcrumb')
@@ -55,7 +55,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Course Descritpion</label>
-                                    <textarea required name="description" class="@error('description') is-invalid @enderror" id="courseDescription" cols="30" rows="10">Type your description here</textarea>
+                                    <textarea required name="description" class="@error('description') is-invalid @enderror" id="description" cols="30" rows="10">Type your description here</textarea>
                                     @error('description')
                                     <label class="error small form-text invalid-feedback">{{ $message }}</label>
                                     @enderror

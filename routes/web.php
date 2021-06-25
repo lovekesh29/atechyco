@@ -73,10 +73,10 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 
 
-Route::get('/sign-up', function () {
+Route::get('/sign-up', function (Request $request) {
     $securityQuestions = SecurityQuestion::all();
     $countries = Countries::all();
-    return view('signup', ['securityQuestions' => $securityQuestions, 'countries' => $countries]);
+    return view('signup', ['securityQuestions' => $securityQuestions, 'countries' => $countries, 'refredBy' => $request->r]);
 });
 Route::get('/login', function () {
     return view('login');
@@ -161,6 +161,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
     Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
     Route::get('/courses/view-videos', [CourseManagement::class, 'viewVideos']);
+    Route::get('/subscriptions', [AdminController::class, 'viewSubscriptions']);
+    Route::get('/add-subscription', [AdminController::class, 'addSubscription']);
+    Route::post('/add-subscription', [AdminController::class, 'addSubscription']);
+    Route::get('/edit-subscription/{encryptedSubscriptionId}', [AdminController::class, 'editSubscription']);
+    Route::post('/update-subscription', [AdminController::class, 'updateSubscription']);
+    Route::get('/settings', [AdminController::class, 'settings']);
+    Route::post('/set-credit-points', [AdminController::class, 'setCreditPoints']);
 });
 
 

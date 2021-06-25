@@ -1,4 +1,7 @@
 @section('header')
+@php
+    $walletCredit = App\Models\UserWallet::where('userId')->sum('creditPoints');
+@endphp
 <nav class="navbar navbar-expand navbar-theme">
     <a class="sidebar-toggle d-flex mr-2">
         <i class="hamburger align-self-center"></i>
@@ -77,8 +80,7 @@
             </li>
             <li class="nav-item dropdown ml-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="alertsDropdown" data-toggle="dropdown">
-                    <i class="align-middle fas fa-bell"></i>
-                    <span class="indicator"></span>
+                    <i class="align-middle fas fa-fw fa-wallet" data-count="{{ $walletCredit }}"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
                     <div class="dropdown-menu-header">
