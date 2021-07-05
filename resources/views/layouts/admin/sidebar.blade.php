@@ -27,6 +27,11 @@
                     <i class="align-middle mr-2 fas fa-fw fa-user"></i> <span class="align-middle">Users</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ request()->is('admin/guru') ? 'active' : '' }}">
+                <a href="{{ url('admin/guru') }}" class="sidebar-link">
+                    <i class="align-middle mr-2 fas fa-fw fa-user"></i> <span class="align-middle">Gurus</span>
+                </a>
+            </li>
             <li class="sidebar-item {{ request()->is('admin/courses') ? 'active' : '' }}">
                 <a href="#courses" data-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle mr-2 fas fa-fw fa-book-reader"></i> <span class="align-middle">Courses</span>

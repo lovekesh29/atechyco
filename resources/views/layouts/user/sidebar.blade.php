@@ -21,7 +21,7 @@
                 Main
             </li>
             <li class="sidebar-item active">
-                <a href="#dashboards" data-toggle="collapse" class="sidebar-link">
+                <a href="{{ url('/dashboard') }}" class="sidebar-link">
                     <i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
                 </a>
                 {{-- <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-parent="#sidebar">

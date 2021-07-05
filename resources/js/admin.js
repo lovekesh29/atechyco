@@ -45,6 +45,49 @@ $('.user-status').click(function() {
             return;
         }
     });
+});
+
+$('.guru-status').click(function() {
+    var guruId = this.id;
+    var guruStatus = $(this).attr('data-status');
+
+    var message = (guruStatus == 0) ? 'Are you sure You want to enable user' : 'Are you sure You want to block user';
+
+    swal({
+        icon: "warning",
+        title: 'Change Guru Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-guru-status',
+                data: { guruId: guruId, guruStatus: guruStatus },
+                success: function(data) {
+                    var messageSuccess = (guruStatus == 1) ? 'User has been blocked' : 'User has been enabled';
+                    swal({
+                        icon: "success",
+                        title: 'Guru Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
 })
 
 

@@ -28,6 +28,15 @@ class Guru extends Authenticatable implements MustVerifyEmail
         'dialCode'
     ];
 
+    public function country()
+    {
+        return $this->belongsTo(Countries::class, 'location', 'countryCode');
+    }
+    public function securityQuestionDetail()
+    {
+        return $this->belongsTo(SecurityQuestion::class, 'securityQuestion');
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new \App\Notifications\GuruVerifyEmail);

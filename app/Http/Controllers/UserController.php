@@ -82,7 +82,7 @@ class UserController extends Controller
 
     public function userSettings(){
         $user = Auth::user();
-        return view('guru.settings', ['user' => $user]);
+        return view('user.settings', ['user' => $user]);
     } 
     public function updatePassword(Request $request){
         $validator = Validator::make($request->all(), [

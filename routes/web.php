@@ -154,9 +154,13 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/user', [AdminController::class, 'users']);
+    Route::get('/guru', [AdminController::class, 'gurus']);
     Route::get('/edit-user/{userId}', [AdminController::class, 'editUser']);
+    Route::get('/edit-guru/{guruId}', [AdminController::class, 'editGuru']);
     Route::post('/change-user-status', [AdminController::class, 'changeUserStatus']);
+    Route::post('/change-guru-status', [AdminController::class, 'changeGuruStatus']);
     Route::post('/edit-user', [AdminController::class, 'adminEditUser']);
+    Route::post('/edit-guru', [AdminController::class, 'adminEditGuru']);
     Route::get('/courses', [CourseManagement::class, 'getCourses']);
     Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
     Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
@@ -169,6 +173,3 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings', [AdminController::class, 'settings']);
     Route::post('/set-credit-points', [AdminController::class, 'setCreditPoints']);
 });
-
-
-
