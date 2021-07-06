@@ -27,6 +27,8 @@
                                 <th>Age</th>
                                 <th>Gender</th>
                                 <th>Location</th>
+                                <th>Referer</th>
+                                <th>Commision Balance</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -42,6 +44,8 @@
                                 <td>{{ $user->age }}</td>
                                 <td>{{ config('custom.gender.'.$user->gender) }}</td>
                                 <td>{{ ($user->location != null) ? $user->country->countryName : '' }}</td>
+                                <td>{{ ($user->referer != null) ? $user->referer->firstName : 'NA' }}</td>
+                                <td>{{ $user->commison_balance_sum_credit_points }}</td>
                                 <td class="table-action">
                                     <a href="{{ url('/admin/edit-user/'.Crypt::encryptString($user->id)) }}" data-toggle="tooltip" data-placement="top" title="Edit User"><i class="align-middle fas fa-fw fa-user-edit"></i></a>
                                     {!! ($user->status == 1) ? '<a href="#" class="user-status" data-status="'.$user->status.'" id="user_'.$user->id.'" data-toggle="tooltip" data-placement="top" title="Block User"><i class="align-middle fas fa-fw fa-ban"></i></a>' : '<a href="#" data-status="'.$user->status.'" class="user-status" id="user_'.$user->id.'" data-toggle="tooltip" data-placement="top" title="Approve User"><i class="align-middle fas fa-fw fa-check-circle"></i></a>' !!}

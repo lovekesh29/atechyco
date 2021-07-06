@@ -91,6 +91,9 @@ Route::get('/view-profile', [UserController::class, 'viewProfile']);
 Route::post('/update-user', [UserController::class, 'updateUser']);
 Route::get('/user-settings', [UserController::class, 'userSettings']);
 Route::post('/update-password', [UserController::class, 'updatePassword']);
+Route::get('/user-phone-verification', [UserController::class, 'sendVerificationOtp']);
+Route::view('/otp-verifcation-form', 'user.otpVerificationForm');
+Route::post('/verify-user-phone', [UserController::class, 'verifyUserPhone']);
 
 
 Route::prefix('guru')->group(function () {
@@ -141,6 +144,10 @@ Route::prefix('guru')->group(function () {
     Route::post('/update', [GuruController::class, 'updateGuru']);
     Route::get('/guru-settings', [GuruController::class, 'userSettings']);
     Route::post('/update-password', [GuruController::class, 'updatePassword']);
+
+    Route::get('/user-phone-verification', [GuruController::class, 'sendVerificationOtp']);
+    Route::view('/otp-verifcation-form', 'guru.otpVerificationForm');
+    Route::post('/verify-user-phone', [GuruController::class, 'verifyUserPhone']);
 });
 
 

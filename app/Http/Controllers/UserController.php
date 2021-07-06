@@ -17,6 +17,95 @@ class UserController extends Controller
     {
         $this->middleware(['auth', 'verified']);
     }
+    public function sendVerificationOtp()
+    {
+        $user = Auth::user();
+        //dd($user);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://2factor.in/API/V1/".config('custom.2FactorApiKey')."/SMS/".$user->phoneNo."/AUTOGEN",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_POSTFIELDS => "",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        $data =  json_decode($response);
+        }
+        return redirect('/otp-verifcation-form')->with('sessionId', $data->Details);
+    }
+    public function verifyUserPhone(Request $request)
+    {
+        $rules = [
+            'sessionId' => 'required',
+            'otp' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages = [
+            'sessionId.required' => 'Invalid Request Sent'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://2factor.in/API/V1/".config('custom.2FactorApiKey')."/SMS/VERIFY/".$request->sessionId."/".$request->otp,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_POSTFIELDS => "",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+            $data =  json_decode($response);
+        }
+
+        if($data->Status == "Error"){
+            session(['sessionId' => $request->sessionId]);
+            $request->session()->flash('Error', $data->Details);
+            return back();
+        }
+        else{
+        $data = User::where('id', Auth::id())
+                ->update(['phoneVerified' => '1']);
+        $user = Auth::user();
+        $user->phoneVerified = '1';
+        $user->save();
+        }
+        $request->session()->forget('sessionId');
+        return redirect('/dashboard')->with('status', 'Phone No. Verified Successfully');
+    }
     public function dashboard(){
         $user = Auth::user();
 

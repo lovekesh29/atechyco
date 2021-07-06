@@ -90,3 +90,7 @@
     position: relative;
     display: block;
 }
+
+.invalid-feedback {
+    display: block;
+}

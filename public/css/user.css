@@ -32763,3 +32763,7 @@ button.toast-close-button {
     position: relative;
     display: block;
 }
+
+.invalid-feedback {
+    display: block;
+}

@@ -2,15 +2,18 @@
 @include('layouts.user.sidebar', ['user' => $user])
 @include('layouts.user.header', ['user' => $user])
 @section('home')
+@if (Session::has('status'))
+<script>
+    swal({
+        icon: "success",
+        title: 'Success',
+        text: "{{ Session::get('status') }}"
+    })
+</script>    
+@endif
 <main class="content">
     <div class="container-fluid">
-
-        <div class="header">
-            <h1 class="header-title">
-                Welcome back, {{ $user->firstName.' '. $user->lastName }}!
-            </h1>
-            <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
-        </div>
+        @include('templates.user.dashboardHeader', ['user' => $user])
 
         <div class="row">
             <div class="col-xl-8 col-xxl-7">

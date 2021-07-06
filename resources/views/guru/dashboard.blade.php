@@ -2,15 +2,19 @@
 @include('layouts.guru.sidebar', ['guru' => $guru])
 @include('layouts.guru.header', ['guru' => $guru])
 @section('home')
+@if (Session::has('status'))
+<script>
+    swal({
+        icon: "success",
+        title: 'Success',
+        text: "{{ Session::get('status') }}"
+    })
+</script>    
+@endif
 <main class="content">
     <div class="container-fluid">
 
-        <div class="header">
-            <h1 class="header-title">
-                Welcome back, {{ $guru->firstName.' '. $guru->lastName }}!
-            </h1>
-            <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
-        </div>
+        @include('templates.guru.dashboardHeader', ['guru' => $guru])
 
         <div class="row">
             <div class="col-xl-8 col-xxl-7">

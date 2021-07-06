@@ -23,7 +23,8 @@ class AdminController extends Controller
     }
 
     public function users(){
-        $users = User::with('country')->get();
+        $users = User::with('country')->with('referer')->withSum('commisonBalance', 'creditPoints')->get();
+        //dd($users);
         return view('admin.users', ['users' => $users]);
     }
     public function gurus(){

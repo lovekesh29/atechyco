@@ -14,12 +14,7 @@
 <main class="content">
     <div class="container-fluid">
 
-        <div class="header">
-            <h1 class="header-title">
-                Welcome back, {{ $user->firstName.' '. $user->lastName }}!
-            </h1>
-            <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
-        </div>
+        @include('templates.user.dashboardHeader', ['user' => $user])
         <div class="row">
             <div class="col-12 col-xl-12">
                 <div class="card">

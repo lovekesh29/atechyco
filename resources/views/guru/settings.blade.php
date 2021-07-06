@@ -23,12 +23,7 @@
 <main class="content">
     <div class="container-fluid">
 
-        <div class="header">
-            <h1 class="header-title">
-                Welcome back, {{ $guru->firstName.' '. $guru->lastName }}!
-            </h1>
-            <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
-        </div>
+        @include('templates.guru.dashboardHeader', ['guru' => $guru])
         <div class="row">
             <div class="col-md-3 col-xl-2">
                 <div class="card">

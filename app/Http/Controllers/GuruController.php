@@ -17,6 +17,97 @@ class GuruController extends Controller
     {
         $this->middleware(['auth:guru', 'verified']);
     }
+    public function sendVerificationOtp()
+    {
+        $guru = Auth::guard('guru')->user();
+        //dd($user);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://2factor.in/API/V1/".config('custom.2FactorApiKey')."/SMS/".$guru->phoneNo."/AUTOGEN",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_POSTFIELDS => "",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+        $data =  json_decode($response);
+        }
+        return redirect('guru/otp-verifcation-form')->with('sessionId', $data->Details);
+    }
+    public function verifyUserPhone(Request $request)
+    {
+        $rules = [
+            'sessionId' => 'required',
+            'otp' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages = [
+            'sessionId.required' => 'Invalid Request Sent'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "http://2factor.in/API/V1/".config('custom.2FactorApiKey')."/SMS/VERIFY/".$request->sessionId."/".$request->otp,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_POSTFIELDS => "",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+            $data =  json_decode($response);
+        }
+
+        if($data->Status == "Error"){
+            session(['sessionId' => $request->sessionId]);
+            $request->session()->flash('Error', $data->Details);
+            return back();
+        }
+        else{
+        $data = Guru::where('id', Auth::guard('guru')->id())
+                ->update(['phoneVerified' => '1']);
+                //dd($data);
+        $guru = Auth::guard('guru')->user();
+        $guru->phoneVerified = '1';
+        $guru->save();
+        //dd(Auth::guard('guru')->user());
+        }
+        $request->session()->forget('sessionId');
+        return redirect('guru/dashboard')->with('status', 'Phone No. Verified Successfully');
+    }
     public function dashboard(){
         $guru = Auth::guard('guru')->user();
 

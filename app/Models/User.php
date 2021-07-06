@@ -59,4 +59,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Countries::class, 'location', 'countryCode');
     }
+    public function referer()
+    {
+        return $this->belongsTo(User::class, 'referedBy');
+    }
+    public function commisonBalance()
+    {
+        return $this->hasMany(UserWallet::class, 'userId');
+    }
 }
