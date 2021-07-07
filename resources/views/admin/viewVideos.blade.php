@@ -9,7 +9,7 @@
                 Courses
             </h1>
             <nav aria-label="breadcrumb">
-                @include('layouts.admin.breadcrumb')
+                <span class="header-title"><strong>Course Name: </strong>{{ $videosData[0]->getCourse->title }} </span>
             </nav>
         </div>
         <div class="row">
@@ -26,8 +26,9 @@
                         <thead>
                             
                             <tr>
-                                <th style="width:40%;">Course Name</th>
+                                
                                 <th style="width:25%">Video Name</th>
+                                <th style="width:40%;">Video Description</th>
                                 <th class="d-none d-md-table-cell" style="width:25%">Video Url</th>
                                 <th>Actions</th>
                             </tr>
@@ -35,11 +36,15 @@
                         <tbody>
                             @foreach ($videosData as $videoData)
                             <tr>
-                                <td>{{ $videoData->getCourse->title }}</td>
-                                <td>{{ $videoData->name }}</td>
-                                <td class="d-none d-md-table-cell">{{ $videoData->videoUrl }}</td>
+                                @php
+                                    $videoArray = explode('/', $videoData->videoUrl);
+                                    $fullVideoLink = config('vimeo.vimeoMailLink').$videoArray[2];
+                                @endphp
+                                <td>{!! ($videoData->name != null) ? $videoData->name : '<a href="'. url("admin/video/".Crypt::encryptString($videoData->videoUrl)) .'">Click Here To Add Name & Description' !!}</td>
+                                <td>{!! $videoData->description !!}</td>
+                                <td class="d-none d-md-table-cell"> <a href="{{ $fullVideoLink }}" target="_blank">Watch Video</a></td>
                                 <td class="table-action">
-                                    <a href="#"><i class="align-middle fas fa-fw fa-pen"></i></a>
+                                    <a href="{{ url("admin/video/".Crypt::encryptString($videoData->videoUrl)) }}"><i class="align-middle fas fa-fw fa-pen"></i></a>
                                     <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>

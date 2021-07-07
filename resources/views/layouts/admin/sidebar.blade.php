@@ -33,15 +33,9 @@
                 </a>
             </li>
             <li class="sidebar-item {{ request()->is('admin/courses') ? 'active' : '' }}">
-                <a href="#courses" data-toggle="collapse" class="sidebar-link collapsed">
+                <a href="{{ url('admin/courses') }}" class="sidebar-link">
                     <i class="align-middle mr-2 fas fa-fw fa-book-reader"></i> <span class="align-middle">Courses</span>
                 </a>
-                <ul id="courses" class="sidebar-dropdown list-unstyled collapse" data-parent="#sidebar" style="">
-                    <li class="sidebar-item"><a href="{{ url('admin/courses') }}" class="sidebar-link">
-                        <span class="align-middle">Courses</span>
-                   </a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="{{ url('admin/courses/view-videos') }}">View Videos</a></li>
-                </ul>
             </li>
             <li class="sidebar-item {{ request()->is('admin/subscriptions') ? 'active' : '' }}">
                 <a href="{{ url('admin/subscriptions') }}" class="sidebar-link">

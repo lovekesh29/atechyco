@@ -136,7 +136,7 @@ class GuruController extends Controller
                     ->withInput();
         }
 
-        $path = null;
+        $path = (Auth::guard('guru')->user()->imgPath == null) ? null : Auth::guard('guru')->user()->imgPath;
 
         if($request->has('profileImg'))
         {

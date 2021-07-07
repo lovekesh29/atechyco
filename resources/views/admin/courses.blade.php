@@ -40,7 +40,7 @@
                         <tbody>
                             @foreach ($courses as $course)
                             <tr>
-                                <td>{{ substr($course->title, 0, 50) }}</td>
+                                <td> <a href="{{ url('admin/course/view-videos/'.Crypt::encryptString($course->id)) }}">{{ substr($course->title, 0, 50) }}</a> </td>
                                 <td>{{ ($course->author == 0)  ? 'Admin' :  $course->authorName->firstName.' '.$course->authorName->lastName }}</td>
                                 <td class="d-none d-md-table-cell">{!! substr($course->description, 0, 50) !!}</td>
                                 <td class="table-action">

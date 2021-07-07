@@ -171,7 +171,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/courses', [CourseManagement::class, 'getCourses']);
     Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
     Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
-    Route::get('/courses/view-videos', [CourseManagement::class, 'viewVideos']);
+    Route::get('/course/view-videos/{encryptedCourseId}', [CourseManagement::class, 'viewVideos']);
+    Route::get('/video/{encryptedVideoUrl}', [CourseManagement::class, 'videoDetailsForm']);
+    Route::post('/upload-videoMeta', [CourseManagement::class, 'uploadVideoMeta']);
     Route::get('/subscriptions', [AdminController::class, 'viewSubscriptions']);
     Route::get('/add-subscription', [AdminController::class, 'addSubscription']);
     Route::post('/add-subscription', [AdminController::class, 'addSubscription']);

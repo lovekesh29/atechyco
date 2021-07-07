@@ -135,7 +135,7 @@ class UserController extends Controller
                     ->withInput();
         }
 
-        $path = null;
+        $path = (Auth::user()->imgPath == null) ? null : Auth::user()->imgPath;
 
         if($request->has('profileImg'))
         {
