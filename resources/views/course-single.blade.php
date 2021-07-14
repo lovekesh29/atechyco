@@ -54,40 +54,7 @@
                                     position to deliver these goals.
                                     </p>
                                     <h3 class="mb-3 mt-4">What you will learn</h3>
-                                    <div class="mb-3">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Strategic business partner
-                                            </li>
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Experienced outside view
-                                            </li>
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Unbiased objective advice
-                                            </li>
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Bespoke tailored approach
-                                            </li>
-                                        </ul>
-                                        </div>
-                                        <div class="col-lg-7 col-md-6 col-12">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Inspiration for your team to reach their potential to achieve their goals
-                                            </li>
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>Flexibility
-                                            </li>
-                                            <li>
-                                            <i class="fas fa-check-circle mr-2 font-13 text-success"></i>No permanent cost base
-                                            </li>
-                                            
-                                        </ul>
-                                        </div>
-                                    </div>
-                                    </div>
+                                    
                 
                                     <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
