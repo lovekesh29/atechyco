@@ -40,10 +40,6 @@
     max-height: 60%;
 }
 
-.row.bottom-section {
-    height: 500px;
-}
-
 .fas[data-count] {
     position: relative;
 }
