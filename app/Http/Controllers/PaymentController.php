@@ -16,7 +16,7 @@ class PaymentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        //$this->middleware(['auth', 'verified']);
     }
     public function viewPaymentPage($encryptedSubscriptionId){
         $subscriptionId = Crypt::decryptString($encryptedSubscriptionId);
