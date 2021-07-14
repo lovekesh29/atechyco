@@ -27,6 +27,7 @@
             @yield('footer')
         </div>
     </div>
+    @yield('scripts')
     <script src="{{ url('js/user.js') }}"></script>
     <script>
         $(function() {

@@ -47,6 +47,49 @@ $('.user-status').click(function() {
     });
 });
 
+$('.course-status').click(function() {
+    var courseId = this.id;
+    var courseStatus = $(this).attr('data-status');
+
+    var message = (courseStatus == 0) ? 'Are you sure You want to activate course' : 'Are you sure You want to deactivate course';
+
+    swal({
+        icon: "warning",
+        title: 'Change Course Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-course-status',
+                data: { courseId: courseId, courseStatus: courseStatus },
+                success: function(data) {
+                    var messageSuccess = (courseStatus == 1) ? 'Course has been deactivated' : 'Course has been activated';
+                    swal({
+                        icon: "success",
+                        title: 'Course Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
+});
+
 $('.guru-status').click(function() {
     var guruId = this.id;
     var guruStatus = $(this).attr('data-status');

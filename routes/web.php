@@ -6,6 +6,8 @@ use App\Http\Controllers\CourseManagement;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserCourseManagement;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\GuruAuth;
 use App\Models\SecurityQuestion;
@@ -94,6 +96,12 @@ Route::post('/update-password', [UserController::class, 'updatePassword']);
 Route::get('/user-phone-verification', [UserController::class, 'sendVerificationOtp']);
 Route::view('/otp-verifcation-form', 'user.otpVerificationForm');
 Route::post('/verify-user-phone', [UserController::class, 'verifyUserPhone']);
+Route::get('/watch-course/{encryptedCourseId}', [UserCourseManagement::class, 'watchCourse']);
+Route::get('/update-video-status', [UserCourseManagement::class, 'updateUserVideoStatus']);
+Route::get('/subscriptions', function(){
+    return view('user.subscription');
+});
+Route::get('/payment', [PaymentController::class, 'viewPaymentPage']);
 
 
 Route::prefix('guru')->group(function () {
@@ -145,9 +153,9 @@ Route::prefix('guru')->group(function () {
     Route::get('/guru-settings', [GuruController::class, 'userSettings']);
     Route::post('/update-password', [GuruController::class, 'updatePassword']);
 
-    Route::get('/user-phone-verification', [GuruController::class, 'sendVerificationOtp']);
+    Route::get('/guru-phone-verification', [GuruController::class, 'sendVerificationOtp']);
     Route::view('/otp-verifcation-form', 'guru.otpVerificationForm');
-    Route::post('/verify-user-phone', [GuruController::class, 'verifyUserPhone']);
+    Route::post('/verify-guru-phone', [GuruController::class, 'verifyUserPhone']);
 });
 
 
@@ -171,6 +179,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/courses', [CourseManagement::class, 'getCourses']);
     Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
     Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
+    Route::Post('/update-course', [CourseManagement::class, 'updateCourse']);
+    Route::get('/edit-course/{encryptedCourseId}', [CourseManagement::class, 'editCourseView']);
     Route::get('/course/view-videos/{encryptedCourseId}', [CourseManagement::class, 'viewVideos']);
     Route::get('/video/{encryptedVideoUrl}', [CourseManagement::class, 'videoDetailsForm']);
     Route::post('/upload-videoMeta', [CourseManagement::class, 'uploadVideoMeta']);
@@ -181,4 +191,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/update-subscription', [AdminController::class, 'updateSubscription']);
     Route::get('/settings', [AdminController::class, 'settings']);
     Route::post('/set-credit-points', [AdminController::class, 'setCreditPoints']);
+    Route::post('/change-course-status', [CourseManagement::class, 'changeCourseStatus']);
 });

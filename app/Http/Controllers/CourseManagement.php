@@ -19,38 +19,44 @@ class CourseManagement extends Controller
     }
     public function getCourses()
     {
-        $courses = Courses::with('authorName')->get();
+        $courses = Courses::with('authorName')->paginate(10);
         return view('admin.courses', ['courses' => $courses]);
     }
-    public function uploadCourseView(){
+    public function uploadCourseView(Request $request)
+    {
         $guru = Guru::all();
         return view('admin.uploadCourses', ['gurus' => $guru]);
-        
+    }
+    public function editCourseView($encryptedCourseId){
+        $courseId = Crypt::decryptString($encryptedCourseId);
+        $courseDetail = Courses::with('authorName')->where('id', $courseId)->first();
+        $guru = Guru::all();
+        //session(['editCourse' => true]);
+        return view('admin.editCourses', ['courseDetail' => $courseDetail, 'gurus' => $guru]);
     }
     public function uploadCourse(Request $request){
-
         $rules = [
             'title' => 'required',
             'author' => 'required|numeric',
             'description' => 'required',
             'videoFiles' => 'required'
         ];
+        
         $validator = Validator::make($request->all(), $rules, $message =[
-            'author.numeric' => 'Invalid Author Selected',
-            'dialCode.required' => 'Invalid request'
+            'author.numeric' => 'Invalid Author Selected'
         ]);
         if ($validator->fails()) {
             return back()
                     ->withErrors($validator)
                     ->withInput();
         }
-        
-        // 
         $insertedCourseData = Courses::create([
+            'status' => '1',
             'title' => $request->title,
             'author' => $request->author,
-            'description' => $request->description,
+            'description' => $request->description
         ]);
+
         if($request->has('videoFiles'))
         {
             $i = 0;
@@ -59,18 +65,59 @@ class CourseManagement extends Controller
                 $uploadVideodata[$i]['videoUrl'] = Vimeo::upload($file); 
                 $uploadVideodata[$i]['courseId'] = $insertedCourseData->id;
                 $uploadVideodata[$i]['videoOrder'] = $i;
+                $uploadVideodata[$i]['status'] = '1';
                 $i++;
             }
+            CourseVideo::insert($uploadVideodata);
         }
-        //dd($uploadVideodata);
-        CourseVideo::insert($uploadVideodata);
-
         return back()->with('successfull', 'Course Uploaded Successfull');
+    }
+    public function updateCourse(){
+        $rules = [
+            'courseId' => 'required',
+            'title' => 'required',
+            'author' => 'required|numeric',
+            'description' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules, $message =[
+            'author.numeric' => 'Invalid Author Selected',
+            'courseId.required' => 'Invalid Request Sent'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        $courseId = Crypt::decryptString($request->courseId);
+        Courses::where('id', $courseId)
+        ->update([
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+        ]);
+        if($request->has('videoFiles'))
+        {
+            $videoOrder = CourseVideo::where('courseId', $courseId)->max('videoOrder');
+            $i = 0;
+            $newVideoOrder = $videoOrder+1;
+            foreach($request->file('videoFiles') as $file)
+            {
+                $uploadVideodata[$i]['videoUrl'] = Vimeo::upload($file); 
+                $uploadVideodata[$i]['courseId'] = $courseId;
+                $uploadVideodata[$i]['videoOrder'] = $newVideoOrder;
+                $uploadVideodata[$i]['status'] = '1';
+                $i++;
+                $newVideoOrder++;
+            }
+            CourseVideo::insert($uploadVideodata);
+        }
+        return back()->with('successfull', 'Course Uploaded Successfull');
+
     }
     public function viewVideos($encryptedCourseId){
         $courseId = Crypt::decryptString($encryptedCourseId);
 
-        $videosData = CourseVideo::with('getCourse')->where('courseId', $courseId)->orderBy('videoOrder')->get();
+        $videosData = CourseVideo::with('getCourse')->where('courseId', $courseId)->orderBy('videoOrder')->paginate(10);
         
         return view('admin.viewVideos', ['videosData' => $videosData]);
     }
@@ -128,5 +175,18 @@ class CourseManagement extends Controller
                           'videoOrder' => $request->videoOrder]); 
 
         return back()->with('status', 'Video Meta Updated successfully');
+    }
+    public function changeCourseStatus(Request $request){
+        $courseId = Crypt::decryptString($request->courseId);
+        $updatedCourseStatus = ($request->courseStatus == 0) ? '1' : '0';
+
+        $course = Courses::findOrFail($courseId);
+        $course->status = $updatedCourseStatus;
+        $course->save();
+
+        CourseVideo::where('courseId', $courseId)
+                    ->update([
+                        'status' => $updatedCourseStatus
+                    ]);
     }
 }

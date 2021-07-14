@@ -22,11 +22,17 @@
                         <h5 class="card-title mb-0">Popular courses</h5>
                     </div>
                     <div class="card-body popular-course py-3">
+                        @foreach ($popularCourses as $popularCourse)
                         <div class="course-card">
-                            <img class="course-img rounded img-fluid" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
+                            @if ($popularCourse->author != 0)
+                            {!! ($popularCourse->authorName->imgPath != null) ? '<img class="course-img rounded img-fluid" style="width: 80px; height: 80px" src="'. asset('storage/'.$popularCourse->authorName->imgPath) .'" alt="'. $popularCourse->authorName->firstName.' '. $popularCourse->authorName->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!}
+                            @else
+                                {!! '<i class="align-middle fas fa-fw fa-user"></i>' !!}
+                            @endif
+                            
                             <div class="course-meta">
-                                <h6>The omplete Graphic Design Theory for Beginners</h6>
-                                <span>By: Random Person</span>
+                                <h6> <a href="{{ url('watch-course/'.Crypt::encryptString($popularCourse->id)) }}">{{ $popularCourse->title }}</a> </h6>
+                                <span>By: {{ ($popularCourse->author == 0) ? 'Admin' : $popularCourse->authorName->firstName.' '.$popularCourse->authorName->lastName }}</span>
                                 <br>
                                 <span>
                                     <i class="align-middle mr-2 fas fa-fw fa-star"></i>
@@ -36,29 +42,13 @@
                                     <i class="align-middle mr-2 fas fa-fw fa-star"></i>
                                     4.5 (2028)
                                 </span>
-                                
                             </div>
                         </div>
-                        <div class="course-card">
-                            <img class="course-img rounded img-fluid" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                            <div class="course-meta">
-                                <h6>The omplete Graphic Design Theory for Beginners</h6>
-                                <span>By: Random Person</span>
-                                <br>
-                                <span>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    4.5 (2028)
-                                </span>
-                                
-                            </div>
-                        </div>
+                            
+                        @endforeach
                     </div>
                 </div>
-                <div class="card flex-fill w-100">
+                {{-- <div class="card flex-fill w-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0">UpComing Courses</h5>
                     </div>
@@ -85,7 +75,7 @@
                             <h6>The omplete Graphic Design Theory for Beginners</h6>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="col-xl-4 col-xxl-5 d-flex">

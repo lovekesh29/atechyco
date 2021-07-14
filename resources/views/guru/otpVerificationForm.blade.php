@@ -33,7 +33,7 @@
                         @error('sessionId')
                             <label class="error form-text invalid-feedback" for="validation-email">{{ $message }}</label>
                         @enderror
-                        <form action="{{ url('guru/verify-user-phone') }}" method="POST">
+                        <form action="{{ url('guru/verify-guru-phone') }}" method="POST">
                             @csrf
                             <input type="hidden" name="sessionId" value="{{ Session::get('sessionId') }}">
                             <div class="form-row">

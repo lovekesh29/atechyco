@@ -44,17 +44,19 @@
                                 <td>{{ ($course->author == 0)  ? 'Admin' :  $course->authorName->firstName.' '.$course->authorName->lastName }}</td>
                                 <td class="d-none d-md-table-cell">{!! substr($course->description, 0, 50) !!}</td>
                                 <td class="table-action">
-                                    <a href="#"><i class="align-middle fas fa-fw fa-pen"></i></a>
-                                    <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
+                                    <a href="{{ url('admin/edit-course/'.Crypt::encryptString($course->id)) }}"><i class="align-middle fas fa-fw fa-pen"></i></a>
+                                    {!! ($course->status == 1) ? '<a href="#" class="course-status" id="'.Crypt::encryptString($course->id).'" data-status="'.$course->status.'" data-toggle="tooltip" data-placement="top" data-original-title="Deactivate Course"><i class="align-middle fas fa-fw fa-ban"></i></a>' : '<a href="#" class="course-status" data-status="'.$course->status.'" id="'.Crypt::encryptString($course->id).'" data-toggle="tooltip" data-placement="top" data-original-title="Activate Course"><i class="align-middle fas fa-fw fa-check-circle"></i></a>' !!}
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="custom-pagination">
+                        {{ $courses->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 @endsection

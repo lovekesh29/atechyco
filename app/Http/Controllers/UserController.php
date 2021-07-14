@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Countries;
 use App\Models\User;
+use App\Models\Courses;
 
 class UserController extends Controller
 {
@@ -104,12 +105,15 @@ class UserController extends Controller
         $user->save();
         }
         $request->session()->forget('sessionId');
+        $request->session()->save();
         return redirect('/dashboard')->with('status', 'Phone No. Verified Successfully');
     }
     public function dashboard(){
         $user = Auth::user();
+        $popularCourses = Courses::with('authorName')->where('status', 1)->inRandomOrder()->limit(2)->get();
+        //dd($popularCourses);
 
-        return view('user.dashboard', ['user' => $user]);
+        return view('user.dashboard', ['user' => $user, 'popularCourses' => $popularCourses]);
         //dd($user);
         //$decryptedUserId = Crypt::decryptString($userId);
     }

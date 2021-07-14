@@ -94,3 +94,8 @@
 .invalid-feedback {
     display: block;
 }
+
+.custom-pagination {
+    margin-left: 10px;
+    margin-top: 10px;
+}

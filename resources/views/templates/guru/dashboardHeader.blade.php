@@ -6,7 +6,7 @@
     @if(Auth::guard('guru')->user()->phoneVerified != '1')
     <div class="alert alert-danger alert-dismissible" role="alert">
         <div class="alert-message">
-            <strong>Hello {{ $guru->firstName.' '. $guru->lastName }}</strong> Your Phone No. is not verified. Verify it now by  <a href="{{ url('guru/user-phone-verification') }}">clicking here</a> 
+            <strong>Hello {{ $guru->firstName.' '. $guru->lastName }}</strong> Your Phone No. is not verified. Verify it now by  <a href="{{ url('guru/guru-phone-verification') }}">clicking here</a> 
         </div>
     </div>
     @endif

@@ -37,8 +37,8 @@
                             @foreach ($videosData as $videoData)
                             <tr>
                                 @php
-                                    $videoArray = explode('/', $videoData->videoUrl);
-                                    $fullVideoLink = config('vimeo.vimeoMailLink').$videoArray[2];
+                                    $videoId = App\Http\Controllers\Controller::getVideoId($videoData->videoUrl);
+                                    $fullVideoLink = config('vimeo.vimeoMailLink').$videoId;
                                 @endphp
                                 <td>{!! ($videoData->name != null) ? $videoData->name : '<a href="'. url("admin/video/".Crypt::encryptString($videoData->videoUrl)) .'">Click Here To Add Name & Description' !!}</td>
                                 <td>{!! $videoData->description !!}</td>
@@ -51,6 +51,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="custom-pagination">
+                        {{ $videosData->links('vendor.pagination.bootstrap-4') }}
+                    </div>
                 </div>
             </div>
         </div>
