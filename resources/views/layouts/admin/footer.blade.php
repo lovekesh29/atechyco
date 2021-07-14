@@ -20,7 +20,7 @@
             </div>
             <div class="col-4 text-right">
                 <p class="mb-0">
-                    &copy; 2020 - <a href="dashboard-default.html" class="text-muted">Spark</a>
+                    &copy; 2020 - <a href="dashboard-default.html" class="text-muted">Atechyco</a>
                 </p>
             </div>
         </div>

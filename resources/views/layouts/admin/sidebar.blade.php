@@ -4,7 +4,7 @@
         <svg>
             <use xlink:href="#ion-ios-pulse-strong"></use>
         </svg>
-        Spark
+        Atechyco
     </a>
     <div class="sidebar-content">
         <div class="sidebar-user">
