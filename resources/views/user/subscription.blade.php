@@ -14,49 +14,21 @@
             <!-- Pricing Table starts -->
             <div class="row">
                 <div class="col-md-4">
-                    <div class="price-card ">
-                        <h2>Personal</h2>
+                    @php
+                        $i=0;
+                    @endphp
+                    @foreach ($subscriptionPackage as $subscriptionPackage)
+                    <div class="price-card {{ ($i%2 == 0) ? 'featured' : '' }}">
+                        <h2>{{ $subscriptionPackage->name }}</h2>
                         <p>The standard version</p>
-                        <p class="price"><span>49</span>/ Month</p>
-                        <ul class="pricing-offers">
-                            <li>6 Domain Names</li>
-                            <li>8 E-Mail Address</li>
-                            <li>10GB Disk Space</li>
-                            <li>Monthly Bandwidth</li>
-                            <li>Powerful Admin Panel</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-mid">Buy Now</a>
+                        <p class="price"><span>{{ $subscriptionPackage->price }}</span>/ Month</p>
+                        {!! $subscriptionPackage->description !!}
+                        <a href="{{ url('/payment/'.Crypt::encryptString($subscriptionPackage->id)) }}" class="btn btn-primary btn-mid">Buy Now</a>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-card featured">
-                        <h2>Student</h2>
-                        <p>Most popular choice</p>
-                        <p class="price"><span>69</span>/ Month</p>
-                        <ul class="pricing-offers">
-                            <li>6 Domain Names</li>
-                            <li>8 E-Mail Address</li>
-                            <li>10GB Disk Space</li>
-                            <li>Monthly Bandwidth</li>
-                            <li>Powerful Admin Panel</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-mid">Buy Now</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-card ">
-                        <h2>Business</h2>
-                        <p>For the whole team</p>
-                        <p class="price"><span>89</span>/ Month</p>
-                        <ul class="pricing-offers">
-                            <li>6 Domain Names</li>
-                            <li>8 E-Mail Address</li>
-                            <li>10GB Disk Space</li>
-                            <li>Monthly Bandwidth</li>
-                            <li>Powerful Admin Panel</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary btn-mid">Buy Now</a>
-                    </div>
+                    @php
+                        $i++;
+                    @endphp
+                    @endforeach
                 </div>
             </div>
         </div>

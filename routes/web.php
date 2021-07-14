@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CourseManagement;
 use App\Http\Controllers\AdminController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\UserAuth;
 use App\Http\Controllers\GuruAuth;
 use App\Models\SecurityQuestion;
 use App\Models\Countries;
+use App\Models\Subscription;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -27,9 +29,7 @@ use Illuminate\Support\Facades\Password;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [MainController::class, 'index']);
 
 
 
@@ -99,9 +99,15 @@ Route::post('/verify-user-phone', [UserController::class, 'verifyUserPhone']);
 Route::get('/watch-course/{encryptedCourseId}', [UserCourseManagement::class, 'watchCourse']);
 Route::get('/update-video-status', [UserCourseManagement::class, 'updateUserVideoStatus']);
 Route::get('/subscriptions', function(){
-    return view('user.subscription');
+    $subscriptionPackage = Subscription::all();
+
+    return view('user.subscription', ['subscriptionPackage' => $subscriptionPackage]);
 });
-Route::get('/payment', [PaymentController::class, 'viewPaymentPage']);
+Route::get('/payment/{encryptedSubscriptionId}', [PaymentController::class, 'viewPaymentPage']);
+
+Route::get('/course', function(){
+    return view('course-single');
+});
 
 
 Route::prefix('guru')->group(function () {

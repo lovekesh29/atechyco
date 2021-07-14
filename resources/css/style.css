@@ -1,6 +1,10 @@
 body {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Mulish', serif;
     background-color: #fff;
+}
+
+.card {
+    background-color: #a4a71e;
 }
 
 .primary-background-color {
@@ -35,12 +39,66 @@ body {
     width: 100%;
     float: left;
     height: 500px;
-    background: url(../images/girl-is-reading-book-cafe.jpg) no-repeat center;
+    background: linear-gradient( 180deg, rgba(30, 24, 53, 0.4) 0%, rgba(30, 24, 53, 0.4) 90.16%), url(../images/girl-is-reading-book-cafe.jpg) no-repeat center;
     background-size: cover;
+}
+
+.course-banner {
+    width: 100%;
+    float: left;
+    background: linear-gradient( 180deg, rgba(30, 24, 53, 0.4) 0%, rgba(30, 24, 53, 0.4) 90.16%), url(../images/girl-is-reading-book-cafe.jpg) no-repeat center;
+    background-size: cover;
+    position: relative;
+}
+
+.course-banner:after {
+    position: absolute;
+    background: url(../images/curve-shape.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: -15px;
+    height: 62px;
+    width: 100%;
+    content: "";
+    background-position-x: center;
 }
 
 .banner-content {
     margin-top: 16rem;
+}
+
+.course-banner-row {
+    height: 500px;
+}
+
+.course-banner-content {
+    margin-top: 0px;
+}
+
+.nav-pills.nav-pills-border .nav-item .nav-link.active {
+    color: #fff;
+    background-color: #d6ce15;
+    border: 1px solid #d6ce15;
+}
+
+.nav-pills.nav-pills-border .nav-item .nav-link {
+    border-radius: 4px;
+    margin-right: -1px;
+}
+
+.course-card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eae9ec;
+    border-radius: .25rem;
+}
+
+.course-price-itmes {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(38, 31, 68, .125);
 }
 
 .banner-content h1 {
@@ -81,6 +139,10 @@ body {
 
 .main-page-section .section-container {
     padding: 80px 13px;
+}
+
+.course-description .section-container {
+    padding: 70px 13px 130px 13px
 }
 
 .trending-courses {
@@ -315,10 +377,6 @@ footer .main-footer {
     background-color: white;
 }
 
-.card {
-    background-color: #a4a71e;
-}
-
 .navbar-brand {
     color: #ffffff;
 }
@@ -375,6 +433,7 @@ section.signup {
     margin-bottom: 30px;
     background: -webkit-linear-gradient( 0deg, #1f6521bf, #d6ce15f2);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
 }
@@ -627,10 +686,6 @@ p.price span:before {
     left: 0;
 }
 
-.pricing-offers {
-    padding: 0 0 10px;
-}
-
 .pricing-offers li {
     padding: 0 0 16px;
     line-height: 18px;
@@ -638,6 +693,10 @@ p.price span:before {
 
 .pricing-section ul li {
     list-style-type: none;
+}
+
+.pricing-section ul {
+    padding: 0 0 10px;
 }
 
 .btn.btn-mid {
