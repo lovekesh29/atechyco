@@ -23,7 +23,7 @@ class UserAuth extends Controller
             'lastName' => 'required|string|max:180',
             'email' => 'required|email|unique:users',
             'location' => 'required|string',
-            'phoneNo' => 'required|max:15|string',
+            'phoneNo' => 'required|max:15|string|unique:users',
             'password' => 'required|string|confirmed',
             'password_confirmation' => 'required|same:password',
             'securityQuestion' => 'required|numeric',

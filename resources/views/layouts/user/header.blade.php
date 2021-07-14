@@ -1,6 +1,6 @@
 @section('header')
 @php
-    $walletCredit = App\Models\UserWallet::where('userId')->sum('creditPoints');
+    $walletCredit = App\Models\UserWallet::where('userId', Auth::id())->sum('creditPoints');
 @endphp
 <nav class="navbar navbar-expand navbar-theme">
     <a class="sidebar-toggle d-flex mr-2">
