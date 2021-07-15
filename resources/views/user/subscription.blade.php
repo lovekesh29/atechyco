@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @include('layouts.header')
 @section('home')
+@if (Session::has('error'))
+<script>
+    swal({
+        icon: "error",
+        title: 'Error',
+        text: "{{ Session::get('error') }}"
+    })
+</script>    
+@endif
     <section class="trending-courses main-page-section pricing-section">
         <div class="container">
             <div class="row justify-content-md-center">

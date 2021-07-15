@@ -110,7 +110,7 @@ class UserController extends Controller
     }
     public function dashboard(){
         $user = Auth::user();
-        $popularCourses = Courses::with('authorName')->where('status', 1)->inRandomOrder()->limit(2)->get();
+        $popularCourses = Courses::with('authorName')->where('status', '1')->inRandomOrder()->limit(2)->get();
         //dd($popularCourses);
 
         return view('user.dashboard', ['user' => $user, 'popularCourses' => $popularCourses]);

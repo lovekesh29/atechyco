@@ -104,6 +104,7 @@ Route::get('/subscriptions', function(){
     return view('user.subscription', ['subscriptionPackage' => $subscriptionPackage]);
 });
 Route::get('/payment/{encryptedSubscriptionId}', [PaymentController::class, 'viewPaymentPage']);
+Route::post('/payment-notification', [PaymentController::class, 'paymentNotification']);
 
 Route::get('/course', function(){
     return view('course-single');
