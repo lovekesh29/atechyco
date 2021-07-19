@@ -62,7 +62,11 @@ class CourseManagement extends Controller
             $i = 0;
             foreach($request->file('videoFiles') as $file)
             {
-                $uploadVideodata[$i]['videoUrl'] = Vimeo::upload($file); 
+                $uploadVideodata[$i]['videoUrl'] = Vimeo::upload($file, array(
+                    'privacy' => array(
+                        'embed' => 'whitelist'
+                    )
+                )); 
                 $uploadVideodata[$i]['courseId'] = $insertedCourseData->id;
                 $uploadVideodata[$i]['videoOrder'] = $i;
                 $uploadVideodata[$i]['status'] = '1';

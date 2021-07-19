@@ -97,6 +97,7 @@ Route::get('/user-phone-verification', [UserController::class, 'sendVerification
 Route::view('/otp-verifcation-form', 'user.otpVerificationForm');
 Route::post('/verify-user-phone', [UserController::class, 'verifyUserPhone']);
 Route::get('/watch-course/{encryptedCourseId}', [UserCourseManagement::class, 'watchCourse']);
+Route::get('/watch-course/{encryptedCourseId}/{videoId}', [UserCourseManagement::class, 'watchCourse']);
 Route::get('/update-video-status', [UserCourseManagement::class, 'updateUserVideoStatus']);
 Route::get('/subscriptions', function(){
     $subscriptionPackage = Subscription::all();
@@ -109,6 +110,7 @@ Route::post('/payment-notification', [PaymentController::class, 'paymentNotifica
 Route::get('/course', function(){
     return view('course-single');
 });
+Route::get('/my-classroom', [UserCourseManagement::class, 'getCourses']);
 
 
 Route::prefix('guru')->group(function () {

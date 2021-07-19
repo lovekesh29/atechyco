@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Courses;
 use App\Models\UserSubscriptions;
 use App\Models\CourseVideo;
+use App\Models\CompletedCourse;
 use App\Models\UserVideos;
 
 class UserCourseManagement extends Controller
@@ -20,66 +21,96 @@ class UserCourseManagement extends Controller
     {
         $this->middleware(['auth', 'verified']);
     }
-    public function watchCourse($encryptedCourseId)
+    public function getCourses(){
+        if($this->checkUserSubscriptionValidity(Auth::id()))
+        {
+            
+            $courses = Courses::with('authorName')->where('status', '1')->get();
+
+            return view('user.myclass', ['user' => Auth::user(), 'courses' => $courses]);
+        }
+        else
+        {
+            return redirect('/subscriptions');
+        }
+        
+    }
+    public function watchCourse($encryptedCourseId, $videoId = null)
     {
         $userId = Auth::id();
 
-        $userSubscription = UserSubscriptions::where('userId', $userId)->latest()->first();
-        
-        if($userSubscription != null){
-            if($this->checkValidity($userSubscription))
-            {
-                $courseId = Crypt::decryptString($encryptedCourseId);
-                $videoIds = CourseVideo::where('courseId', $courseId)->get('id')->toArray();
+        if($this->checkUserSubscriptionValidity(Auth::id()))
+        {
+            $courseId = Crypt::decryptString($encryptedCourseId);
+            $courseVideos = CourseVideo::with('getCourse')
+                                    ->where('courseId', $courseId)
+                                    ->where('status', '1')
+                                    ->orderBy('videoOrder')
+                                    ->get();
 
-                $userVideo = UserVideos::with('videoDetails')->where('userId', $userId)
-                                        ->whereIn('videoId', $videoIds)
-                                        ->orderByDesc('id')->first();
-
+            if($videoId != null){
+                $videoToBeWatched = CourseVideo::where('courseId', $courseId)
+                                            ->where('status', '1')
+                                            ->where('id',  $videoId)->first();
                 
-                //if previous video is ended
-                if($userVideo->status == 1){
-                    $videoOrder = CourseVideo::where('courseId', $courseId)
-                                                ->where('id', $userVideo->videoId)->get('videoOrder');
-                    
-                    $nextVideoOrder = $videoOrder[0]->videoOrder + 1;
-                    $nextVideoDetails = CourseVideo::where('courseId', $courseId)
-                                                ->where('videoOrder',  $nextVideoOrder)->first();
-                    
-
-                    if($nextVideoDetails == null){
-                        dd('You have completed this course');
-                    }
-                    else
-                    {
-                        $videoDetails = $nextVideoDetails;
-                        $videoDetails->videoId = $videoDetails->id;
-                        $videoDetails->status = 'next';
-                    }
-                    //dd($videoDetails);
-                }
-                else if($userVideo->status == 0){
-                    $videoDetails = CourseVideo::where('id', $userVideo->videoId)
-                                                ->first();
-                    $videoDetails->status = 'paused';
-                    $videoDetails->time = $userVideo->time;
-                    //dd($videoDetails);
-                    
-                }
-
-                //if user has to start from begining
-                if($userVideo == null){
-                    $videoDetails = CourseVideo::where('courseId', $courseId)
-                                                ->where('videoOrder', 0)
-                                                ->first();
-
-                    $videoDetails->status = 'new';
-                    $videoDetails->videoId = $videoDetails->id;
-                    //dd($videoDetails);
-                }
-
-                return view('user.watchCourse', ['videoDetails' => $videoDetails]);
+                return view('user.watchCourse', ['videoToBeWatched' => $videoToBeWatched, 'courseVideos' => $courseVideos, ]);
             }
+
+            //these ids is used to check which video user has watched
+            $videoIds = CourseVideo::where('courseId', $courseId)->get('id')->toArray();
+
+            $userVideo = UserVideos::with('videoDetails')->where('userId', $userId)
+                                    ->whereIn('videoId', $videoIds)
+                                    ->orderByDesc('videoId')->first();
+
+            
+
+            if($userVideo == null){
+                
+                
+                $videoToBeWatched = CourseVideo::where('courseId', $courseId)
+                                                ->where('status', '1')
+                                                ->orderBy('videoOrder')
+                                                ->first();
+                //dd($videoDetails);
+
+                $videoToBeWatched->courseStatus = 'new';
+            } 
+            else if($userVideo->status == 1)
+            {
+                $videoOrder = CourseVideo::where('courseId', $courseId)
+                                            ->where('id', $userVideo->videoId)->get('videoOrder');
+                
+                $nextVideoOrder = $videoOrder[0]->videoOrder + 1;
+                $videoToBeWatched = CourseVideo::where('courseId', $courseId)
+                                            ->where('status', '1')
+                                            ->where('videoOrder',  $nextVideoOrder)->first();
+                
+
+                if($videoToBeWatched == null){
+                    dd('You have completed this course');
+                }
+                else
+                {
+                    $videoToBeWatched->courseStatus = 'next';
+                }
+                //dd($videoDetails);
+            }
+            else if($userVideo->status == 0){
+                $videoToBeWatched = CourseVideo::where('id', $userVideo->videoId)
+                                            ->where('status', '1')
+                                            ->first();
+                $videoToBeWatched->status = 'paused';
+                $videoToBeWatched->time = $userVideo->time;
+            }
+
+            //if user has to start from begining
+            
+            //dd($courseVideos);
+            return view('user.watchCourse', ['videoToBeWatched' => $videoToBeWatched, 'courseVideos' => $courseVideos, ]);
+        }
+        else {
+            return redirect('/subscriptions');
         }
     }
     public function updateUserVideoStatus(Request $request){
@@ -96,7 +127,7 @@ class UserCourseManagement extends Controller
                                 'status' => $request->status
                             ]);
             }
-            else{
+            else {
                 UserVideos::create([
                     'userId' => Auth::id(),
                     'videoId' => $systemVideoId,
@@ -104,19 +135,55 @@ class UserCourseManagement extends Controller
                     'status' => $request->status
                 ]);
             }
+            $response = array('message' => 'videoStatusUpdated');
         }
         else if($request->status == 1)  //if video is completed
         {
+            //to change the status to 1
             UserVideos::where('videoId', $systemVideoId)
-                            ->where('userId', Auth::id())
-                            ->delete();
+                        ->where('userId', Auth::id())
+                        ->update([
+                            'time' => $request->time,
+                            'status' => $request->status
+                        ]);
 
-            UserVideos::create([
-                                'userId' => Auth::id(),
-                                'videoId' => $systemVideoId,
-                                'time' => $request->time,
-                                'status' => $request->status
-                            ]);
+            $courseId = Crypt::decryptString($request->courseId);
+
+            $videoIds = CourseVideo::where('courseId', $courseId)->pluck('id')->toArray();
+
+            //get all the completed videos of course, user is currently watching
+            $studentWatchedVideos = UserVideos::join('course_videos', 'user_videos.videoId', '=', 'course_videos.id')   
+                                                ->where('course_videos.courseId', $courseId)
+                                                ->where('user_videos.userId', Auth::id())
+                                                ->where('user_videos.status', '1')
+                                                ->pluck('user_videos.videoId')->toArray();
+            
+            //this is to check if user has watched all the videos of the course. Then shift it ot complted course
+            if(empty(array_diff($videoIds, $studentWatchedVideos))){   
+
+                UserVideos::where('userId', Auth::id())
+                                    ->whereIn('videoId', $videoIds)
+                                    ->delete();
+
+                if(CompletedCourse::where('userId', Auth::id())->where('courseId', $courseId)->exists()){
+                    CompletedCourse::where('userId', Auth::id())
+                                    ->where('courseId', $courseId)
+                                    ->update([
+                                        'userId' => Auth::id(),
+                                        'courseId' => $courseId
+                                    ]);
+                } else {
+                    CompletedCourse::create([
+                        'userId' => Auth::id(),
+                        'courseId' => $courseId
+                    ]);
+                }
+                $response =  array('message' => 'courseCompleted');
+            }
+            else {
+                $response =  array('message' => 'videoEnded');
+            }
         }
+        return json_encode($response);
     }
 }

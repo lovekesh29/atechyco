@@ -20,15 +20,21 @@
             <li class="sidebar-header">
                 Main
             </li>
-            <li class="sidebar-item active">
+            <li class="sidebar-item {{ request()->is('dashboard') ? 'active' : '' }}">
                 <a href="{{ url('/dashboard') }}" class="sidebar-link">
                     <i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
                 </a>
+                
                 {{-- <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-parent="#sidebar">
                     <li class="sidebar-item active"><a class="sidebar-link" href="dashboard-default.html">Default</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="dashboard-analytics.html">Analytics</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="dashboard-e-commerce.html">E-commerce</a></li>
                 </ul> --}}
+            </li>
+            <li class="sidebar-item {{ request()->is('my-classroom') ? 'active' : '' }}">
+            <a href="{{ url('/my-classroom') }}" class="sidebar-link">
+                <i class="align-middle mr-2 fas fa-fw fa-book-reader"></i> <span class="align-middle">My Classroom</span>
+            </a>
             </li>
         </ul>
     </div>

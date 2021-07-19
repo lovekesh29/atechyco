@@ -7,13 +7,20 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Subscription;
+use App\Models\UserSubscriptions;
 use Carbon\Carbon;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function checkValidity($userSubscription){
+    public function checkUserSubscriptionValidity($userId){
+        $userSubscription = UserSubscriptions::where('userId', $userId)->latest()->first();
+
+        if($userSubscription == null){
+            return false;
+        }
+
         $subscription = Subscription::findOrFail($userSubscription->subscriptionId);
         $subcriptionBuyDate = Carbon::parse($userSubscription->created_at);
         $now = Carbon::now();
