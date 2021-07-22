@@ -14,6 +14,8 @@ use App\Models\UserSubscriptions;
 use App\Models\CourseVideo;
 use App\Models\CompletedCourse;
 use App\Models\UserVideos;
+use App\Models\LikeDislikeCourse;
+use App\Models\CourseComment;
 
 class UserCourseManagement extends Controller
 {
@@ -38,9 +40,9 @@ class UserCourseManagement extends Controller
     public function watchCourse($encryptedCourseId, $videoId = null)
     {
         $userId = Auth::id();
-
         if($this->checkUserSubscriptionValidity(Auth::id()))
         {
+            dd('in if');
             $courseId = Crypt::decryptString($encryptedCourseId);
             $courseVideos = CourseVideo::with('getCourse')
                                     ->where('courseId', $courseId)
@@ -185,5 +187,47 @@ class UserCourseManagement extends Controller
             }
         }
         return json_encode($response);
+    }
+    public function likeDislikeCourse(Request $request){
+        $courseId = Crypt::decryptString($request->courseId);
+        $type = $request->type;
+
+        if(LikeDislikeCourse::where('userId', Auth::id())->where('courseId', $courseId)->exists()){
+            LikeDislikeCourse::where('userId', Auth::id())
+                                ->where('courseId', $courseId)
+                                ->delete();
+        } else {
+            LikeDislikeCourse::create([
+                                    'userId' => Auth::id(),
+                                    'courseId' => $courseId
+                                ]);
+        }
+        echo $type;
+    }
+    public function commentCourse(Request $request){
+        $rules = [
+            'courseId' => 'required',
+            'comment' => 'required|string',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages = [
+            'courseId.required' => 'Invalid Request'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $courseId = Crypt::decryptString($request->courseId);
+
+        CourseComment::create([
+            'userId' => Auth::id(),
+            'courseId' => $courseId,
+            'comment' => $request->comment
+        ]);
+
+        return back()->with('status', 'Comment Posted Successfully');
+
     }
 }

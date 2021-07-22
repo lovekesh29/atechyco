@@ -107,10 +107,12 @@ Route::get('/subscriptions', function(){
 Route::get('/payment/{encryptedSubscriptionId}', [PaymentController::class, 'viewPaymentPage']);
 Route::post('/payment-notification', [PaymentController::class, 'paymentNotification']);
 
-Route::get('/course', function(){
-    return view('course-single');
-});
+Route::get('/view-course/{encryptedCourseId}', [MainController::class, 'singleCourse']);
+Route::get('/courses', [MainController::class, 'viewCourses']);
 Route::get('/my-classroom', [UserCourseManagement::class, 'getCourses']);
+
+Route::post('/like-dislike-course', [UserCourseManagement::class, 'likeDislikeCourse']);
+Route::post('/post-comment', [UserCourseManagement::class, 'commentCourse']);
 
 
 Route::prefix('guru')->group(function () {

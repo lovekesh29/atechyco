@@ -1,4 +1,3 @@
-require('sweetalert');
 $('.trending-slider').slick({
     dots: true,
     infinite: true,
@@ -50,6 +49,51 @@ $('#signUpFormButton').click(function(e) {
         return false;
     }
 });
+
+$('.comment-modal').click(function() {
+    var courseId = $(this).attr('id');
+    $('input[name="courseId"]').val(courseId)
+    $('#commentCourseModal').modal('show');
+});
+
+$('.close').click(function() {
+    $('#commentCourseModal').modal('hide');
+})
+
+$('.like-button').click(function() {
+    var courseId = $(this).attr('data-courseId');
+    var type = $(this).attr('data-type');
+
+    $.ajax({
+        type: "POST",
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        url: siteUrl + '/like-dislike-course',
+        data: { courseId: courseId, type: type },
+        dataType: "json",
+        success: function(data) {
+            location.reload();
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            if (thrownError == 'Unauthorized') {
+                swal({
+                    icon: "error",
+                    title: thrownError,
+                    text: 'Please Login To Continue',
+                    button: {
+                        text: "Login!",
+                        value: true,
+                    },
+                }).then((result) => {
+                    if (result) {
+                        window.location.href = siteUrl + "/login";
+                    }
+                });
+            }
+
+        }
+    })
+
+})
 
 import intlTelInput from 'intl-tel-input';
 

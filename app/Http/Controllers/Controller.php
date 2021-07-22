@@ -16,12 +16,14 @@ class Controller extends BaseController
 
     public function checkUserSubscriptionValidity($userId){
         $userSubscription = UserSubscriptions::where('userId', $userId)->latest()->first();
+        
 
         if($userSubscription == null){
             return false;
         }
-
+        
         $subscription = Subscription::findOrFail($userSubscription->subscriptionId);
+        
         $subcriptionBuyDate = Carbon::parse($userSubscription->created_at);
         $now = Carbon::now();
 
@@ -35,6 +37,7 @@ class Controller extends BaseController
         }
         else
         {
+            
             return false;
         }
     }

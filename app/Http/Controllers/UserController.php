@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Countries;
 use App\Models\User;
 use App\Models\Courses;
+use App\Models\CompletedCourse;
+use App\Models\UserVideos;
+use App\Models\Guru;
+use DB;
 
 class UserController extends Controller
 {
@@ -113,9 +117,20 @@ class UserController extends Controller
         $popularCourses = Courses::with('authorName')->where('status', '1')->inRandomOrder()->limit(2)->get();
         //dd($popularCourses);
 
-        return view('user.dashboard', ['user' => $user, 'popularCourses' => $popularCourses]);
-        //dd($user);
-        //$decryptedUserId = Crypt::decryptString($userId);
+        $completedCourses = CompletedCourse::where('userId', Auth::id())->count();
+        $inProgressCourses = UserVideos::join('course_videos', 'user_videos.videoId', '=', 'course_videos.id')   
+                                        ->join('courses', 'course_videos.courseId', '=', 'courses.id')
+                                        ->where('user_videos.userId', Auth::id())
+                                        ->distinct('courses.id')
+                                        ->count();
+        
+        $gurus = DB::table('gurus')->join('courses', 'courses.author', '=', 'gurus.id')
+                        ->select('gurus.*', DB::raw("count(courses.author) as courseCount"))
+                        ->groupBy('courses.author')
+                        ->limit(10)
+                        ->get();
+
+        return view('user.dashboard', ['user' => $user, 'popularCourses' => $popularCourses, 'completedCourses' => $completedCourses, 'inProgressCourses' => $inProgressCourses, 'gurus' => $gurus]);
     }
     public function viewProfile(){
         $user = Auth::user();

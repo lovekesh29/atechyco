@@ -13,4 +13,16 @@ class Courses extends Model
     {
         return $this->belongsTo(Guru::class, 'author');
     }
+    public function getLikes()
+    {
+        return $this->hasMany(LikeDislikeCourse::class, 'courseId');
+    }
+    public function getVideos()
+    {
+        return $this->hasMany(CourseVideo::class, 'courseId');
+    }
+    public function getComments()
+    {
+        return $this->hasMany(CourseComment::class, 'courseId');
+    }
 }

@@ -86,7 +86,7 @@
                                 <div class="card-body">
                                     <div class="row milestone-header">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">Completed</h5>
+                                            <h5 class="card-title">Completed Courses</h5>
                                         </div>
                                             <div class="avatar">
                                                 <div class="avatar-title rounded-circle bg-primary-dark">
@@ -94,17 +94,20 @@
                                                 </div>
                                             </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">17</h1>
+                                    <h1 class="display-5 mt-1 mb-3">{{ $completedCourses }}</h1>
                                     <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.65% </span> Less than usual
+                                        {{-- <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.65% </span> Less than usual --}}
                                     </div>
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row milestone-header">
                                         <div class="col mt-0">
-                                            <h5 class="card-title">In Progress</h5>
+                                            <h5 class="card-title">In Progress Courses</h5>
                                         </div>
                                             <div class="avatar">
                                                 <div class="avatar-title rounded-circle bg-primary-dark">
@@ -112,47 +115,9 @@
                                                 </div>
                                             </div>
                                     </div>
-                                    <h1 class="display-5 mt-1 mb-3">17.212</h1>
+                                    <h1 class="display-5 mt-1 mb-3">{{ $inProgressCourses }}</h1>
                                     <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.50% </span> More than usual
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row milestone-header">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Certificate</h5>
-                                        </div>
-                                            <div class="avatar">
-                                                <div class="avatar-title rounded-circle bg-primary-dark">
-                                                    <i class="align-middle fas fa-fw fa-certificate"></i>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <h1 class="display-5 mt-1 mb-3">54</h1>
-                                    <div class="mb-0">
-                                        <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 8.35% </span> More than usual
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row milestone-header">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Discussions</h5>
-                                        </div>
-                                            <div class="avatar">
-                                                <div class="avatar-title rounded-circle bg-primary-dark">
-                                                    <i class="align-middle fab fa-fw fa-rocketchat"></i>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <h1 class="display-5 mt-1 mb-3">43</h1>
-                                    <div class="mb-0">
-                                        <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -4.25% </span> Less than usual
+                                        {{-- <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.50% </span> More than usual --}}
                                     </div>
                                 </div>
                             </div>
@@ -266,129 +231,25 @@
             <div class="col-12 col-lg-4 col-xxl-3 d-flex">
                 <div class="card tutor-card flex-fill w-100">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Best Tutors</h5>
+                        <h5 class="card-title mb-0">Best Gurus</h5>
                     </div>
                     <div class="card-body tutor-body">
+                        @foreach ($gurus as $guru)
+                        @php
+                        // echo "<pre>";
+                        // print_r($gurus[0]->imgPath);
+                        // die();
+                        @endphp
                         <div class="tutor-single d-flex w-100">
                             <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
+                                {!! ($guru->imgPath != null) ? '<img src="'. asset('storage/'.$guru->imgPath) .'" class="img-fluid rounded-circle tutor-img" alt="'. $guru->firstName.' '. $guru->lastName .'" />' : '<i class="align-middle fas fa-fw fa-user"></i>' !!}
                                 <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
+                                    <h6>{{$guru->firstName.' '.$guru->lastName }}</h6>
                                 </div>
                             </div>
-                            <span>12k Students</span>
+                            <span>{{$guru->courseCount}} Courses</span>
                         </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
-                        <div class="tutor-single d-flex w-100">
-                            <div class="tutor-img d-flex w-100">
-                                <img class="img-fluid rounded-circle tutor-img" src="{{ url('/img/avatars/avatar-2.jpg') }}" alt="">
-                                <div class="tutor-meta">
-                                    <h6>James</h6>
-                                    <p>5 Design Courses</p>
-                                </div>
-                            </div>
-                            <span>12k Students</span>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

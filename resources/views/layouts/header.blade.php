@@ -2,7 +2,7 @@
 <div class="navbar container-fluid nav-top">
     <div class="row">
         <div class="col-lg-4 col-sm-4 col-4 ">
-            <a class="navbar-brand" href="#">Your Comapny Name</a>
+            <a class="navbar-brand" href="{{ url('/') }}">Your Comapny Name</a>
         </div>
         <div class="col-lg-2 offset-lg-6 offset-sm-6 col-sm-2 col-3 offset-5">
             <a href="{{ url('/sign-up') }}" class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</a>
@@ -21,7 +21,7 @@
                     <div class="col-lg-10">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Courses</a>
+                                <a class="nav-link active" aria-current="page" href="{{ url('/courses') }}">Courses</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">My Profile</a>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-lg-2">
                         <form class="d-flex">
-                            <input class="form-control top-search primary-background-color me-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control top-search me-2" type="search" placeholder="Search" aria-label="Search">
                         </form> 
                     </div>
                 </div>
