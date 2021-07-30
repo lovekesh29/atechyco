@@ -2,6 +2,15 @@
 @include('layouts.admin.sidebar')
 @include('layouts.admin.header')
 @section('home')
+@if (Session::has('successfull'))
+<script>
+    swal({
+        icon: "success",
+        title: 'Success',
+        text: "{{ Session::get('successfull') }}"
+    })
+</script>  
+@endif
 <main class="content">
     <div class="container-fluid">
         <div class="header">

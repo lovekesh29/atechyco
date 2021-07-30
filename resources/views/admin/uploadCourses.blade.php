@@ -53,6 +53,44 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Select Category</label>
+                                    <select name="categoryId" required class="@error('category') is-invalid @enderror form-control course-category">
+                                        <option selected="" value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('categoryId')
+                                    <label class="error small form-text invalid-feedback">{{ $message }}</label>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Select Sub Category</label>
+                                    <select name="subCatId" required class="@error('subCatId') is-invalid @enderror form-control course-subCat">
+                                        <option selected="" value="">Select Sub Category</option>
+                                    </select>
+                                    @error('subCatId')
+                                    <label class="error small form-text invalid-feedback">{{ $message }}</label>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Select Course Type Category</label>
+                                    <select name="courseType" required class="@error('courseType') is-invalid @enderror form-control">
+                                        <option selected="" value="">Select Course Type</option>
+                                        <option value="0">Normal</option>
+                                        <option value="1">Recent Course</option>
+                                        <option value="2">Suggested Course</option>
+                                        <option value="3">Trending Course</option>
+                                    </select>
+                                    @error('courseType')
+                                    <label class="error small form-text invalid-feedback">{{ $message }}</label>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Course Descritpion</label>
                                     <textarea required name="description" class="@error('description') is-invalid @enderror" id="description" cols="30" rows="10">Type your description here</textarea>
@@ -61,7 +99,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="form-row input-group zzz" >
                                 <div class="form-group col-md-12">
                                     <input type="file" required multiple name="videoFiles[]" class="myfrm form-control file-upload">

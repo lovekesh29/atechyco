@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Countries;
 use App\Models\Guru;
+use App\Models\Courses;
 
 class GuruController extends Controller
 {
@@ -111,7 +112,12 @@ class GuruController extends Controller
     public function dashboard(){
         $guru = Auth::guard('guru')->user();
 
-        return view('guru.dashboard', ['guru' => $guru]);
+        $guruRecentCourses = Courses::where('author', Auth::guard('guru')->id())->orderByDesc('id')->take(2)->get();
+        
+
+        $guruCourseStats = Courses::with('getLikes')->with('getComments')->with('getCurrentView')->with('getCompletedCourses')->where('author', Auth::guard('guru')->id())->get()->toArray();
+
+        return view('guru.dashboard', ['guru' => $guru, 'guruRecentCourses' => $guruRecentCourses, 'guruCourseStats' => $guruCourseStats]);
     }
     public function viewProfile(){
         $guru = Auth::guard('guru')->user();
@@ -199,5 +205,12 @@ class GuruController extends Controller
         $guru->save();
 
         return back()->with('success', 'Password successfully changed!');
+    }
+    public function getGuruCourses(){
+        $guruCourses = Courses::with('getLikes')->with('getComments')->with('getCurrentView')->with('getCompletedCourses')->where('author', Auth::guard('guru')->id())->paginate(10);
+
+        return view('guru.courses', ['guruCourses' => $guruCourses]);
+
+        //return view('guru.courses', ['guruCourses' => $guruCourses]);
     }
 }

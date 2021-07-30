@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Courses extends Model
 {
-    protected $fillable = ['title', 'author', 'description', 'status'];
+    protected $fillable = ['title', 'author', 'description', 'status', 'courseType', 'courseSubCat'];
 
     public function authorName()
     {
@@ -24,5 +24,14 @@ class Courses extends Model
     public function getComments()
     {
         return $this->hasMany(CourseComment::class, 'courseId');
+    }
+    public function getCurrentView(){
+        return $this->hasManyThrough(UserVideos::class, CourseVideo::class, 'courseId', 'videoId');
+    }
+    public function getCompletedCourses(){
+        return $this->hasMany(CompletedCourse::class, 'courseId');
+    }
+    public function getCourseSubCat(){
+        return $this->belongsTo(SubCategories::class, 'courseSubCat');
     }
 }

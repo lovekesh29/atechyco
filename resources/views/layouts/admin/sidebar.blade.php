@@ -32,10 +32,14 @@
                     <i class="align-middle mr-2 fas fa-fw fa-user"></i> <span class="align-middle">Gurus</span>
                 </a>
             </li>
-            <li class="sidebar-item {{ request()->is('admin/courses') ? 'active' : '' }}">
-                <a href="{{ url('admin/courses') }}" class="sidebar-link">
-                    <i class="align-middle mr-2 fas fa-fw fa-book-reader"></i> <span class="align-middle">Courses</span>
+            <li class="sidebar-item">
+                <a href="#manageCourses" data-toggle="collapse" class="sidebar-link collapsed" aria-expanded="false">
+                    <i class="align-middle mr-2 fas fa-fw fa-book-reader"></i> <span class="align-middle">Manage Courses</span>
                 </a>
+                <ul id="manageCourses" class="sidebar-dropdown list-unstyled collapse" data-parent="#sidebar" style="">
+                    <li class="sidebar-item {{ request()->is('admin/courses') ? 'active' : '' }}"><a class="sidebar-link" href="{{ url('admin/courses') }}">Courses</a></li>
+                    <li class="sidebar-item {{ request()->is('admin/categories') ? 'active' : '' }}"><a class="sidebar-link" href="{{ url('admin/categories') }}">Manage Categories</a></li>
+                </ul>
             </li>
             <li class="sidebar-item {{ request()->is('admin/subscriptions') ? 'active' : '' }}">
                 <a href="{{ url('admin/subscriptions') }}" class="sidebar-link">

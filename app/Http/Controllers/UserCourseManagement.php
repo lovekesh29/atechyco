@@ -42,7 +42,6 @@ class UserCourseManagement extends Controller
         $userId = Auth::id();
         if($this->checkUserSubscriptionValidity(Auth::id()))
         {
-            dd('in if');
             $courseId = Crypt::decryptString($encryptedCourseId);
             $courseVideos = CourseVideo::with('getCourse')
                                     ->where('courseId', $courseId)

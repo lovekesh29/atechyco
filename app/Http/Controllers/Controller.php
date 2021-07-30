@@ -8,6 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Subscription;
 use App\Models\UserSubscriptions;
+use App\Models\SubCategories;
+use App\Models\Courses;
 use Carbon\Carbon;
 
 class Controller extends BaseController
@@ -45,4 +47,12 @@ class Controller extends BaseController
         $videoUrlExploded = explode('/', $videoUrl);
         return $videoUrlExploded[2];
     }
+    public function getSubCatIds($catId){
+        return SubCategories::where('catId', $catId)->pluck('id')->toArray();
+    }
+    public function getCourseIdsBySubCatId($subCatId){
+        return Courses::where('courseSubCat', $subCatId)
+                    ->pluck('id')->toArray();
+    }
+    
 }

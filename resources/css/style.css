@@ -29,6 +29,7 @@ body {
     background-color: white;
     border-radius: 17px;
     padding-left: 15px;
+    margin-top: 10px
 }
 
 .top-search:focus {
@@ -856,6 +857,14 @@ a {
     padding: 0px 0px 150px 0px;
 }
 
+.stellarnav ul {
+    text-align: left;
+}
+
+.search-li {
+    margin-right: 35px!important;
+}
+
 
 /* media Query */
 
@@ -894,6 +903,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+    .stellarnav-ul {
+        margin-top: 100px!important;
+    }
     .login-right {
         margin-left: 15px;
     }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CourseManagement;
@@ -167,6 +168,7 @@ Route::prefix('guru')->group(function () {
     Route::get('/guru-phone-verification', [GuruController::class, 'sendVerificationOtp']);
     Route::view('/otp-verifcation-form', 'guru.otpVerificationForm');
     Route::post('/verify-guru-phone', [GuruController::class, 'verifyUserPhone']);
+    Route::get('/my-courses', [GuruController::class, 'getGuruCourses']);
 });
 
 
@@ -188,6 +190,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/edit-user', [AdminController::class, 'adminEditUser']);
     Route::post('/edit-guru', [AdminController::class, 'adminEditGuru']);
     Route::get('/courses', [CourseManagement::class, 'getCourses']);
+    Route::get('/categories', [CourseManagement::class, 'viewCategories']);
+    Route::get('/sub-cat/{encryptedCatId}', [CourseManagement::class, 'viewSubCategories']);
     Route::get('/upload-courses', [CourseManagement::class, 'uploadCourseView']);
     Route::Post('/upload-course', [CourseManagement::class, 'uploadCourse']);
     Route::Post('/update-course', [CourseManagement::class, 'updateCourse']);
@@ -203,4 +207,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings', [AdminController::class, 'settings']);
     Route::post('/set-credit-points', [AdminController::class, 'setCreditPoints']);
     Route::post('/change-course-status', [CourseManagement::class, 'changeCourseStatus']);
+    Route::post('/add-category', [CourseManagement::class, 'addCategory']);
+    Route::post('/add-subCategory', [CourseManagement::class, 'addSubCategory']);
+    Route::post('/edit-category', [CourseManagement::class, 'editCategory']);
+    Route::post('/change-category-status', [CourseManagement::class, 'changeCategoryStatus']);
+    Route::post('/edit-subCategory', [CourseManagement::class, 'editSubCategory']);
+    Route::post('/change-subCategory-status', [CourseManagement::class, 'changeSubCategoryStatus']);
+    Route::post('/get-subCat', [CourseManagement::class, 'getSubCat']);
 });

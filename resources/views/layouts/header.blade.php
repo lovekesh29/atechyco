@@ -1,4 +1,8 @@
 @section('header')
+@php
+    use App\Models\Categories;
+    $categories = Categories::with('getSubCategories')->get();
+@endphp
 <div class="navbar container-fluid nav-top">
     <div class="row">
         <div class="col-lg-4 col-sm-4 col-4 ">
@@ -10,7 +14,37 @@
     </div>
         
 </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-black">
+<div class="stellarnav">
+    <ul class="stellarnav-ul">
+        <li><a href="{{ url('/courses') }}">Courses</a></li>
+        <li><a href="">Categories</a>
+            <ul>
+                @foreach ($categories as $category)
+                @if (count($category->getSubCategories) != 0)
+                <li><a href="#">{{ $category->name }}</a>
+                    <ul>
+                        @foreach ($category->getSubCategories as $subCategory)
+                        <li><a href="{{ url('/courses?sub_cat='.Crypt::encryptString($subCategory->id)) }}">{{ $subCategory->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endif
+                @endforeach
+            </ul>
+        </li>
+
+        
+        <li class="float-right search-li">
+            <form action="{{ url('/courses') }}" method="get">
+                @csrf
+                <input class="form-control top-search me-2 @error('serachCourse') is-invalid @enderror" required type="text" value="{{ old('serachCourse') }}" name="serachCourse" placeholder="Search" aria-label="Search">
+            </form>
+            
+        </li>
+        
+    </ul>
+</div>
+    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-black">
         <div class="container-fluid navbar-container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -58,5 +92,5 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> --}}
     @endsection

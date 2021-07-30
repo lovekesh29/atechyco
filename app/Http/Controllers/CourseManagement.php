@@ -10,6 +10,8 @@ use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\Guru;
 use App\Models\Courses;
 use App\Models\CourseVideo;
+use App\Models\Categories;
+use App\Models\SubCategories;
 
 class CourseManagement extends Controller
 {
@@ -25,25 +27,36 @@ class CourseManagement extends Controller
     public function uploadCourseView(Request $request)
     {
         $guru = Guru::all();
-        return view('admin.uploadCourses', ['gurus' => $guru]);
+        $categories = Categories::all();
+        return view('admin.uploadCourses', ['gurus' => $guru, 'categories' => $categories]);
     }
     public function editCourseView($encryptedCourseId){
         $courseId = Crypt::decryptString($encryptedCourseId);
-        $courseDetail = Courses::with('authorName')->where('id', $courseId)->first();
+        $courseDetail = Courses::with('authorName')->with('getCourseSubCat')->where('id', $courseId)->first();
+
+        $courseCategory = Categories::where('id', $courseDetail->getCourseSubCat->catId)->get();
+        $courseDetail->courseCategory = $courseCategory;
+
+        $categories = Categories::all();
+
         $guru = Guru::all();
         //session(['editCourse' => true]);
-        return view('admin.editCourses', ['courseDetail' => $courseDetail, 'gurus' => $guru]);
+        return view('admin.editCourses', ['courseDetail' => $courseDetail, 'gurus' => $guru, 'categories' => $categories]);
     }
     public function uploadCourse(Request $request){
         $rules = [
             'title' => 'required',
             'author' => 'required|numeric',
+            'subCatId' => 'required|numeric',
+            'courseType' => 'required|numeric',
             'description' => 'required',
             'videoFiles' => 'required'
         ];
         
         $validator = Validator::make($request->all(), $rules, $message =[
-            'author.numeric' => 'Invalid Author Selected'
+            'author.numeric' => 'Invalid Author Selected',
+            'subCatId.numeric' => 'Invalid Subcategory Selected',
+            'courseType.numeric' => 'Invalid Course Type Selected'
         ]);
         if ($validator->fails()) {
             return back()
@@ -54,6 +67,8 @@ class CourseManagement extends Controller
             'status' => '1',
             'title' => $request->title,
             'author' => $request->author,
+            'courseSubCat' => $request->subCatId,
+            'courseType' => $request->courseType,
             'description' => $request->description
         ]);
 
@@ -74,18 +89,22 @@ class CourseManagement extends Controller
             }
             CourseVideo::insert($uploadVideodata);
         }
-        return back()->with('successfull', 'Course Uploaded Successfull');
+        return redirect('/admin/courses')->with('successfull', 'Course Uploaded Successfull');
     }
-    public function updateCourse(){
+    public function updateCourse(Request $request){
         $rules = [
             'courseId' => 'required',
             'title' => 'required',
+            'subCatId' => 'required|numeric',
+            'courseType' => 'required|numeric',
             'author' => 'required|numeric',
             'description' => 'required'
         ];
         $validator = Validator::make($request->all(), $rules, $message =[
             'author.numeric' => 'Invalid Author Selected',
-            'courseId.required' => 'Invalid Request Sent'
+            'courseId.required' => 'Invalid Request Sent',
+            'subCatId.numeric' => 'Invalid Subcategory Selected',
+            'courseType.numeric' => 'Invalid Course Type Selected'
         ]);
         if ($validator->fails()) {
             return back()
@@ -97,6 +116,8 @@ class CourseManagement extends Controller
         ->update([
             'title' => $request->title,
             'author' => $request->author,
+            'courseSubCat' => $request->subCatId,
+            'courseType' => $request->courseType,
             'description' => $request->description,
         ]);
         if($request->has('videoFiles'))
@@ -192,5 +213,159 @@ class CourseManagement extends Controller
                     ->update([
                         'status' => $updatedCourseStatus
                     ]);
+    }
+    public function viewCategories(){
+        $categories = Categories::paginate(10);
+        return view('admin.categories', ['categories' => $categories]);
+    }
+    public function addCategory(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        Categories::create([
+            'name' => $request->name
+        ]);
+
+        return back()->with('status', 'Categories added successfully');
+    }
+    public function editCategory(Request $request){
+        $rules = [
+            'categoryId' => 'required',
+            'categoryEditName' => 'required|string'
+        ];
+        $validator = Validator::make($request->all(), $rules, $message = [
+             'categoryId.required' => 'Invalid Request',
+             'categoryEditName.required' => 'Category Name is Required'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $categoryId = Crypt::decryptString($request->categoryId);
+        Categories::where('id', $categoryId)
+                    ->update([
+                        'name' => $request->categoryEditName
+                    ]);
+
+        return back()->with('status', 'Categories Updated successfully');
+    }
+    public function changeCategoryStatus(Request $request){
+        $categoryId = Crypt::decryptString($request->categoryId);
+        $updatedCategoryStatus = ($request->categoryStatus == 0) ? '1' : '0';
+
+        $category = Categories::findOrFail($categoryId);
+        $category->status = $updatedCategoryStatus;
+        $category->save();
+
+        SubCategories::where('catId', $categoryId)
+                        ->update([
+                            'status' => $updatedCategoryStatus
+                        ]);
+
+        $subCatIds = $this->getSubCatIds($categoryId);
+
+        Courses::whereIn('courseSubCat', $subCatIds)
+                    ->update([
+                        'status' => $updatedCategoryStatus
+                    ]);
+
+        $courseIds = $this->getCourseIdsBySubCatId($subCatIds);
+
+        CourseVideo::whereIn('courseId', $courseIds)
+                    ->update([
+                        'status' => $updatedCategoryStatus
+                    ]);
+    }
+    public function viewSubCategories($encryptedCatId){
+        $catId = Crypt::decryptString($encryptedCatId);
+
+        $subCategories = SubCategories::where('catId', $catId)->paginate(10);
+
+        return view('admin.subCat', ['subCategories' => $subCategories, 'catId' => $catId]);
+    }
+    public function addSubCategory(Request $request){
+        $rules = [
+            'catId' => 'required',
+            'subCatName' => 'required|string'
+        ];
+        $validator = Validator::make($request->all(), $rules, $message = [
+             'catId.required' => 'Invalid Request',
+             'subCatName.required' => 'Sub Category Name is Required'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        SubCategories::create([
+            'catId' => Crypt::decryptString($request->catId),
+            'name' => $request->subCatName
+        ]);
+
+        return back()->with('status', 'Sub Category Updated successfully');
+
+    }
+    public function editSubCategory(Request $request){
+        $rules = [
+            'subCategoryId' => 'required',
+            'subCategoryEditName' => 'required|string'
+        ];
+        $validator = Validator::make($request->all(), $rules, $message = [
+             'subCategoryId.required' => 'Invalid Request',
+             'subCategoryEditName.required' => 'Category Name is Required'
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $subCategoryId = Crypt::decryptString($request->subCategoryId);
+        SubCategories::where('id', $subCategoryId)
+                    ->update([
+                        'name' => $request->subCategoryEditName
+                    ]);
+
+        return back()->with('status', 'Sub Categories Updated successfully');
+    }
+    public function changeSubCategoryStatus(Request $request){
+        $subCategoryId = Crypt::decryptString($request->subCategoryId);
+        $updatedSubCategoryStatus = ($request->subCategoryStatus == 0) ? '1' : '0';
+
+        $subCategory = SubCategories::findOrFail($subCategoryId);
+        $subCategory->status = $updatedSubCategoryStatus;
+        $subCategory->save();
+        
+
+        Courses::where('courseSubCat', $subCategoryId)
+                    ->update([
+                        'status' => $updatedSubCategoryStatus
+                    ]);
+
+        $courseIds = $this->getCourseIdsBySubCatId($subCategoryId);
+
+        
+
+        CourseVideo::whereIn('courseId', $courseIds)
+                    ->update([
+                        'status' => $updatedSubCategoryStatus
+                    ]);
+    }
+    public function getSubCat(Request $request){
+        $subCat = SubCategories::where('catId', $request->catId)->get();
+
+        $string = '';
+        foreach($subCat as $subCat){
+            $string .= '<option value="'.$subCat->id.'">'. $subCat->name.'</option>';
+        }
+        echo $string;
     }
 }

@@ -10,6 +10,15 @@
     })
 </script>    
 @endif
+@if (Session::has('warning'))
+<script>
+    swal({
+        icon: "warning",
+        title: 'No Courses',
+        text: "{{ Session::get('warning') }}"
+    })
+</script>    
+@endif
     <section class="course-banner d-flex">
             <div class="container">
                 <div class="row"> 

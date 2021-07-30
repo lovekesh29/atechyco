@@ -1454,6 +1454,13 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-tel-input */ "./node_modules/intl-tel-input/index.js");
 /* harmony import */ var intl_tel_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(intl_tel_input__WEBPACK_IMPORTED_MODULE_0__);
+jQuery(document).ready(function ($) {
+  jQuery('.stellarnav').stellarNav({
+    theme: 'dark',
+    breakpoint: 960,
+    position: 'left'
+  });
+});
 $('.trending-slider').slick({
   dots: true,
   infinite: true,

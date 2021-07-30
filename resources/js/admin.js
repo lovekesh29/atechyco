@@ -3,6 +3,141 @@ tinymce.init({
     plugins: 'advlist link image lists',
     toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist'
 });
+
+$('.course-category').on('change', function() {
+    var catId = $(this).val();
+
+    $.ajax({
+        type: "POST",
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        url: siteUrl + '/admin/get-subCat',
+        data: { catId: catId },
+        success: function(dataHtml) {
+            $('.course-subCat').html(dataHtml);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            swal({
+                icon: "error",
+                title: ajaxOptions,
+                text: thrownError
+            });
+        }
+    })
+})
+
+$('.categoryEditModal').click(function() {
+    var categoryId = $(this).attr('id');
+    var categoryName = $(this).attr('data-category-name');
+    $('input[name="categoryId"]').val(categoryId);
+    $('input[name="categoryEditName"]').val(categoryName);
+    $('#category-edit-modal').modal('show');
+});
+
+$('.close-edit').click(function() {
+    $('#category-edit-modal').modal('hide');
+})
+
+$('.subCategoryEditModal').click(function() {
+    var subCategoryId = $(this).attr('id');
+    var subCategoryName = $(this).attr('data-subCategory-name');
+    $('input[name="subCategoryId"]').val(subCategoryId);
+    $('input[name="subCategoryEditName"]').val(subCategoryName);
+    $('#subcategory-edit-modal').modal('show');
+});
+
+$('.close-subedit').click(function() {
+    $('#subCategoryEditModal').modal('hide');
+});
+
+//update Sub category status
+$('.sub-category-status').click(function() {
+    var subCategoryId = this.id;
+    var subCategoryStatus = $(this).attr('data-status');
+
+    var message = (subCategoryStatus == 0) ? 'Are you sure You want to enable subcategory' : 'Are you sure You want to block Sub Category';
+
+    swal({
+        icon: "warning",
+        title: 'Change Sub Category Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-subCategory-status',
+                data: { subCategoryId: subCategoryId, subCategoryStatus: subCategoryStatus },
+                success: function(data) {
+                    var messageSuccess = (subCategoryStatus == 1) ? 'Sub Category has been blocked' : 'Sub Category has been enabled';
+                    swal({
+                        icon: "success",
+                        title: 'Sub Category Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
+});
+
+//update category status
+$('.category-status').click(function() {
+    var categoryId = this.id;
+    var categoryStatus = $(this).attr('data-status');
+
+    var message = (categoryStatus == 0) ? 'Are you sure You want to enable category' : 'Are you sure You want to block Category';
+
+    swal({
+        icon: "warning",
+        title: 'Change Category Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-category-status',
+                data: { categoryId: categoryId, categoryStatus: categoryStatus },
+                success: function(data) {
+                    var messageSuccess = (categoryStatus == 1) ? 'Category has been blocked' : 'Category has been enabled';
+                    swal({
+                        icon: "success",
+                        title: 'Category Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
+});
+
+
 // update user status
 $('.user-status').click(function() {
     var userId = this.id;

@@ -45,7 +45,6 @@
                                 <td class="d-none d-md-table-cell"> <a href="{{ $fullVideoLink }}" target="_blank">Watch Video</a></td>
                                 <td class="table-action">
                                     <a href="{{ url("admin/video/".Crypt::encryptString($videoData->videoUrl)) }}"><i class="align-middle fas fa-fw fa-pen"></i></a>
-                                    <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

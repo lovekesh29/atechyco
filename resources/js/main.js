@@ -1,3 +1,10 @@
+jQuery(document).ready(function($) {
+    jQuery('.stellarnav').stellarNav({
+        theme: 'dark',
+        breakpoint: 960,
+        position: 'left'
+    });
+});
 $('.trending-slider').slick({
     dots: true,
     infinite: true,
