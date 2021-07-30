@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Courses;
+use App\Mail\ContactForm;
+use App\Mail\ContactFormAdmin;
 use App\Models\User;
 use App\Models\Categories;
+use App\Models\ContactUs;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use DB;
 
 class MainController extends Controller
 {
     public function index(){
-        $courses = Courses::latest()->limit(3)->get();
-        return view('index');
+        $trendingCourses = Courses::where('courseType', 3)
+                                    ->where('status', '1')
+                                    ->get();
+        $recentCourses = Courses::where('courseType', 1)
+                                    ->where('status', '1')
+                                    ->get();
+
+        $suggestedCourses = Courses::where('courseType', 2)
+                                    ->where('status', '1')
+                                    ->get();
+
+        return view('index', ['trendingCourses' => $trendingCourses, 'recentCourses' => $recentCourses, 'suggestedCourses' => $suggestedCourses]);
     }
     public function viewCourses(Request $request){
         if(isset($request->serachCourse)){
@@ -50,5 +64,29 @@ class MainController extends Controller
         }
         
         return view('course-single', ['courseDetails' => $courseDetails]);
+    }
+    public function contactUs(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'fullName' => 'required|string',
+            'email' => 'required|email',
+            'formQuery' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        $contactDetails = ContactUs::create([
+            'fullName' => $request->fullName,
+            'email' => $request->email,
+            'query' => $request->formQuery,
+        ]);
+       
+        Mail::to($request->email)->send(new ContactForm($contactDetails));
+        //dd(env('Admin_Mail'));
+        Mail::to(env('Admin_Mail'))->send(new ContactFormAdmin($contactDetails));
+        return back()->with('status', 'Form has been submiited. We will get back to you soon');
     }
 }

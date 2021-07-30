@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @include('layouts.header')
 @section('home')
+@if (Session::has('status'))
+<script>
+    swal({
+        icon: "success",
+        title: 'Success',
+        text: "{{ Session::get('status') }}"
+    })
+</script>    
+@endif
     <section class="banner">
             <div class="container">
                 <div class="col-lg-5 offset-lg-7 col-sm-12">
@@ -20,46 +29,24 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row" data-aos="zoom-in">
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="row">
+                <div class="col-12">
+                    <div class="trending-slider" data-aos="zoom-in">
+                        @foreach ($trendingCourses as $trendingCourse)
+                        <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
+                            <div class="card">
+                                <img src="images/javscript.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">{{ $trendingCourse->name }}</h5>
+                                    <p class="card-text">{!! substr($trendingCourse->description, '0', '50') !!}</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
     <section class="new-courses main-page-section">
         <div class="container section-container">
@@ -70,44 +57,23 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row " data-aos="zoom-in">
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="trending-slider" data-aos="zoom-in">
+                            @foreach ($recentCourses as $recentCourse)
+                            <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
+                                <div class="card">
+                                    <img src="images/javscript.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ $recentCourse->name }}</h5>
+                                        <p class="card-text">{!! substr($recentCourse->description, '0', '50') !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </section>
@@ -120,44 +86,23 @@
             <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
                 random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
-            <div class="trending-slider row " data-aos="zoom-in">
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="trending-slider" data-aos="zoom-in">
+                            @foreach ($suggestedCourses as $suggestedCourse)
+                            <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
+                                <div class="card">
+                                    <img src="images/javscript.png" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">{{ $suggestedCourse->name }}</h5>
+                                        <p class="card-text">{!! substr($suggestedCourse->description, '0', '50') !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                    <div class="card">
-                        <img src="images/javscript.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <section class="contact-us main-page-section">
@@ -168,47 +113,37 @@
             <p class="text-center course-content">Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some
                 Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text Some Random text </p>
 
-            <form class="contact-us-form">
+            <form class="contact-us-form" action="{{ url('/contact-us') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-6">
-                        <label class="form-label margin-label">Email address</label>
-                        <input type="email" class="form-control" placeholder="name@example.com">
+                        <label class="form-label margin-label">Full Name</label>
+                        <input type="text" name="fullName" required class="form-control @error('fullName') is-invalid @enderror" value="{{ old('fullName') }}" placeholder="Sam Kuran">
+                        @error('fullName')
+                            <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label class="form-label">Email address</label>
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <label class="form-label margin-label">Email address</label>
-                        <input type="email" class="form-control" placeholder="name@example.com">
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="form-label">Email address</label>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                        <input type="email" name="email" value="{{ old('email') }}" required class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
+                        @error('email')
+                            <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <label class="form-label">Email address</label>
-                        <input type="email" class="form-control" placeholder="name@example.com">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+                        <label for="exampleFormControlTextarea1" class="form-label">Describe Your Query</label>
+                        <textarea class="form-control @error('formQuery') is-invalid @enderror" name="formQuery" required id="exampleFormControlTextarea1" rows="8">{{ old('formQuery') }}</textarea>
+                        @error('formQuery')
+                            <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">

@@ -873,6 +873,10 @@ a {
     margin-right: 35px!important;
 }
 
+.slick-track {
+    width: 100%!important
+}
+
 
 /* media Query */
 
