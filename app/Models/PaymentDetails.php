@@ -10,4 +10,8 @@ class PaymentDetails extends Model
     use HasFactory;
 
     protected $fillable = ['paymentId', 'amount', 'currency', 'paymentMethod'];
+
+    public function getUser(){
+        return $this->belongsToMany(User::class, 'user_subscriptions', 'paymentId', 'userId');
+    }
 }

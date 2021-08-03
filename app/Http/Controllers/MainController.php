@@ -33,9 +33,9 @@ class MainController extends Controller
     public function viewCourses(Request $request){
         if(isset($request->serachCourse)){
             $courses = Courses::with('getLikes')->with('getVideos')->with('getComments')
-                            ->where('title', 'like', '%'.$request->serachCourse.'%')
-                            ->orWhere('description', 'like', '%'.$request->serachCourse.'%')
-                            ->paginate(10);
+                                ->where('title', 'like', '%'.$request->serachCourse.'%')
+                                ->orWhere('description', 'like', '%'.$request->serachCourse.'%')
+                                ->paginate(10);
                             
             if($courses->total() == 0){
                 $courses = Courses::with('getLikes')->with('getVideos')->with('getComments')->paginate(10);
@@ -52,7 +52,7 @@ class MainController extends Controller
     public function singleCourse($encryptedCourseId){
         $courseId = Crypt::decryptString($encryptedCourseId);
 
-        $courseDetails = Courses::with('authorName')->with('getVideos')->with('getComments')->with('getLikes')->findOrFail($courseId);
+        $courseDetails = Courses::with('authorName')->with('getVideos')->with('getLikes')->findOrFail($courseId);
 
         $courseDetails->setRelation('getComments', $courseDetails->getComments()->paginate(4));
         foreach($courseDetails->getComments as $comment)
@@ -62,7 +62,6 @@ class MainController extends Controller
             $comment->userLastName = $user->lastName;
             $comment->userImage = $user->imgPath;
         }
-        
         return view('course-single', ['courseDetails' => $courseDetails]);
     }
     public function contactUs(Request $request){

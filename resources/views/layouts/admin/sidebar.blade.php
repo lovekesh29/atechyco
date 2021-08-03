@@ -46,6 +46,16 @@
                     <i class="align-middle mr-2 fas fa-fw fa-money-check"></i> <span class="align-middle">Subscriptions</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ request()->is('admin/transactions') ? 'active' : '' }}">
+                <a href="{{ url('admin/transactions') }}" class="sidebar-link">
+                    <i class="align-middle mr-2 fas fa-fw fa-dollar-sign"></i> <span class="align-middle">Transactions</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{ request()->is('admin/comments') ? 'active' : '' }}">
+                <a href="{{ url('admin/comments') }}" class="sidebar-link">
+                    <i class="align-middle mr-2 fas fa-fw fa-comments"></i><span class="align-middle">Comments</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

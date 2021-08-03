@@ -215,4 +215,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/edit-subCategory', [CourseManagement::class, 'editSubCategory']);
     Route::post('/change-subCategory-status', [CourseManagement::class, 'changeSubCategoryStatus']);
     Route::post('/get-subCat', [CourseManagement::class, 'getSubCat']);
+    Route::get('/transactions', [AdminController::class, 'getTransactions']);
+    Route::get('/comments', [AdminController::class, 'getComments']);
+    Route::post('/change-comment-status', [AdminController::class, 'changeCommentStatus']);
 });

@@ -19,11 +19,11 @@ class Courses extends Model
     }
     public function getVideos()
     {
-        return $this->hasMany(CourseVideo::class, 'courseId');
+        return $this->hasMany(CourseVideo::class, 'courseId')->where('status', '1');
     }
     public function getComments()
     {
-        return $this->hasMany(CourseComment::class, 'courseId');
+        return $this->hasMany(CourseComment::class, 'courseId')->where('status', '1');
     }
     public function getCurrentView(){
         return $this->hasManyThrough(UserVideos::class, CourseVideo::class, 'courseId', 'videoId');

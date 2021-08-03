@@ -82,7 +82,7 @@
                                         <a href="javascript:void(0)" class="comment-modal" id="{{ Crypt::encryptString($course->id) }}"><div class="like p-2 cursor comment-section" ><i class="far fa-fw fa-comments"></i><span class="ml-1">Comment</span></div></a>
                                         {{-- @endif --}}
 
-                                        <div class="like p-2 cursor comment-section"><i class="fas fa-fw fa-share"></i><span class="ml-1">Share</span></div>
+                                        <a href="javascript:void(0)" class="share-modal" data-shortUrl="" id="{{ Crypt::encryptString($course->id) }}"><div class="like p-2 cursor comment-section"><i class="fas fa-fw fa-share"></i><span class="ml-1">Share</span></div></a>
                                     </div>
                                     
                                    
@@ -103,7 +103,7 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalCenterTitle">Post Your Comment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close comment-close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
@@ -117,6 +117,29 @@
                     </div>
                     <button type="submit" class="btn btn-primary primary-background-color form-button">Post Comment</button>
                 </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Share Url</h5>
+            <button type="button" class="close share-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Copy This Url</label>
+                    <input type="text" readonly name="shareUrl" class="form-control" >
+                </div>
+                <div class="share-icons d-flex justify-content-center">
+                    <img class="img-fluid social-icon rounded-circle mb-2" src="{{ url('/images/facebook.png') }}" alt="">
+                    <img class="img-fluid social-icon rounded-circle mb-2" src="{{ url('/images/twitter.png') }}" alt="">
+                    <img class="img-fluid social-icon rounded-circle mb-2" src="{{ url('/images/instagram.png') }}" alt="">
+                </div>
             </div>
         </div>
         </div>

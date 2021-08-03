@@ -9,8 +9,14 @@ use App\Models\SecurityQuestion;
 use App\Models\CreditPoints;
 use App\Models\Countries;
 use App\Models\Subscription;
+use App\Models\UserSubscriptions;
+use App\Models\PaymentDetails;
+use App\Models\CourseComment;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentStatus;
+use DB;
 
 class AdminController extends Controller
 {
@@ -19,7 +25,22 @@ class AdminController extends Controller
         $this->middleware('auth:admin');
     }
     public function dashboard(){
-        return view('admin.dashboard');
+        $userCount = User::select(DB::raw("(COUNT(*)) as count"),DB::raw("MONTHNAME(created_at) as monthname"))
+                            ->whereYear('created_at', date('Y'))
+                            ->groupBy('monthname')
+                            ->get();
+
+        $guruCount = Guru::select(DB::raw("(COUNT(*)) as count"),DB::raw("MONTHNAME(created_at) as monthname"))
+                            ->whereYear('created_at', date('Y'))
+                            ->groupBy('monthname')
+                            ->get();
+
+        $subscriptionCount = UserSubscriptions::select(DB::raw("(COUNT(*)) as count"),DB::raw("MONTHNAME(created_at) as monthname"))
+                                        ->whereYear('created_at', date('Y'))
+                                        ->groupBy('monthname')
+                                        ->get();
+
+        return view('admin.dashboard', ['userCount' => $userCount, 'subscriptionCount' => $subscriptionCount, 'guruCount' => $guruCount]);
     }
 
     public function users(){
@@ -246,5 +267,29 @@ class AdminController extends Controller
 
         return back()->with('status', 'Credit Points Updated Successfully');
 
+    }
+    public function getTransactions(){
+        $paymentDetails = PaymentDetails::with('getUser')->orderByDesc('id')->paginate(10);
+
+        return view('admin.paymentDetails', ['paymentDetails' => $paymentDetails]);
+    }
+
+    public function getComments(){
+        $comments = CourseComment::with('getUser')->with('getCourse') ->paginate(10);
+
+        return view('admin.comments', ['comments' => $comments]);
+    }
+
+    public function changeCommentStatus(Request $request){
+        $commentId = Crypt::decryptString($request->commentId);
+        $updatedCommentStatus = ($request->commentStatus == 0) ? '1' : '0';
+
+        $comment = CourseComment::with('getUser')->findOrFail($commentId);
+        $comment->status = $updatedCommentStatus;
+        $comment->save();
+
+
+        Mail::to($comment->getUser->email)->send(new CommentStatus($comment));
+        
     }
 }

@@ -88,6 +88,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Atechyco'),
     ],
 
+    'reply_to' => [
+        'address' => env('MAIL_Reply_To', 'hello@example.com'),
+        'name' => env('MAIL_Reply_To_Name', 'Atechyco'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

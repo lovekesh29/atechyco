@@ -36,7 +36,6 @@
         
         <li class="float-right search-li">
             <form action="{{ url('/courses') }}" method="get">
-                @csrf
                 <input class="form-control top-search me-2 @error('serachCourse') is-invalid @enderror" required type="text" value="{{ old('serachCourse') }}" name="serachCourse" placeholder="Search" aria-label="Search">
             </form>
             

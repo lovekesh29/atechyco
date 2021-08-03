@@ -63,7 +63,17 @@ $('.comment-modal').click(function() {
     $('#commentCourseModal').modal('show');
 });
 
-$('.close').click(function() {
+$('.share-modal').click(function() {
+    var shortUrl = $(this).attr('data-shortUrl');
+    $('input[name="shareUrl"]').val(shortUrl)
+    $('#shareModal').modal('show');
+});
+
+$('.share-close').click(function() {
+    $('#shareModal').modal('hide');
+})
+
+$('.comment-close').click(function() {
     $('#commentCourseModal').modal('hide');
 })
 

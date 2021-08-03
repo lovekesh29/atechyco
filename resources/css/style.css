@@ -794,7 +794,7 @@ a {
 }
 
 .form-control: focus {
-    color: #000
+    color: #000;
 }
 
 .second {
@@ -861,12 +861,20 @@ a {
     text-align: left;
 }
 
+.stellarnav {
+    height: 62px;
+}
+
 .search-li {
     margin-right: 35px!important;
 }
 
 .slick-track {
     width: 100%!important
+}
+
+.social-icon {
+    width: 60px;
 }
 
 
@@ -907,6 +915,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+    .stellarnav {
+        height: 55px;
+    }
     .stellarnav-ul {
         margin-top: 100px!important;
     }

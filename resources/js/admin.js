@@ -49,6 +49,50 @@ $('.close-subedit').click(function() {
     $('#subCategoryEditModal').modal('hide');
 });
 
+//update Comment status
+$('.comment-status').click(function() {
+    var commentId = this.id;
+    var commentStatus = $(this).attr('data-status');
+
+    var message = (commentStatus == 0) ? 'Are you sure You want to enable comment' : 'Are you sure You want to block comment';
+
+    swal({
+        icon: "warning",
+        title: 'Change comment Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-comment-status',
+                data: { commentId: commentId, commentStatus: commentStatus },
+                success: function(data) {
+                    var messageSuccess = (commentStatus == 1) ? 'Sub Category has been blocked' : 'Sub Category has been enabled';
+                    swal({
+                        icon: "success",
+                        title: 'Sub Category Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
+});
+
 //update Sub category status
 $('.sub-category-status').click(function() {
     var subCategoryId = this.id;
