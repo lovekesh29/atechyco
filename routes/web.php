@@ -115,6 +115,7 @@ Route::get('/my-classroom', [UserCourseManagement::class, 'getCourses']);
 Route::post('/like-dislike-course', [UserCourseManagement::class, 'likeDislikeCourse']);
 Route::post('/post-comment', [UserCourseManagement::class, 'commentCourse']);
 Route::post('/contact-us', [MainController::class, 'contactUs']);
+Route::post('/subscribe', [MainController::class, 'subscribe']);
 
 
 Route::prefix('guru')->group(function () {

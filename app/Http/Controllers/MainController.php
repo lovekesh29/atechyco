@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Courses;
 use App\Mail\ContactForm;
 use App\Mail\ContactFormAdmin;
+use App\Mail\NewsLetterMail;
 use App\Models\User;
 use App\Models\Categories;
 use App\Models\ContactUs;
+use App\Models\NewsLetter;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -87,5 +89,24 @@ class MainController extends Controller
         //dd(env('Admin_Mail'));
         Mail::to(env('Admin_Mail'))->send(new ContactFormAdmin($contactDetails));
         return back()->with('status', 'Form has been submiited. We will get back to you soon');
+    }
+
+    public function subscribe(Request $request){
+        $validator = Validator::make($request->all(), [
+            'newsLetterEmail' => 'required|email|unique:news_letters,email'
+        ]);
+
+        if($validator->fails()){
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        $newsLetter = NewsLetter::create([
+            'email' => $request->newsLetterEmail
+        ]);
+
+        Mail::to($request->newsLetterEmail)->send(new NewsLetterMail($newsLetter));
+
+        return back()->with('status', 'Subscribed Successfully');
     }
 }

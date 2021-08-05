@@ -10,9 +10,15 @@
                                 <p>Some Random Text Some Random Text Some Random Text Some Random Text </p>
                             </div>
                             <div class="col-lg-4 offset-lg-2 col-sm-12 subscribe-form">
-                                <form class="">
+                                <form action="{{ url('/subscribe') }}" method="POST" class="">
+                                    @csrf
                                     <div class="col-lg-12">
-                                        <input type="email" class="form-control subscribe-input" id="exampleFormControlInput1" placeholder="name@example.com">
+                                        <input type="email" name="newsLetterEmail" value="{{ old('newsLetterEmail') }}" class="form-control @error('newsLetterEmail') is-invalid @enderror subscribe-input" id="exampleFormControlInput1" placeholder="name@example.com">
+                                        @error('newsLetterEmail')
+                                            <div class="alert alert-danger" role="alert">
+                                            {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="col-lg-12">
                                         <button class="btn form-button subscribe-button me-2" type="submit">Subscribe</button>

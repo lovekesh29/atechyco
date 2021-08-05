@@ -235,7 +235,7 @@
                     </div>
                     <div class="u-row-container" style="padding: 0px;background-color: transparent">
                         <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #5373c1;">
-                            <div style="border-collapse: collapse;display: table;width: 100%;background-image: url({{ url('images/contact-us-mail.jpg') }});background-repeat: no-repeat;background-position: center;background-color: transparent;">
+                            <div style="border-collapse: collapse;display: table;width: 100%;background-image: url({{ url('images/news-letter.png') }});background-repeat: no-repeat;background-position: center;background-color: transparent;">
                                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-image: url('images/image-8.gif');background-repeat: no-repeat;background-position: center top;background-color: #5373c1;"><![endif]-->
 
                                 <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
@@ -297,7 +297,6 @@
                     </div>
 
 
-
                     <div class="u-row-container" style="padding: 0px;background-color: transparent">
                         <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
                             <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
@@ -316,12 +315,12 @@
                                                         <td style="overflow-wrap:break-word;word-break:break-word;padding:30px 10px 20px;font-family:'Mulish',sans-serif;" align="left">
 
                                                             <div class="v-text-align" style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                                                <p style="font-size: 14px; line-height: 140%; text-align: center;"><span style="font-family: Mulish, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 22px; line-height: 30.8px; color: #000000;">Hi {{ $contactDetails->fullName }}</span></strong>
-                                                                    </span>
+                                                                <p style="font-size: 14px; line-height: 140%; text-align: center;"><span style="font-family: Mulish, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 22px; line-height: 30.8px; color: #000000;">Hi ,</span></strong>
+                                                                </span>
                                                                 </p>
-                                                                <p style="font-size: 10px; line-height: 140%; text-align: center; "><span style="font-family: Mulish, sans-serif; font-size: 10px; line-height: 19.6px;"><span style="font-size: 15px; line-height: 30.8px; text-align: center; color: #000000;">Thank For Reaching Out To us.</span></span>
+                                                                <p style="font-size: 10px; line-height: 140%; text-align: center; "><span style="font-family: Mulish, sans-serif; font-size: 10px; line-height: 19.6px;"><span style="font-size: 15px; line-height: 30.8px; color: #000000;"> Thanks for subscribing to our news letter</span></span>
                                                                 </p>
-                                                                <p style="font-size: 10px; line-height: 140%; text-align: center; "><span style="font-family: Mulish, sans-serif; font-size: 10px; line-height: 19.6px;"><span style="font-size: 15px; line-height: 30.8px; color: #000000;"> Our Team will get in touch with you soon</span></span>
+                                                                <p style="font-size: 10px; line-height: 140%; text-align: center; "><span style="font-family: Mulish, sans-serif; font-size: 10px; line-height: 19.6px;"><span style="font-size: 15px; line-height: 30.8px; color: #000000;"> We will now keep you posted with our latest offers and courses</span></span>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -361,13 +360,11 @@
 
                                                             <div class="v-text-align" align="center">
                                                                 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:'Mulish',sans-serif;"><tr><td class="v-text-align" style="font-family:'Mulish',sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:46px; v-text-anchor:middle; width:204px;" arcsize="41.5%" stroke="f" fillcolor="#1c4079"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Mulish',sans-serif;"><![endif]-->
-                                                                <a href="{{ url('/') }}" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:'Mulish',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #d6ce15; border-radius: 19px; -webkit-border-radius: 19px; -moz-border-radius: 19px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;"><span style="display:block;padding:13px 24px 12px;line-height:120%;"><span style="font-size: 18px; line-height: 21.6px; font-family: 'Mulish', sans-serif;"><strong><span style="line-height: 21.6px; font-size: 18px;">Visit Us</span></strong>
-                                                                    </span>
+                                                                <a href="{{ url('/unsubscribe/'. Crypt::encryptString($newsLetter->email)) }}" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:'Mulish',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #000000; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;"><span style="font-size: 5px; line-height: 21.6px; font-family: 'Mulish', sans-serif;"><span style="line-height: 21.6px; font-size: 11px;">Unsubscribe</span>
                                                                     </span>
                                                                 </a>
                                                                 <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->
                                                             </div>
-
                                                         </td>
                                                     </tr>
                                                 </tbody>

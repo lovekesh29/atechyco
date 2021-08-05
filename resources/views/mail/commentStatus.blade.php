@@ -235,7 +235,7 @@
                     </div>
                     <div class="u-row-container" style="padding: 0px;background-color: transparent">
                         <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #5373c1;">
-                            <div style="border-collapse: collapse;display: table;width: 100%;background-image: url('images/comment-mail.jpg');background-repeat: no-repeat;background-position: center;background-color: transparent;">
+                            <div style="border-collapse: collapse;display: table;width: 100%;background-image: url({{ url('images/comment-mail.jpg') }});background-repeat: no-repeat;background-position: center;background-color: transparent;">
                                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-image: url('images/image-8.gif');background-repeat: no-repeat;background-position: center top;background-color: #5373c1;"><![endif]-->
 
                                 <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
