@@ -67,7 +67,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                             <div class="mb-4">
                                 <a href="course-single.html">
-                                    <img src="{{ url('/images/course-img-4.jpg') }}" alt="" class="img-fluid w-100 border-top border-top-5 border-primary rounded-top">
+                                    <img src="{{ url('/storage/courseImage/'.$course->id.'/'.$course->courseImage) }}" alt="" class="img-fluid w-100 border-top border-top-5 border-primary rounded-top">
                                 </a>
                                 <div class="card-body p-4 border border-top-0 rounded-bottom bg-white course-card">
                                     <a href="{{ url('view-course/'.Crypt::encryptString($course->id)) }}">

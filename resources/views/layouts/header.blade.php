@@ -8,8 +8,8 @@
         <div class="col-lg-4 col-sm-4 col-4 ">
             <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('/images/logo-yellow.png') }}" alt=""></a>
         </div>
-        <div class="col-lg-2 offset-lg-6 offset-sm-6 col-sm-2 col-3 offset-5">
-            <a href="{{ url('/sign-up') }}" class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</a>
+        <div class="col-8">
+            {!! (Auth::check() === true) ? '<a href="'.url('/dashboard').'" class="btn signup-btn primary-background-color float-right me-2" type="submit">Dashboard</a>' :  '<a href="'.url('/sign-up').'" class="btn signup-btn primary-background-color float-right me-2" type="submit">Sign Up</a>' !!}
         </div>
     </div>
         

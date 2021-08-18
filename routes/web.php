@@ -219,4 +219,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/transactions', [AdminController::class, 'getTransactions']);
     Route::get('/comments', [AdminController::class, 'getComments']);
     Route::post('/change-comment-status', [AdminController::class, 'changeCommentStatus']);
+    Route::get('/pages', [AdminController::class, 'showPages']);
+    Route::get('/add-page', [AdminController::class, 'addPageForm']);
+    Route::post('/add-page', [AdminController::class, 'addPage']);
+    Route::POST('/change-page-status', [AdminController::class, 'changePageStatus']);
+    Route::get('/edit-page/{encryptedPageId}', [AdminController::class, 'editPageView']);
+    Route::post('/edit-page', [AdminController::class, 'editPage']);
 });
+
+Route::get('/{page_link}', [MainController::class, 'getPage']);  //keep this route always in last

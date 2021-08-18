@@ -7,7 +7,7 @@
         <svg>
             <use xlink:href="#ion-ios-pulse-strong"></use>
         </svg>
-        Atechyco
+        <img src="{{ url('/images/logo-yellow.png') }}" class="img-fluid mb-2" alt="" />
     </a>
     <div class="sidebar-content">
         <div class="sidebar-user">

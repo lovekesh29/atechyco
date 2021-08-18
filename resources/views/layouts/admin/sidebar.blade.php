@@ -4,13 +4,12 @@
         <svg>
             <use xlink:href="#ion-ios-pulse-strong"></use>
         </svg>
-        Atechyco
+        <img src="{{ url('/images/logo-yellow.png') }}" class="img-fluid mb-2" alt="" />
     </a>
     <div class="sidebar-content">
         <div class="sidebar-user">
             <img src="{{ url('img/avatars/avatar.jpg') }}" class="img-fluid rounded-circle mb-2" alt="Linda Miller" />
-            <div class="font-weight-bold">Linda Miller</div>
-            <small>Front-end Developer</small>
+            <div class="font-weight-bold">ADMIN</div>
         </div>
 
         <ul class="sidebar-nav">
@@ -54,6 +53,11 @@
             <li class="sidebar-item {{ request()->is('admin/comments') ? 'active' : '' }}">
                 <a href="{{ url('admin/comments') }}" class="sidebar-link">
                     <i class="align-middle mr-2 fas fa-fw fa-comments"></i><span class="align-middle">Comments</span>
+                </a>
+            </li>
+            <li class="sidebar-item {{ request()->is('admin/pages') ? 'active' : '' }}">
+                <a href="{{ url('admin/pages') }}" class="sidebar-link">
+                    <i class="align-middle mr-2 fas fa-fw fa-file"></i><span class="align-middle">Page Management</span>
                 </a>
             </li>
         </ul>

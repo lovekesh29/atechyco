@@ -77,7 +77,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-8">
-                    <p class="float-left">Copyright &copy; 2021. Your CompanyName. All Rights Reserved</p>
+                    <p class="float-left">Copyright &copy; 2021. {{ env('APP_NAME') }}. All Rights Reserved</p>
                 </div>
                 <div class="col-lg-4 col-4">
                     <span class="social-icons float-right">

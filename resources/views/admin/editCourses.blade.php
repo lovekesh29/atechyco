@@ -105,9 +105,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-row input-group zzz" >
-                                <div class="form-group col-md-12">
+                            <div class="form-row input-group" >
+                                <label>Select Video Files</label>
+                                <div class="form-group col-md-6">
                                     <input type="file" multiple name="videoFiles[]" class="myfrm form-control file-upload">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Select Course Image</label>
+                                    <input type="file" name="courseImage" class="myfrm form-control file-upload">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>

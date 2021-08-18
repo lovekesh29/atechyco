@@ -20,7 +20,7 @@
             </div>
             <div class="col-4 text-right">
                 <p class="mb-0">
-                    &copy; 2020 - <a href="dashboard-default.html" class="text-muted">Atechyco</a>
+                    &copy; {{ date('Y') }} - <a href="{{ url('admin/dashboard') }}" class="text-muted">{{ env('APP_NAME') }}</a>
                 </p>
             </div>
         </div>

@@ -49,15 +49,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-12 form-check signup-form-element">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              id="flexCheckDefault"
-                            />
-                            <label class="form-check-label" for="flexCheckDefault">
-                              I aggree to tearm & conditions
-                            </label>
+                            <span>Dont have an account? <a href="{{ url('/sign-up') }}">Sign Up Here</a> </span>
                             <div class="float-right">
                                 <span class="already-sign-in text-center"><a href="{{ url('/forgot-password') }}">Forgot Password</a></span>
                             </div>

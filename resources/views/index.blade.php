@@ -35,7 +35,7 @@
                         @foreach ($trendingCourses as $trendingCourse)
                         <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                             <div class="card">
-                                <img src="images/javscript.png" class="card-img-top" alt="...">
+                                <img src="{{ url('/storage/courseImage/'.$trendingCourse->id.'/'.$trendingCourse->courseImage) }}" style="width: 346px; height: 206px" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">{{ $trendingCourse->name }}</h5>
                                     <p class="card-text">{!! substr($trendingCourse->description, '0', '50') !!}</p>
@@ -63,7 +63,7 @@
                             @foreach ($recentCourses as $recentCourse)
                             <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                                 <div class="card">
-                                    <img src="images/javscript.png" class="card-img-top" alt="...">
+                                    <img src="{{ url('/storage/courseImage/'.$recentCourse->id.'/'.$recentCourse->courseImage) }}" style="width: 346px; height: 206px" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ $recentCourse->name }}</h5>
                                         <p class="card-text">{!! substr($recentCourse->description, '0', '50') !!}</p>
@@ -92,7 +92,7 @@
                             @foreach ($suggestedCourses as $suggestedCourse)
                             <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
                                 <div class="card">
-                                    <img src="images/javscript.png" class="card-img-top" alt="...">
+                                    <img src="{{ url('/storage/courseImage/'.$suggestedCourse->id.'/'.$suggestedCourse->courseImage) }}" style="width: 346px; height: 206px" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ $suggestedCourse->name }}</h5>
                                         <p class="card-text">{!! substr($suggestedCourse->description, '0', '50') !!}</p>

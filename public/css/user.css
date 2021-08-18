@@ -32682,6 +32682,7 @@ button.toast-close-button {
 
 .course-card {
     display: flex;
+    margin-right: 10px;
 }
 
 .course-meta {
@@ -32707,10 +32708,6 @@ button.toast-close-button {
 
 .tutor-body {
     overflow-y: scroll;
-}
-
-.tutor-card {
-    max-height: 60%;
 }
 
 .fas[data-count] {

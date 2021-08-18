@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Vimeo\Laravel\Facades\Vimeo;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Guru;
 use App\Models\Courses;
 use App\Models\CourseVideo;
@@ -50,7 +51,8 @@ class CourseManagement extends Controller
             'subCatId' => 'required|numeric',
             'courseType' => 'required|numeric',
             'description' => 'required',
-            'videoFiles' => 'required'
+            'videoFiles' => 'required',
+            'courseImage' => 'required|image'
         ];
         
         $validator = Validator::make($request->all(), $rules, $message =[
@@ -69,8 +71,24 @@ class CourseManagement extends Controller
             'author' => $request->author,
             'courseSubCat' => $request->subCatId,
             'courseType' => $request->courseType,
-            'description' => $request->description
+            'description' => $request->description,
+            'courseImage' => 'image'
         ]);
+        if($request->has('courseImage'))
+        {   
+            $imageName = $request->file('courseImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            $request->file('courseImage')->storeAs('courseImage/'.$insertedCourseData->id, $imageName, 'public');
+
+            Courses::where('id', $insertedCourseData->id)
+                ->update([
+                    'courseImage' => $imageName
+                ]);
+        }
+        
 
         if($request->has('videoFiles'))
         {
@@ -135,6 +153,23 @@ class CourseManagement extends Controller
                 $newVideoOrder++;
             }
             CourseVideo::insert($uploadVideodata);
+        }
+        if($request->has('courseImage'))
+        {
+            $courseImage = Courses::where('id', $courseId)->get('courseImage');
+
+            $imageName = $request->file('courseImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            Storage::disk('public')->delete('courseImage/'.$courseId.'/'.$courseImage[0]->courseImage);
+            $request->file('courseImage')->storeAs('courseImage/'.$courseId, $imageName, 'public');
+
+            Courses::where('id', $courseId)
+                    ->update([
+                        'courseImage' => $imageName,
+                    ]);
         }
         return back()->with('successfull', 'Course Uploaded Successfull');
 

@@ -1,7 +1,50 @@
 tinymce.init({
-    selector: '#description',
+    selector: 'textarea',
     plugins: 'advlist link image lists',
     toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist'
+});
+
+$('.page-status').click(function() {
+    var pageId = this.id;
+    var pageStatus = $(this).attr('data-status');
+
+    var message = (pageStatus == 0) ? 'Are you sure You want to enable page' : 'Are you sure You want to block page';
+
+    swal({
+        icon: "warning",
+        title: 'Change Page Status',
+        text: message,
+        buttons: ['No', 'Yes']
+    }).then(result => {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                url: siteUrl + '/admin/change-page-status',
+                data: { pageId: pageId, pageStatus: pageStatus },
+                success: function(data) {
+                    var messageSuccess = (pageStatus == 1) ? 'Page has been blocked' : 'Page has been enabled';
+                    swal({
+                        icon: "success",
+                        title: 'Page Status Updated',
+                        text: messageSuccess
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    swal({
+                        icon: "error",
+                        title: ajaxOptions,
+                        text: thrownError
+                    });
+                }
+            })
+        } else {
+            return;
+        }
+    });
 });
 
 $('.course-category').on('change', function() {
@@ -69,10 +112,10 @@ $('.comment-status').click(function() {
                 url: siteUrl + '/admin/change-comment-status',
                 data: { commentId: commentId, commentStatus: commentStatus },
                 success: function(data) {
-                    var messageSuccess = (commentStatus == 1) ? 'Sub Category has been blocked' : 'Sub Category has been enabled';
+                    var messageSuccess = (commentStatus == 1) ? 'Comment has been blocked' : 'Sub Category has been enabled';
                     swal({
                         icon: "success",
-                        title: 'Sub Category Status Updated',
+                        title: 'Comment Status Updated',
                         text: messageSuccess
                     }).then(() => {
                         location.reload();

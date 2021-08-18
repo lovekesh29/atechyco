@@ -2,7 +2,6 @@
     <h1 class="header-title">
         Welcome back, {{ $user->firstName.' '. $user->lastName }}!
     </h1>
-    <p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
     @if(Auth::user()->phoneVerified != '1')
     <div class="alert alert-danger alert-dismissible" role="alert">
         <div class="alert-message">

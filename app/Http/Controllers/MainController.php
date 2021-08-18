@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Categories;
 use App\Models\ContactUs;
 use App\Models\NewsLetter;
+use App\Models\Page;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -108,5 +109,18 @@ class MainController extends Controller
         Mail::to($request->newsLetterEmail)->send(new NewsLetterMail($newsLetter));
 
         return back()->with('status', 'Subscribed Successfully');
+    }
+
+    public function getPage($pageLink){
+        if(Page::where('pageUrl', $pageLink)->where('status', '1')->exists())  // if qa exsists
+        {
+            $pageDetail = Page::where('pageUrl', $pageLink)->first();
+            return view('customPage', ['pageDetail' => $pageDetail]);
+            
+        }
+        else   // if nothings exsists show qa
+        {
+            abort(404);
+        }
     }
 }

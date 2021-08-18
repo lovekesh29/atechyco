@@ -11,6 +11,7 @@ use App\Models\Countries;
 use App\Models\Subscription;
 use App\Models\UserSubscriptions;
 use App\Models\PaymentDetails;
+use App\Models\Page;
 use App\Models\CourseComment;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
@@ -291,5 +292,181 @@ class AdminController extends Controller
 
         Mail::to($comment->getUser->email)->send(new CommentStatus($comment));
         
+    }
+
+    public function showPages(){
+        $pages = Page::paginate(10);
+
+
+        return view('admin.pages', ['pages' => $pages]);
+    }
+
+    public function addPageForm(){
+        return view('admin.addPageForm');
+    }
+
+    public function addPage(Request $request){
+        $request->pageUrl = str_replace(' ', '-', $request->pageUrl);
+        //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+        $request->pageUrl = preg_replace("/[^a-zA-Z0-9.-]/", "", $request->pageUrl);
+
+        $validator = Validator::make($request->all(), [
+            'bannerHeading' => 'required|string',
+            'pageUrl' => 'required|string|unique:pages',
+            'pageHeading' => 'required|string',
+            'pageContent' => 'required|string',
+            'metaTitle' =>'required|string',
+            'metaDescription' =>'required|string',
+            'bannerImage' =>'image',
+            'pageImage' =>'image',
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $insertedPage = Page::create([
+            'bannerHeading' => $request->bannerHeading,
+            'pageUrl' => $request->pageUrl,
+            'pageHeading' => $request->pageHeading,
+            'pageContent' => $request->pageContent,
+            'metaTitle' => $request->metaTitle,
+            'metaDescription' => $request->metaDescription
+        ]);
+        if($request->has('bannerImage'))
+        {   
+            $imageName = $request->file('bannerImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            $request->file('bannerImage')->storeAs('pageBanner/'.$insertedPage->id, $imageName, 'public');
+
+            Page::where('id', $insertedPage->id)
+                ->update([
+                    'bannerImage' => $imageName
+                ]);
+        }
+        if($request->has('pageImage'))
+        {   
+            $imageName = $request->file('pageImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            $request->file('pageImage')->storeAs('pageImage/'.$insertedPage->id, $imageName, 'public');
+
+            Page::where('id', $insertedPage->id)
+                ->update([
+                    'pageImage' => $imageName
+                ]);
+        }
+        
+
+        return redirect('/admin/pages')->with('successfull', 'Page was added successfully');
+
+
+    }
+    public function changePageStatus(Request $request){
+        //dd($request);
+        $pageId = Crypt::decryptString($request->pageId);
+        $updatedPageStatus = ($request->pageStatus == 0) ? '1' : '0';
+
+        $page = Page::findOrFail($pageId);
+        $page->status = $updatedPageStatus;
+        $page->save();
+        
+    }
+    public function editPageView($encryptedPageId){
+        $pageId = Crypt::decryptString($encryptedPageId);
+
+        $pageDetails = Page::findOrFail($pageId);
+
+        return view('admin.editPage', ['pageDetails' => $pageDetails]);
+    }
+    public function editPage(Request $request){
+        $request->pageUrl = str_replace(' ', '-', $request->pageUrl);
+        //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+        $request->pageUrl = preg_replace("/[^a-zA-Z0-9.-]/", "", $request->pageUrl);
+
+        $validator = Validator::make($request->all(), [
+            'pageId' => 'required',
+            'oldPageUrl' => 'required',
+            'bannerHeading' => 'required|string',
+            'pageUrl' => 'required|string',
+            'pageHeading' => 'required|string',
+            'pageContent' => 'required|string',
+            'metaTitle' =>'required|string',
+            'metaDescription' =>'required|string',
+            'bannerImage' =>'image',
+            'pageImage' =>'image',
+        ]);
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $existingUrl = Page::where('pageUrl', $request->oldPageUrl)->value('pageUrl');
+
+        //dd($existingUrl);
+
+        if($existingUrl != $request->pageUrl){
+            $existingUrlCount = Page::where('pageUrl', $request->pageUrl)->count();
+            if($existingUrlCount > 0){
+                return back()->with('error', 'This Url already Exists');
+            }
+        }
+        
+
+
+        $pageId = Crypt::decryptString($request->pageId);
+        Page::where('id', $pageId)
+            ->update([
+                'bannerHeading' => $request->bannerHeading,
+                'pageUrl' => $request->pageUrl,
+                'pageHeading' => $request->pageHeading,
+                'pageContent' => $request->pageContent,
+                'metaTitle' => $request->metaTitle,
+                'metaDescription' => $request->metaDescription
+            ]);
+
+        if($request->has('bannerImage'))
+        {
+            $bannerImage = Page::where('id', $pageId)->value('bannerImage');
+
+            $imageName = $request->file('bannerImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            Storage::disk('public')->delete('pageBanner/'.$pageId.'/'.$bannerImage);
+            $request->file('bannerImage')->storeAs('pageBanner/'.$pageId, $imageName, 'public');
+
+            Page::where('id', $pageId)
+                    ->update([
+                        'bannerImage' => $imageName,
+                    ]);
+        }
+        if($request->has('pageImage'))
+        {
+            $pageImage = Page::where('id', $pageId)->value('pageImage');
+
+            $imageName = $request->file('pageImage')->getClientOriginalName();
+            $imageName = str_replace(' ', '-', $imageName);
+            //// The below code will remove anything that is not a-z, 0-9 or a dot & -
+            $imageName = preg_replace("/[^a-zA-Z0-9.-]/", "", $imageName);
+
+            Storage::disk('public')->delete('pageImage/'.$pageId.'/'.$pageImage);
+            $request->file('pageImage')->storeAs('pageImage/'.$pageId, $imageName, 'public');
+
+            Page::where('id', $pageId)
+                    ->update([
+                        'pageImage' => $imageName,
+                    ]);
+        }
+
+        return back()->with('successfull', 'Page has been updated successfully');
     }
 }

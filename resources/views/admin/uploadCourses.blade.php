@@ -99,9 +99,14 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-row input-group zzz" >
-                                <div class="form-group col-md-12">
+                            <div class="form-row input-group" >
+                                <div class="form-group col-md-6">
+                                    <label>Select Video Files</label>
                                     <input type="file" required multiple name="videoFiles[]" class="myfrm form-control file-upload">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Select Course Image</label>
+                                    <input type="file" required name="courseImage" class="myfrm form-control file-upload">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>

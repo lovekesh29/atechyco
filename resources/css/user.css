@@ -9,6 +9,7 @@
 
 .course-card {
     display: flex;
+    margin-right: 10px;
 }
 
 .course-meta {
@@ -34,10 +35,6 @@
 
 .tutor-body {
     overflow-y: scroll;
-}
-
-.tutor-card {
-    max-height: 60%;
 }
 
 .fas[data-count] {

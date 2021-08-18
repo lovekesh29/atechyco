@@ -34,14 +34,6 @@
                                 <h6> <a href="{{ url('watch-course/'.Crypt::encryptString($popularCourse->id)) }}">{{ $popularCourse->title }}</a> </h6>
                                 <span>By: {{ ($popularCourse->author == 0) ? 'Admin' : $popularCourse->authorName->firstName.' '.$popularCourse->authorName->lastName }}</span>
                                 <br>
-                                <span>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    <i class="align-middle mr-2 fas fa-fw fa-star"></i>
-                                    4.5 (2028)
-                                </span>
                             </div>
                         </div>
                             
@@ -129,7 +121,7 @@
 
 
         <div class="row bottom-section">
-            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+            {{-- <div class="col-12 col-lg-8 col-xxl-9 d-flex">
                 <div class="card tutor-card flex-fill">
                     <div class="card-header">
                         <div class="card-actions float-right">
@@ -227,7 +219,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-12 col-lg-4 col-xxl-3 d-flex">
                 <div class="card tutor-card flex-fill w-100">
                     <div class="card-header">
