@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 
 class UserAuth extends Controller
 {
+    
     public function register(Request $request){
         $rules = [
             'firstName' => 'required|string|max:180',
@@ -48,7 +49,7 @@ class UserAuth extends Controller
             'firstName' => ucwords($request->firstName),
             'lastName' => ucwords($request->lastName),
             'location' => $request->location,
-            'phoneNo' => '+'.$request->dialCode.$request->phoneNo,
+            'phoneNo' => $request->phoneNo,
             'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
             'securityQuestion' => $request->securityQuestion,

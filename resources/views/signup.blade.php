@@ -81,7 +81,6 @@
                         <div class="col-lg-12 signup-form-element">
                             <label class="form-label">Phone</label>
                             <input type="text" id="phone" required value="{{ old('phoneNo') }}" name="phoneNo" class="form-control input-border" >
-                            <input type="hidden" id="dialCode" name="dialCode" class="form-control input-border" >
                             <div class="alert alert-danger alert-dismissible" id="phoneErrorLabel" role="alert" style="display: none;">
                                 <div class="alert-message">
                                     Invalid Phone No.

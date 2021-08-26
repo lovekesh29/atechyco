@@ -1495,19 +1495,6 @@ $('.trending-slider').slick({
 $(document).ready(function () {
   AOS.init();
 });
-$('#signUpFormButton').click(function (e) {
-  e.preventDefault();
-
-  if (checkPhoneValidation()) {
-    if ($("#signUpForm")[0].checkValidity()) {
-      $("#signUpForm").submit();
-    } else {
-      $("#signUpForm")[0].reportValidity();
-    }
-  } else {
-    return false;
-  }
-});
 $('.comment-modal').click(function () {
   var courseId = $(this).attr('id');
   $('input[name="courseId"]').val(courseId);
@@ -1576,6 +1563,19 @@ var iti = intl_tel_input__WEBPACK_IMPORTED_MODULE_0___default()(input, {
   separateDialCode: true,
   utilsScript: siteUrl + "/js/utils.js"
 });
+$('#signUpFormButton').click(function (e) {
+  e.preventDefault();
+
+  if (checkPhoneValidation()) {
+    if ($("#signUpForm")[0].checkValidity()) {
+      $("#signUpForm").submit();
+    } else {
+      $("#signUpForm")[0].reportValidity();
+    }
+  } else {
+    return false;
+  }
+});
 $("#phone").on("focusout", function () {
   checkPhoneValidation();
   $('#form_order').hide();
@@ -1584,9 +1584,7 @@ $("#phone").on("focusout", function () {
 function checkPhoneValidation() {
   if (iti.isValidNumber()) {
     $("#phoneErrorLabel").fadeOut(100);
-    var countryData = iti.getSelectedCountryData().dialCode; //get country code.
-
-    $("#dialCode").val(countryData);
+    $("input[name='phoneNo']").val(iti.getNumber());
     return true;
   } else {
     $("#phoneErrorLabel").fadeIn(100);
