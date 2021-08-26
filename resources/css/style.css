@@ -1,6 +1,7 @@
 body {
     font-family: 'Mulish', serif;
     background-color: #fff;
+    -webkit-appearance: none;
 }
 
 .card {
