@@ -131,7 +131,7 @@ body {
     position: absolute;
     background: url(../images/subscribe-bg.png) no-repeat center;
     background-size: cover;
-    width: 100%;
+    width: 93%;
     float: left;
     top: -90px;
     border-radius: 10px;
@@ -318,7 +318,7 @@ footer ul {
 }
 
 footer .main-footer {
-    padding: 120px 15px 20px 15px!important;
+    padding: 120px 15px 20px 15px;
 }
 
 .contact-us .contact-us-div {
@@ -879,6 +879,7 @@ a {
     position: absolute;
     top: 73px;
     z-index: 999;
+}
 
 
 /* media Query */
@@ -918,6 +919,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+    footer .main-footer{
+        padding: 157px 15px 20px 15px!important;
+    }
     .stellarnav {
         height: 55px;
     }
@@ -940,6 +944,9 @@ a {
 }
 
 @media screen and (max-width: 426px) {
+    footer .main-footer{
+        padding: 104px 15px 20px 15px!important;
+    }
     .main-page-section .section-container {
         padding: 41px 13px 70px 13px;
     }
