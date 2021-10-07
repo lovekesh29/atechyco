@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-lg-5 col-sm-12 subscribe-content">
                                 <h2>Subscribe To Our NewsLetter</h2>
-                                <p>Some Random Text Some Random Text Some Random Text Some Random Text </p>
+                                <p>Some Random Text Some Random Text Some Random Text Some Random Text lorem50</p>
                             </div>
                             <div class="col-lg-4 offset-lg-2 col-sm-12 subscribe-form">
                                 <form action="{{ url('/subscribe') }}" method="POST" class="">
