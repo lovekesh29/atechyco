@@ -26,29 +26,23 @@
                 <h2>Trending Courses</h2>
                 <hr width="25%" align="center">
             </div>
-            <p class="text-center course-content">some random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome
-                random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random textsome random text</p>
 
             <div class="row">
-                <div class="col-12">
-                    <div class="trending-slider" data-aos="zoom-in">
-                        @foreach ($trendingCourses as $trendingCourse)
-                        <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
-                            <div class="card">
-                                <img src="{{ url('/storage/courseImage/'.$trendingCourse->id.'/'.$trendingCourse->courseImage) }}" style="width: 346px; height: 206px" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">{{ $trendingCourse->name }}</h5>
-                                    <p class="card-text">{!! substr($trendingCourse->description, '0', '50') !!}</p>
-                                </div>
+                    @foreach ($trendingCourses as $trendingCourse)
+                    <div class="col-lg-4 col-md-4 col-sm-12 crousal-element">
+                        <div class="card">
+                            <img src="{{ url('/storage/courseImage/'.$trendingCourse->id.'/'.$trendingCourse->courseImage) }}" style="width: 346px; height: 206px" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ $trendingCourse->name }}</h5>
+                                <p class="card-text">{!! substr($trendingCourse->description, '0', '50') !!}</p>
                             </div>
                         </div>
-                        @endforeach
                     </div>
-                </div>
+                    @endforeach
             </div>
         </div>
     </section>
-    <section class="new-courses main-page-section">
+    {{-- <section class="new-courses main-page-section">
         <div class="container section-container">
             <div class="section-heading text-center">
                 <h2>Recent/New Courses</h2>
@@ -154,7 +148,7 @@
             </form>
         </div>
 
-    </section>
+    </section> --}}
     
     
 @endsection

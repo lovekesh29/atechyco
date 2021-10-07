@@ -4,26 +4,28 @@
             <div class="footer-subscribe-section">
                 <div class="right-subscribe">
                     <div class="right-subscribe-bg">
-                        <div class="row">
-                            <div class="col-lg-5 col-sm-12 subscribe-content">
-                                <h2>Subscribe To Our NewsLetter</h2>
-                                <p>Some Random Text Some Random Text Some Random Text Some Random Text lorem50</p>
-                            </div>
-                            <div class="col-lg-4 offset-lg-2 col-sm-12 subscribe-form">
-                                <form action="{{ url('/subscribe') }}" method="POST" class="">
-                                    @csrf
-                                    <div class="col-lg-12">
-                                        <input type="email" name="newsLetterEmail" value="{{ old('newsLetterEmail') }}" class="form-control @error('newsLetterEmail') is-invalid @enderror subscribe-input" id="exampleFormControlInput1" placeholder="name@example.com">
-                                        @error('newsLetterEmail')
-                                            <div class="alert alert-danger" role="alert">
-                                            {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <button class="btn form-button subscribe-button me-2" type="submit">Subscribe</button>
-                                    </div>
-                                </form>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-12 subscribe-content">
+                                    <h2>Subscribe To Our NewsLetter</h2>
+                                    <p>Some Random Text Some Random Text Some Random Text Some Random Text lorem50</p>
+                                </div>
+                                <div class="col-lg-4 offset-lg-2 col-sm-12 subscribe-form">
+                                    <form action="{{ url('/subscribe') }}" method="POST" class="">
+                                        @csrf
+                                        <div class="col-lg-12">
+                                            <input type="email" name="newsLetterEmail" value="{{ old('newsLetterEmail') }}" class="form-control @error('newsLetterEmail') is-invalid @enderror subscribe-input" id="exampleFormControlInput1" placeholder="name@example.com">
+                                            @error('newsLetterEmail')
+                                                <div class="alert alert-danger" role="alert">
+                                                {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button class="btn form-button subscribe-button me-2" type="submit">Subscribe</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
