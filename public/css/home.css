@@ -21,7 +21,7 @@ body {
     background-color: #a4a71e;
 }
 
-.primary-background-color {
+.primary-background-color {d
     border-color: #d6ce15!important;
     background-color: #d6ce15!important
 }
@@ -889,6 +889,9 @@ a {
 .social-icon {
     width: 60px;
 }
+.stellarnav.mobile.left>ul, .stellarnav.mobile.right>ul {
+    position: absolute;
+    top: 73px;
 
 
 /* media Query */
