@@ -884,6 +884,7 @@ a {
 .stellarnav.mobile.left>ul, .stellarnav.mobile.right>ul {
     position: absolute;
     top: 73px;
+    z-index: 999;
 
 
 /* media Query */
