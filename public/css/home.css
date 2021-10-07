@@ -425,6 +425,8 @@ li.nav-item {
 .nav-top {
     background-color: #0d0e0d;
     display: block;
+    width: 100%;
+    float: left;
 }
 
 .navbar-container {
