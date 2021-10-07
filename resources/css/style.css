@@ -134,6 +134,7 @@ body {
 }
 
 .footer-subscribe-section {
+    position: absolute;
     height: 227px;
     background: url(../images/subscribe-bg.png) no-repeat center;
     background-size: cover;
@@ -335,10 +336,9 @@ footer .main-footer {
     position: relative;
     width: 100%;
     float: left;
-    height: 227px;
 }
 
-.right-subscribe-bg {
+.right-subscribe-bg:before {
     position: absolute;
     top: 0px;
     right: 0;
@@ -415,10 +415,8 @@ li.nav-item {
 }
 
 .nav-top {
-    background-color: #0d0e0d;
+    background-color: #1f6521;
     display: block;
-    width: 100%;
-    float: left;
 }
 
 .navbar-container {
@@ -942,9 +940,6 @@ a {
     .subscribe-content {
         padding: 16px 5px 10px 35px;
     }
-    .right-subscribe-bg {
-        background-size: 322px 223px;
-    }
 }
 
 @media screen and (max-width: 426px) {
@@ -952,8 +947,7 @@ a {
         padding: 41px 13px 70px 13px;
     }
     .footer-subscribe-section {
-        height: 164px;
-        width: 100%;
+        width: 93%;
         top: -78px;
     }
     .subscribe-content {
@@ -961,8 +955,5 @@ a {
     }
     .subscribe-form {
         padding: 40px 5px 10px 35px;
-    }
-    .right-subscribe-bg {
-        background-size: 168px 103px;
     }
 }
