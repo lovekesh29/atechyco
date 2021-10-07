@@ -134,7 +134,6 @@ body {
 }
 
 .footer-subscribe-section {
-    position: absolute;
     height: 227px;
     background: url(../images/subscribe-bg.png) no-repeat center;
     background-size: cover;
