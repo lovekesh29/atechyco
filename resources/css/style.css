@@ -877,7 +877,7 @@ a {
 }
 .stellarnav.mobile.left>ul, .stellarnav.mobile.right>ul {
     position: absolute;
-    top: 73px;
+    top: 0px;
     z-index: 999;
 }
 .swiper {
