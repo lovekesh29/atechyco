@@ -22,13 +22,19 @@ class MainController extends Controller
     public function index(){
         $trendingCourses = Courses::where('courseType', 3)
                                     ->where('status', '1')
+                                    ->orderByDesc('id')
+                                    ->limit(3)
                                     ->get();
         $recentCourses = Courses::where('courseType', 1)
                                     ->where('status', '1')
+                                    ->orderByDesc('id')
+                                    ->limit(3)
                                     ->get();
 
         $suggestedCourses = Courses::where('courseType', 2)
                                     ->where('status', '1')
+                                    ->orderByDesc('id')
+                                    ->limit(3)
                                     ->get();
 
         return view('index', ['trendingCourses' => $trendingCourses, 'recentCourses' => $recentCourses, 'suggestedCourses' => $suggestedCourses]);

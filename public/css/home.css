@@ -888,6 +888,10 @@ a {
     top: 73px;
     z-index: 999;
 }
+.swiper {
+    width: 600px;
+    height: 300px;
+  }
 
 
 /* media Query */

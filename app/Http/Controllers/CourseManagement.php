@@ -34,6 +34,7 @@ class CourseManagement extends Controller
     public function editCourseView($encryptedCourseId){
         $courseId = Crypt::decryptString($encryptedCourseId);
         $courseDetail = Courses::with('authorName')->with('getCourseSubCat')->where('id', $courseId)->first();
+        //dd($courseDetail);
 
         $courseCategory = Categories::where('id', $courseDetail->getCourseSubCat->catId)->get();
         $courseDetail->courseCategory = $courseCategory;
